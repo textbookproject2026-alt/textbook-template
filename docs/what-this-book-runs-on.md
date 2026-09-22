@@ -48,7 +48,7 @@ made or approved by the platform owner. See [`changing-settings.md`](changing-se
 | **The browser editor's host** (optional) | *Pages project and hostname* | *Cloudflare account* | trusted contributors can't edit ([`the-browser-editor.md`](the-browser-editor.md)) |
 | **Analytics** (optional) | *Plausible site name. It must equal the book's hostname* | *Plausible account* | no readership figures |
 | **Annotation backup** (optional) | *Hypothes.is account, and the repo secret `HYPOTHESIS_API_TOKEN`* | *person* | the weekly backup fails loudly |
-| **Weekly workflows** | `lint`, `link-check`, `apply-config`, plus any the book adds | this repository | generated files go stale |
+| **Weekly workflows** | `weekly-snapshot` (a `snapshot-YYYY-MM-DD` tag), `lint`, `link-check`, `apply-config`, plus any the book adds | this repository | generated files go stale |
 
 **The Plausible site's name must equal the registry's `analytics.plausible.site`.**
 A domain move is therefore two changes that land together.

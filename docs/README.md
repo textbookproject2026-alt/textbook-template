@@ -34,9 +34,11 @@ If you're inheriting this book, read these first:
   suggested edits and draft edits.
 - **[`changing-settings.md`](changing-settings.md)**: the title, maintainer,
   address and licence, which are the platform registry's to change.
+- **[`weekly-snapshots.md`](weekly-snapshots.md)**: where the Sunday snapshots
+  of the book are, and how to get an earlier week's text back.
 - **[`releasing-versions.md`](releasing-versions.md)**: the yearly release.
 - **[`how-versioning-works.md`](how-versioning-works.md)**: how a tag becomes a
-  permanent link.
+  permanent link, and how a version differs from a weekly snapshot.
 - **[`troubleshooting.md`](troubleshooting.md)**: what has actually gone wrong,
   and who fixes it.
 

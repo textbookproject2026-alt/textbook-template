@@ -194,8 +194,10 @@ you were looking at.
 
 **The technical contact fixes this.**
 
-A new book starts with two weekly jobs: a link check, and the Monday job that
-brings the generated files up to date with the platform registry. A book may add
+A new book starts with three weekly jobs: the Sunday snapshot, a link check, and
+the Monday job that brings the generated files up to date with the platform
+registry. A Sunday with no new snapshot is not a failure: none is made in a week
+when the book didn't change. A book may add
 more later (an annotation backup, a contributors page, a project health page).
 
 **Check:**
