@@ -201,9 +201,10 @@ loop. It is zone-wide and already set for book one.
 
 The hostname must be exactly one label under the portal domain. Cloudflare's free
 Universal SSL covers `<slug>.confused4now.org` and not `a.b.confused4now.org`, and
-the registry's validator enforces the depth once `platform.portal.book_parent` is
-recorded. **It is not recorded yet** — `registry.json` has no `platform.portal`
-block (`PORTAL-CUTOVER.md` says so plainly), so today nothing checks this for you.
+the registry's validator enforces the depth from `platform.portal.book_parent`.
+**That block is recorded** (since 22 September 2026), so this is checked twice
+before the record exists: `scripts/new-book.mjs` refuses a deeper hostname at the
+prompt, and the registry's `validate` fails the pull request if one gets in anyway.
 
 Do this **shortly before** A6.2, not weeks ahead: between the record existing and
 Publish answering on it, the name is a dangling CNAME, which is the subdomain

@@ -2,11 +2,19 @@
 # in a pull request, and commits the result back into the pull request so the change
 # lands complete.
 #
-# It also runs on a schedule, which book one's copy of this workflow does not do.
-# The reason is a gap that repo has: a registry change alone never triggers a render,
-# so a merged registry change (a new domain, a new relay) reaches the generated files
-# only the next time somebody happens to touch a template. Here, a weekly run opens a
-# pull request when the registry has moved on without this repo.
+# It also runs on a schedule. The reason is a gap the pull-request trigger cannot
+# close: a registry change alone never triggers a render, so a merged registry change
+# (a new domain, a new relay) reaches the generated files only the next time somebody
+# happens to touch a template. A weekly run opens a pull request when the registry has
+# moved on without this repo.
+#
+# Book one's copy of this workflow gained the same run on 22 Sep 2026, and went one
+# step further: its scheduled pull request arms auto-merge when every file it changes
+# is a generated one. That is worth having in a book whose main is branch-protected
+# and whose chore pull requests otherwise pile up. It is deliberately NOT here — a
+# fresh template repo has no protection to satisfy and no history of chores, so the
+# first thing a new maintainer should see is the diff, not a merge that already
+# happened. Copy it from the vault if and when this book has the same problem.
 name: Apply config
 
 on:
