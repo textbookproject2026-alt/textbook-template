@@ -40,7 +40,7 @@ site. The site is host-specific and the services are shared.
 | `configure.mjs` | Renders `templates/` from the slug plus this book's registry entry |
 | `scripts/new-book.mjs` | The interactive start: writes the config and a **proposed** registry entry |
 | `suggest-edit/`, `scripts/add-suggest-edit.mjs` | The reader's form, for a Quartz-hosted book. Deleted by `new-book.mjs` for a Publish book |
-| `.github/workflows/` | `lint`, `link-check`, `apply-config` |
+| `.github/workflows/` | `lint`, `link-check`, `apply-config`, `weekly-snapshot` |
 | `docs/` | The book's maintainer, author, contributor and student guides, generalised from book one's. Start at `docs/README.md` |
 
 ## One config value, and a registry
