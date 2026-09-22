@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Tooling, not content. Never index this page, and never publish it with the book. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Textbook CMS</title>
+  </head>
+  <body>
+    <!--
+      Sveltia CMS mounts itself into <body>. No markup of our own is needed.
+      It reads config.yml from this same folder, which configure.mjs generates
+      from templates/admin/config.yml — edit the template, not the output.
+
+      The version is PINNED on purpose. Sveltia is pre-1.0 and ships several
+      releases a week; an unpinned "@sveltia/cms" would silently upgrade the
+      editor under your contributors between one visit and the next. Bump it
+      deliberately, and re-test editing a chapter afterwards.
+
+      0.193.1 is the version book one runs. Two of its limits are baked into
+      the collections in templates/admin/config.yml: nested collections are
+      unsupported (so each content folder needs its own collection), and
+      `format: raw` is what keeps it from prepending frontmatter on save.
+    -->
+    <script src="https://unpkg.com/@sveltia/cms@0.193.1/dist/sveltia-cms.js"></script>
+  </body>
+</html>

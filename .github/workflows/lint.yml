@@ -1,0 +1,19 @@
+# Markdown lint on every change. A book-level check: it reads nothing but this
+# repository, needs no secret, and says nothing about the platform.
+name: lint
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: DavidAnson/markdownlint-cli2-action@v20
+        with:
+          globs: "**/*.md"

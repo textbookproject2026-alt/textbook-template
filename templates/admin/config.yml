@@ -1,0 +1,146 @@
+# Sveltia CMS configuration — __TITLE__
+#
+# GENERATED from templates/admin/config.yml by configure.mjs. Edit the template
+# and re-run `node configure.mjs`; edits to admin/config.yml are overwritten.
+#
+# This file is TOOLING, not content. It lives on the live branch so it is
+# versioned alongside the book, but it must never be part of what the reading
+# site publishes: on Obsidian Publish, leave admin/ out of the published set;
+# on Quartz, keep admin/ outside the content directory (it already is).
+#
+# The three values below come from the platform registry, not from this repo:
+# the content repo, the drafts branch, and the auth relay. Change them there.
+#
+# Operator setup that cannot be scripted (the Pages project for this folder,
+# and the relay's allowlist): SETUP.md, "The browser editor".
+
+backend:
+  name: github
+  repo: __CONTENT_REPO__
+
+  # =====================================================================
+  # LOAD-BEARING LINE. Read this before touching it.
+  #
+  # `branch` is the only thing standing between a contributor's browser
+  # and the published textbook. Every write Sveltia performs is scoped to
+  # this branch: the commits it makes, the review branches it cuts
+  # (cms/<collection>/<slug>), the pull requests it opens, and the merge
+  # it performs when someone clicks Publish. All of it lands here.
+  #
+  # Set this to the live branch and any trusted contributor typing into a
+  # text box becomes able to change the live book with no review step.
+  #
+  # The live branch is updated by exactly one route: a human opening a
+  # drafts -> live pull request, and the maintainer merging it.
+  #
+  # The registry enforces that drafts_branch differs from live_branch, and
+  # configure.mjs refuses to render this file if they are ever equal.
+  # =====================================================================
+  branch: __DRAFTS_BRANCH__
+
+  # OAuth relay, shared by every book on the platform. Contributors sign in
+  # as THEMSELVES with their own GitHub account; the Worker only exchanges
+  # the OAuth code for a token and hands it back to the browser. No bot
+  # account, no Netlify Identity.
+  #
+  # The relay checks the requesting host against its own ALLOWED_DOMAINS
+  # variable, which is not in any repository. Until the platform owner has
+  # added this book's CMS host to it, the sign-in popup opens and closes
+  # again with no error. See SETUP.md.
+  base_url: __CMS_AUTH_RELAY__
+
+# Second safety net, independent of `branch` above.
+#
+# With editorial workflow on, saving does not commit straight to the drafts
+# branch. Sveltia cuts a per-entry branch off it and opens a pull request
+# against it, which the contributor moves through Draft -> In review ->
+# Ready. So work is reviewable twice: once as the entry PR into drafts, and
+# again when drafts is proposed into the live branch.
+publish_mode: editorial_workflow
+
+# Images and figures. `media_folder` is the path in the repo; `public_folder`
+# is how the path is written into the markdown the reading site renders.
+media_folder: assets
+public_folder: /assets
+
+collections:
+  # ONE COLLECTION PER FOLDER, and that is forced rather than chosen. A folder
+  # collection in Sveltia matches ONE directory level: it compiles `folder`
+  # into `^chapters\/(?<subPath>[^/]+?)\.md$`, and `[^/]` is what excludes
+  # chapters/Definitions/*.md. Decap's `nested: {depth: 2}` would lift that,
+  # and Sveltia does not implement it — 0.193.1 carries it in its
+  # UNSUPPORTED_OPTIONS table and warns "Nested collections are not yet
+  # supported in Sveltia CMS." while ignoring the key. It is slated for
+  # Sveltia 2.0. A `path` template cannot stand in either: the template is
+  # regex-escaped before use, so it can match one fixed depth but never both.
+  #
+  # So: every folder of pages you add under chapters/ needs a collection here,
+  # or its files are invisible in the editor. That is the single most common
+  # way this file goes wrong.
+
+  - name: chapters
+    label: Chapters
+    label_singular: Chapter
+    folder: chapters
+    create: true
+
+    # The chapter files have NO frontmatter — they open directly on
+    # `# Chapter 1: ...`. `format: raw` is the setting that respects that:
+    # the whole file is the body, and Sveltia will not prepend a `---` block
+    # on save. `raw` defaults to a .txt extension, so .md must be stated.
+    format: raw
+    extension: md
+
+    # With only a body field there is no title field to derive a filename
+    # from, and Sveltia's fallback is a random UUID fragment.
+    # `{{fields._slug}}` replaces that with a visible slug box in the editor,
+    # so a new chapter can be named to match the convention: chapter-02...
+    slug: "{{fields._slug}}"
+
+    # Sort/browse by filename — there is no frontmatter date or title to use.
+    sortable_fields: ["slug"]
+
+    fields:
+      - name: body
+        label: Page text
+        # `modes: [raw]` deliberately disables the WYSIWYG editor. The
+        # chapters are Obsidian markdown: [[wikilinks]] and > [!abstract]
+        # callouts. A rich-text round-trip understands neither and would
+        # quietly rewrite them into plain text or escaped brackets, breaking
+        # every concept link in the book. Plain markdown editing is the only
+        # mode that is safe here.
+        widget: markdown
+        modes: [raw]
+        required: true
+
+  # The concept pages in chapters/Definitions/ — the hover definitions the
+  # chapters reach through [[wikilinks]]. Same file shape as the chapters, so
+  # the settings match; only `folder` differs. Sveltia resolves a save back to
+  # `folder` + slug, so an entry edited here is written to
+  # chapters/Definitions/<name>.md and stays in the folder rather than being
+  # flattened up into chapters/.
+  #
+  # Delete this collection if your book has no concept pages.
+  - name: concepts
+    label: Concept pages
+    label_singular: Concept page
+    folder: chapters/Definitions
+    create: true
+
+    format: raw
+    extension: md
+
+    # The slug IS the link target. A chapter says [[Example concept]] and the
+    # link resolves against the filename, so the box this exposes has to keep
+    # saying `Example concept`. Renaming an entry here breaks every chapter
+    # that links to it. Prose filenames with spaces and capitals are correct.
+    slug: "{{fields._slug}}"
+
+    sortable_fields: ["slug"]
+
+    fields:
+      - name: body
+        label: Page text
+        widget: markdown
+        modes: [raw]
+        required: true

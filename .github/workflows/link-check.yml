@@ -1,0 +1,54 @@
+# Lychee checks links on push, on pull requests, and weekly. The weekly run is the
+# point: links rot without anything being pushed here.
+#
+# Runs the lychee binary directly instead of lychee-action: the action's entrypoint
+# evals its command line and crashes on filenames containing quotes or apostrophes,
+# which converted chapter titles will contain.
+name: Check links
+
+on:
+  push:
+    paths:
+      - "**/*.md"
+      - ".lycheeignore"
+      - ".github/workflows/link-check.yml"
+  pull_request:
+    paths:
+      - "**/*.md"
+      - ".lycheeignore"
+      - ".github/workflows/link-check.yml"
+  schedule:
+    - cron: "0 6 * * 1" # 06:00 UTC every Monday
+
+permissions:
+  contents: read
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install lychee
+        run: |
+          curl -sSfL -o /tmp/lychee.tar.gz \
+            https://github.com/lycheeverse/lychee/releases/download/lychee-v0.23.0/lychee-x86_64-unknown-linux-gnu.tar.gz
+          tar -xzf /tmp/lychee.tar.gz -C /tmp lychee
+          sudo mv /tmp/lychee /usr/local/bin/lychee
+
+      # Mail links are excluded by default in this lychee version (--exclude-mail
+      # was removed; do not re-add it).
+      #
+      # templates/ holds unrendered placeholders, so every URL in it contains a
+      # __TOKEN__ and cannot resolve. node_modules/ isn't ours.
+      #
+      # .lycheeignore is generated and contains this book's own domain: the site
+      # is not up when the first links to it are written, and a checker cannot
+      # tell "not built yet" from "broken".
+      - name: Run lychee
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          lychee --no-progress
+          --exclude-path templates --exclude-path node_modules
+          --accept 200,206,429 --hidden "**/*.md"
