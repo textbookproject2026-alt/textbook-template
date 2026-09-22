@@ -41,6 +41,7 @@ site. The site is host-specific and the services are shared.
 | `scripts/new-book.mjs` | The interactive start: writes the config and a **proposed** registry entry |
 | `suggest-edit/`, `scripts/add-suggest-edit.mjs` | The reader's form, for a Quartz-hosted book. Deleted by `new-book.mjs` for a Publish book |
 | `.github/workflows/` | `lint`, `link-check`, `apply-config` |
+| `docs/` | The book's maintainer, author, contributor and student guides, generalised from book one's. Start at `docs/README.md` |
 
 ## One config value, and a registry
 
@@ -67,7 +68,7 @@ things no platform owner has agreed to.
 | Quartz itself | A Quartz book is a checkout of Quartz (~1,500 files) with the book inside it. It belongs to Quartz, it needs upstream syncing, and only one of the two host kinds wants it |
 | `contributors.yml`, `dashboard.yml`, `derivatives.yml`, `backup-annotations.yml` | Book-level, but each one needs a script from book one's `scripts/` (2,200 lines), and three of them need something a new book does not have: a Hypothes.is API token, a Plausible site, or an edition template. A workflow that is red from the first commit teaches people to ignore red workflows. Copy them in when the book has the thing they read |
 | `stats.yml` | A placeholder that echoes a TODO |
-| `docs/`, `OAUTH-SETUP.md` | Book one's operator guides describe the platform as it was before the registry. SETUP.md replaces them for a new book |
+| `OAUTH-SETUP.md`, book one's platform guides | The platform's operator docs now live in `textbook-registry/docs/`, not in any book. This template's `docs/` holds the **maintainer** guides, generalised from book one's |
 | `community/`, `LICENSE` | Generated pages the book does not have yet; and the licence is the maintainer's choice, recorded in the registry |
 | Anything naming book one | The chapters, front page, glossary, theme colours, Hypothes.is groups and Plausible site are all its own |
 
