@@ -119,9 +119,9 @@ Both branches must exist **before** the registry pull request: `check-github.mjs
 fails a registry entry whose `live_branch` or `drafts_branch` is missing, and it
 fails an entry whose repository is private or does not exist.
 
-3. Turn on branch protection for the live branch, requiring a pull request. The
-   drafts branch stays unprotected: the browser editor and the console write to
-   it.
+Then turn on branch protection for the live branch, requiring a pull request.
+The drafts branch stays unprotected: the browser editor and the console write to
+it.
 
 ## Step 3 — hand the entry over (maintainer → platform owner)
 
@@ -169,12 +169,10 @@ curl -si -X OPTIONS https://suggest-edit-function.vercel.app/api/suggest-edit \
   | grep -i x-registry-version
 ```
 
-> **The portal check may be red for reasons that have nothing to do with this
-> book.** `portal.yml` polls `https://confused4now.org/version.txt`, and the apex
-> is not bound to the portal's Pages project yet (`PORTAL-CUTOVER.md`, status
-> header: step 6 outstanding). While that is true, set the repository variable
-> `PORTAL_VERSION_URL` to the portal's `*.pages.dev` address, or expect the red
-> check. A preview book is not listed on the portal in any case.
+`portal.yml` polls `https://confused4now.org/version.txt`, which the portal has
+served since 22 September 2026. A preview book is listed only under the portal's
+*Not for readers* section. What a red run of either workflow means is in
+`textbook-registry/docs/SCHEDULED-JOBS.md`.
 
 ---
 
@@ -437,6 +435,13 @@ slug **and** its `origin` remote both match the registry entry — which is why
 **Department editions.** `editions: null` is correct for a new book. A book only
 needs an edition template repository when a department asks for one.
 
+## Step 9b — the guides
+
+Fill in `docs/what-this-book-runs-on.md`, and read `docs/README.md`: the book's
+guides came with the template, generalised from the platform's first book, and
+now belong to this book. The platform owner's side of everything above is in
+`textbook-registry/docs/`, starting with `BOOK-LIFECYCLE.md`.
+
 ## Step 10 — go live
 
 When the site answers on its own hostname, the form files a real suggestion, and
@@ -494,6 +499,7 @@ Honestly, and in order of how much of the setup they account for.
 9. **Rendering after a registry-only change.** `configure.mjs` runs when a pull
    request touches the config, a template or the renderer. A registry change alone
    triggers nothing. This template's `apply-config.yml` adds a weekly run that
-   opens a pull request when the generated files have fallen behind the registry;
-   book one has no such job, so its rendered files can be stale and nothing says
-   so.
+   opens a pull request when the generated files have fallen behind the registry
+   (book one has had the same job since 22 September 2026). In the template
+   repository itself that run fails every week, because the slug is empty on
+   purpose; that is a known defect in the workflow, not in a book made from it.
