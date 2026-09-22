@@ -33,6 +33,10 @@ permissions:
 
 jobs:
   render:
+    # The template itself ships with an empty slug by design, so a render here can
+    # only fail. Skip it in the template; repos made from it have a different name
+    # and run it as normal.
+    if: github.repository != 'textbookproject2026-alt/textbook-template'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
