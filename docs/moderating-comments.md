@@ -35,13 +35,11 @@ This is the starting point of the weekly routine. The `*` at the end means "any 
 
 To see just one kind of comment, add a tag to the end of the same link: `+tag:copy-edit` or `+tag:discussion`.
 
-Comments stay attached to the address they were made on. If the book ever moves to a new address, the old comments stay on the old one, and you search that address separately — which is why a book's address is chosen once and kept.
+Comments stay attached to the address they were made on. If the book ever moves to a new address, the old comments stay on the old one, and you search that address separately — which is why a book's address is chosen once and kept. The same holds for a single page: its address comes from its file's name and folder, so renaming or moving the file leaves its comments behind at the old address.
 
 [SCREENSHOT: the hypothes.is search page showing the site-wide result list, with the "N Matching Annotations" count visible at the top]
 
 **2. One page at a time.** Every page of the textbook shows a small badge in the row under the title, after "Edit on GitHub · View revision history · Suggest an edit" — it reads **"3 annotations"**, or **"Annotate this page"** when there are none. Click it to open the sidebar on that page and read the comments in context. Use this when you're already reading a chapter, or when the site-wide search points you at a page and you want to see the highlight in place.
-
-(The badge and the row come from the Publish site's `publish.js`. A book hosted as a Quartz site shows *Edit on GitHub* and *Suggest an edit*, and shows the annotation sidebar only if it was set up with the edition-integrations plugin — ask the technical contact which yours has.)
 
 Three things about the count, so it never misleads you. It counts the **public layer only** — a private group, if a coordinator runs one, is not in it. It is read when the page loads, so after you reply the number does not tick up until you reload. And if it cannot reach Hypothes.is at all, the badge simply doesn't appear: a missing badge means the count failed, never that the count is zero.
 
@@ -55,9 +53,9 @@ Readers are asked to tag their comment with one of two words. A small helper pan
 
 **`copy-edit`** — the reader is reporting a typo, a broken link, a wrong number, a clumsy sentence. Treat it as a small correction:
 
-1. Open the chapter in Obsidian and make the fix.
-2. Publish.
-3. Reload the page and glance at the comment's highlight — see below for why.
+1. Make the fix, wherever you edit (`docs/editing-the-textbook.md`, *Where you edit*).
+2. Send it live.
+3. Once the site has caught up, reload the page and glance at the comment's highlight — see below for why.
 4. Reply to the comment: "fixed — thanks". One line is plenty.
 
 **What happens to a comment when you edit the text it's attached to.** Hypothes.is remembers the exact wording a comment was left on, plus a little of the text either side, and searches for that when the page loads. Editing the wording therefore has three possible outcomes:
@@ -90,7 +88,7 @@ Every page carries a **Suggest an edit** button in the row under the title. A re
 
 **What reaches you** is the substance: the page, what the reader says is wrong, and what they think it should say. One decision per suggestion, and there are only three:
 
-- **Fix it.** Open the chapter in Obsidian, make the change, publish. Exactly the same move as a `copy-edit` comment above, including the reload-and-glance step if the passage carries an annotation.
+- **Fix it.** Make the change and send it live. Exactly the same move as a `copy-edit` comment above, including the reload-and-glance step if the passage carries an annotation.
 - **Don't change it.** The reader misread, or the wording is a deliberate choice. Say so in a line — "this is intentional, because…" — and the maintainer replies to them. A declined suggestion answered is a good outcome; it is the silence that costs something.
 - **Too big for now.** A real gap that needs a rewrite rather than a fix. Say that, and it gets parked. It doesn't belong in a weekly slot.
 
@@ -100,7 +98,7 @@ Every page carries a **Suggest an edit** button in the row under the title. A re
 
 ## Reviewing draft edits from the web editor
 
-A handful of trusted contributors can edit chapters in a web page instead of Obsidian. Their guide is `docs/for-trusted-contributors.md`, and the one thing to know about it is the safety property: **nothing anyone does in that editor reaches the live site.** Every save goes into a holding area. There is no publish button in it, for them or for you.
+A handful of trusted contributors can edit chapters in a web page. Their guide is `docs/for-trusted-contributors.md`, and the one thing to know about it is the safety property: **nothing anyone does in that editor reaches the live site.** Every save goes into a holding area. No button in it reaches the live site, for them or for you.
 
 **Where you look.** The editor is at your book's editor address (the registry's `cms.host`; `docs/the-browser-editor.md`). You sign in with your own GitHub login — the technical contact sets that up once, and it is the only place in your routine where such an account is used; you never visit GitHub itself. Inside, entries sit in three columns: **Draft**, **In review**, **Ready**.
 
@@ -111,9 +109,9 @@ A handful of trusted contributors can edit chapters in a web page instead of Obs
 **What you do per entry.** Open it and read the proposed text against the chapter it changes. Then one of two things:
 
 - **Ask for a change.** Leave the contributor a note; they go back into the editor, revise, and save again. It stays in *In review*.
-- **Accept it.** Move the entry to **Ready**. That is your yes. It publishes nothing and changes nothing on the site — it marks the work as approved inside the holding area.
+- **Accept it.** Move the entry to **Ready**. That is your yes. It changes nothing on the site — it marks the work as approved inside the holding area.
 
-**What happens after Ready is not yours.** The maintainer takes the approved entries out of the holding area and into the textbook itself, in batches. Pull requests, branches and merges all live at that step, and none of it needs anything from you. The accepted text then shows up in your Obsidian vault like any other change, and it reaches readers when you next publish — so the final gate is still the Publish dialog on your own machine.
+**What happens after Ready is not yours.** The maintainer takes the approved entries out of the holding area and into the textbook itself, in batches. Pull requests, branches and merges all live at that step, and none of it needs anything from you. The accepted text then lands in `drafts`, shows on the drafts preview, and reaches readers only when you next press **Going live** in the authoring app — so the final gate is still yours.
 
 Two things worth knowing. Every edit is recorded under its author's own name, so you can always see who wrote what and ask them about it. And a draft left sitting in *In review* harms nothing — the contributor's work is saved, nobody else is blocked, and it will still be there whenever you get to it. This is not a weekly obligation; look when you're told something is waiting, or once a fortnight.
 

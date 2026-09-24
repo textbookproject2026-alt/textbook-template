@@ -1,9 +1,15 @@
+---
+authors:
+  - __MAINTAINER_YAML__
+---
+
 # __TITLE__
 
 __SUMMARY__
 
-GENERATED from `templates/index.md` by `configure.mjs` — write your real front
-page in the template, not here. Everything below is scaffolding to replace.
+The book's front page. `scripts/new-book.mjs` filled in the title, summary and
+footer once; from here it is an ordinary page — edit it like any chapter.
+Everything below is scaffolding to replace.
 
 ## Contents
 
@@ -19,8 +25,15 @@ wherever they appear in the text.
 
 ## How to read this book
 
+**Comment in the margin.** Select any passage and the discussion sidebar opens.
+[[how-to-comment|How to comment in the margins]] is a five-minute walkthrough.
+
+**Cite a paragraph.** Paragraphs are numbered in the margin. Click a number to
+copy a link to that paragraph; the **¶ Numbers** button under each page's title
+hides or shows them.
+
 **Suggest an edit.** Found a typo, a broken reference, or a paragraph that does
-not explain what it should? Every page carries a **Suggest an edit** form; no
+not explain what it should? Every page carries a **Suggest an edit** button; no
 account is needed. Every page also has an **Edit on GitHub** link that opens the
 page's source, where anyone with a free GitHub account can propose a change. A
 maintainer reviews everything before it reaches the book.

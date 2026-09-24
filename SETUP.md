@@ -9,7 +9,7 @@ A book is not a copy of another book. It is **five things that have to agree**:
 |---|---|
 | A content repository, public, with a live branch and a drafts branch | the book's maintainer |
 | An entry in the platform registry | the platform owner, by reviewed pull request |
-| A site readers can open | the maintainer, on their own Publish subscription or static host |
+| A Cloudflare Pages project the platform's builder deploys the book to | the platform owner, in the platform's account |
 | The GitHub App installed on the repository | whoever has admin on the repository's account |
 | DNS under the portal domain, if the book uses one | the platform owner, who holds the zone |
 
@@ -31,12 +31,15 @@ without anyone's permission.
 **The platform owner** (`textbookproject2026-alt` today) holds everything shared:
 the registry and the review on it, the portal zone `confused4now.org`, the
 suggest-edit GitHub App and its Vercel project, the CMS auth relay and its
-allowlist, and the portal. Four steps need them and cannot be worked around:
+allowlist, the portal, and the builder (`quartz-book`) with the Cloudflare account
+every book is served from. Five steps need them and cannot be worked around:
 
-1. Merging the registry entry (`textbook-registry/.github/CODEOWNERS`).
-2. The DNS record for `<slug>.confused4now.org`.
-3. Adding a CMS host to the relay's `ALLOWED_DOMAINS`.
-4. Watching the deploy that carries the new registry into production.
+1. Creating the book's Pages project.
+2. Merging the registry entry (`textbook-registry/.github/CODEOWNERS`).
+3. The DNS record and custom domain for `<slug>.confused4now.org`.
+4. Adding a CMS host to the relay's `ALLOWED_DOMAINS`.
+5. Watching the deploy that carries the new registry into production, and the
+   book's first build.
 
 > **One person holds both gates today.** The design assumes the registry review
 > and the App installation are two independent approvals (`DESIGN.md` §4e). While
@@ -63,10 +66,13 @@ annotation made before the move, permanently; book one has done this twice and
 If an institutional address is coming later, wait for it, or accept that the
 margin starts again when it arrives.
 
-**Whose subscription.** Obsidian Publish is paid per site. Whoever's card it is
-becomes `site.host.paid_by` in the registry, and, if it is the maintainer's, the
-alert when a site goes dark is sent to them. This is why `maintainer.github` is
-required for a maintainer-paid book.
+**No host to choose.** Every book is built by the platform's builder
+(`textbookproject2026-alt/quartz-book`) with one shared configuration, and served
+from a Cloudflare Pages project in the platform's account (`paid_by: platform`).
+The book repository holds only the book: no Quartz, no site configuration, no
+reader-side scripts. The design, Hypothes.is, the Edit / History / Suggest row,
+paragraph numbers and the graph all come from the builder, so every book gets
+every later improvement at its next build.
 
 **The licence.** An SPDX identifier, recorded in the registry and rendered into
 the book's own files.
@@ -85,22 +91,25 @@ Copy this template into a new folder, then:
 node scripts/new-book.mjs
 ```
 
-It asks for the title, slug, summary, licence, maintainer, repository, branches
-and host kind, and writes:
+It asks for the title, slug, summary, licence, maintainer, repository, branches,
+the Pages project name and the hostname, and writes:
 
 - `textbook.config.json` — the slug, and nothing else. Every other fact lives in
   the registry, where the services read it.
 - `registry-entry.json` — the **proposed** registry entry.
 - `REGISTRY-REQUEST.md` — the covering note for the platform owner, listing what
   in the entry is a guess.
-- the managed files (`README.md`, `index.md`, `CONTRIBUTING.md`, `.lycheeignore`,
+- `index.md`, the front page, filled in once from `scripts/seed-index.md`. From
+  then on it is an ordinary page.
+- the managed files (`README.md`, `CONTRIBUTING.md`, `.lycheeignore`,
   `admin/config.yml`), if you let it render them from the proposal.
 
 It deliberately does **not** touch the registry, open a pull request, create a
 repository, a DNS record or a site. See "What cannot be automated" at the end.
 
 Then write the book: `chapters/`, concept pages in `chapters/Definitions/`,
-pictures in `assets/<chapter>/`, the front page in `templates/index.md`.
+pictures in `assets/<chapter>/`, the front page in `index.md` (its frontmatter
+lists the book's authors, which the platform's portal shows).
 
 ## Step 2 — create it on GitHub, with both branches (maintainer)
 
@@ -141,8 +150,9 @@ and has both branches. A domain that does not answer yet is a **warning**, not a
 failure — a new site never answers at this point.
 
 **What CI cannot check, and you must.** Whether the slug is the one the
-maintainer meant; whether `site_id` is that Publish site's real `uid`; who is
-actually paying; whether the hostname is one the platform can hold. The generated
+maintainer meant; whether `site.host.project` is the address Cloudflare actually
+gave the Pages project (step 6.1 — do that first); whether the hostname is one the
+platform can hold. The generated
 `REGISTRY-REQUEST.md` lists these per book.
 
 **Review is required and cannot be self-approved.** `CODEOWNERS` requires an
@@ -178,152 +188,61 @@ served since 22 September 2026. A preview book is listed only under the portal's
 
 ## Step 6 — the site
 
-Two host kinds, and they diverge completely. Do one.
+The site is built by `quartz-book`, not by anything in this repository. The book
+repo's job is the layout the builder reads, and one small workflow.
 
-### Path A — Obsidian Publish on a portal subdomain
-
-**A6.1 (platform owner) — the DNS record.** In the Cloudflare zone
-`confused4now.org`:
-
-```
-CNAME  <slug>  →  publish-main.obsidian.md     proxied (orange cloud)
-```
-
-`publish-main.obsidian.md` is Obsidian's documented target for Cloudflare. It is
-**not** the `publish-01.obsidian.md` that appears in `.obsidian/publish.json` and
-in the registry's `publish_host`, which is the server the site happens to be
-served from. Do not substitute one for the other.
-
-Zone SSL mode must be **Full** — Obsidian warns that "Flexible" causes a redirect
-loop. It is zone-wide and already set for book one.
-
-The hostname must be exactly one label under the portal domain. Cloudflare's free
-Universal SSL covers `<slug>.confused4now.org` and not `a.b.confused4now.org`, and
-the registry's validator enforces the depth from `platform.portal.book_parent`.
-**That block is recorded** (since 22 September 2026), so this is checked twice
-before the record exists: `scripts/new-book.mjs` refuses a deeper hostname at the
-prompt, and the registry's `validate` fails the pull request if one gets in anyway.
-
-Do this **shortly before** A6.2, not weeks ahead: between the record existing and
-Publish answering on it, the name is a dangling CNAME, which is the subdomain
-takeover window `MULTI-BOOK-HOSTING.md` §2e is about.
-
-**A6.2 (maintainer) — bind the custom domain.** Obsidian → Publish → Site options
-→ Custom domain → `<slug>.confused4now.org`. A Publish site has exactly **one**
-custom URL: entering this replaces whatever was there, and the old hostname
-immediately returns Publish's empty 404. There is no window in which both work.
-
-**A6.3 — verify, with the same probe the platform uses:**
+**6.1 (platform owner, before the registry merge) — the Pages project.** A
+**Direct Upload** project in the platform's Cloudflare account, the one
+`quartz-book`'s `CLOUDFLARE_API_TOKEN` belongs to, named as the entry's
+`site.host.project`, with the live branch as its production branch:
 
 ```sh
-curl -s https://<slug>.confused4now.org/ | grep -o 'window.siteInfo={[^}]*}'
+npx wrangler pages project create <project> --production-branch main
 ```
 
-`uid` must equal the registry's `site.host.site_id`, `status` must be `active`,
-and `customurl` must be the new hostname. Certificate issuance is Obsidian's and
-Cloudflare's to do; minutes usually, unbounded on the downside.
+Not "Connect to Git": a Git-integrated project cannot take the builder's uploads,
+and cannot be switched to Direct Upload afterwards. `pages.dev` names are global,
+so check the address it reports. If it is not exactly `<project>.pages.dev`,
+correct the entry before merging: the builder deploys by project name, and the
+suggest-edit function matches `https://<site.domain>` exactly.
 
-**A6.4 (platform owner) — fill in `site_id`** with a second registry pull request
-if the entry went in with the placeholder. Nothing else can be checked about a
-Publish site, so this value carries the whole binding.
+**6.2 (maintainer) — the layout.** The builder publishes **`index.md`,
+`chapters/`, `assets/`, `glossary.md` and `community/`**, and nothing else, so
+`admin/`, `docs/`, `templates/` and the scripts never reach readers. Two rules:
 
-**A6.5 (maintainer) — the reader-side script.** The **template does not ship
-`publish.js`**, and this is the one real gap in it. Obsidian Publish has no plugin
-system: the suggest-an-edit form, the Hypothes.is embed, the Plausible pageview
-and the URL→source-path mapping are all in one 1,582-line file that book one
-keeps at `templates/publish.js`. Copy that file (and `publish.css`) from
-`textbookproject2026-alt/textbook` at a commit you write down, put it in
-`templates/`, and run `node configure.mjs`; it fills the same three tokens this
-renderer already knows (`__CONTENT_REPO__`, `__SUGGEST_EDIT_ENDPOINT__`,
-`__PLAUSIBLE_SCRIPT_SRC__`). Read it before you publish it: it also hardcodes
-`const BRANCH = 'main'`, which is right only if your live branch is `main`.
+- The book is at the repository root, in `chapters/`, not in `content/`.
+- No file of the book's own at the root called `how-to-comment`: the builder adds
+  that reader page to every book, and refuses a build that clashes with it.
 
-Then, in the Publish dialog, publish **`index.md`, `chapters/`, `assets/`,
-`glossary.md`, `publish.js` and `publish.css`** — and nothing else. In particular
-keep `admin/`, `templates/`, `.github/` and `configure.mjs` out of the published
-set: `admin/` is the browser editor, and publishing it puts a CMS on the reading
-site. Publish serves only what that dialog uploaded; the repository is version
-control, not the deploy path.
+**6.3 — the first build.** After the registry merge, run `reconcile` in
+`quartz-book` (Actions → reconcile → Run workflow, or
+`gh workflow run reconcile.yml --repo textbookproject2026-alt/quartz-book --ref main -f slug=<slug>`).
+From then on `.github/workflows/nudge.yml` in this repository tells the builder
+whenever a branch moves, and the site follows within a couple of minutes; without
+it, within 15. A failed build deploys nothing, and the previous site stays up.
 
-### Path B — a static Quartz site
+Check what is served: `https://<project>.pages.dev/.well-known/textbook.json`
+names the book commit and the builder commit it was built from.
 
-**B6.1 (maintainer) — bring Quartz into the repository.** The template does not
-vendor it. A Quartz v5 book is a *checkout of Quartz* with the book inside it:
-about 1,500 files, `package.json`, `quartz.ts`, `quartz.config.yaml` and the
-`quartz/` tree, all of which belong to Quartz and not to this platform. Either
-run Quartz's own bootstrap (`npx quartz create`) in this folder, or copy the shape
-of `dept-coordinator-test/platform-test-book`, which is the one worked example.
-
-**B6.2 — build from `chapters/`, not `content/`.** Quartz defaults to `content/`.
-Pass `-d chapters` instead of moving the book, because the whole platform reads
-this layout: the authoring app decides a folder is a textbook by finding
-`chapters/`, `assets/` and `glossary.md` together, the CMS collections point at
-`chapters/`, and department editions copy `chapters/` and `assets/`.
-
-This is safe for links: Quartz sets `fileData.filePath` to
-`<directory>/<file>`, so with `-d chapters` an Edit-on-GitHub link carries
-`chapters/chapter-01.md` — repo-relative, exactly what the suggest-edit function
-validates and what the console applies a correction to. Page URLs come from
-`relativePath` and are unaffected.
-
-**B6.3 — the plugins that matter.** In `quartz.config.yaml`:
-
-```yaml
-  - source:
-      repo: "https://github.com/textbookproject2026-alt/quartz-edition-extras.git"
-      subdir: plugins/edit-on-github
-      name: edit-on-github
-    enabled: true
-    options:
-      repo: "<owner>/<name>"   # = content.repo in the registry
-      branch: main             # = content.live_branch
-```
-
-`edit-on-github` is not optional here: `suggest-edit/suggest-edit.js` reads each
-page's source path out of that link, so removing the link removes the form.
-`scripts/add-suggest-edit.mjs` fails the build if no page would show it.
-
-Also set `configuration.baseUrl` to **exactly** the registry's `site.domain`, and
-leave `enableSPA: false` if you want Hypothes.is to work — Quartz's SPA navigation
-destroys the Hypothes.is client irrecoverably, which four rounds of debugging
-established on the edition template.
-
-**B6.4 — the build command.**
-
-```json
-"build:site": "npx quartz plugin install && npx quartz build -d chapters && node scripts/add-suggest-edit.mjs"
-```
-
-**B6.5 — the host.** Cloudflare Pages → Create → Pages → Connect to Git,
-authorising **only this repository**:
-
-| Setting | Value |
-|---|---|
-| Production branch | your live branch |
-| Framework preset | None |
-| Build command | `git fetch --unshallow \|\| true && npm run build:site` |
-| Build output directory | `public` |
-| Environment variable | `NODE_VERSION` = `22` |
-
-Check the hostname Cloudflare actually assigned. If the project name was taken,
-the address is not the one you assumed, and the function matches
-`https://<site.domain>` exactly — a wrong hostname means every suggestion is
-refused with 403. Fix `baseUrl`, the registry entry and the README together.
-
-**B6.6 — free subdomain or portal subdomain.** A `*.pages.dev` address is allowed
+**6.4 — free subdomain or portal subdomain.** A `*.pages.dev` address is allowed
 only while the book is `preview`: the platform cannot park or redirect a hostname
 it does not hold, so `validate.mjs` refuses a `live` book on a shared suffix. For
-a book meant for readers, add the custom domain:
+a book meant for readers:
 
 - platform owner: `CNAME <slug> → <project>.pages.dev`, proxied, in the portal
-  zone;
-- maintainer: Pages → the project → Custom domains → add `<slug>.confused4now.org`;
-- then a registry pull request changing `site.domain` to it.
+  zone, and Pages → the project → Custom domains → `<slug>.confused4now.org`;
+- then a registry pull request changing `site.domain` to it, if the entry did not
+  already have it.
 
-**B6.7 — expect the drafts preview to fail.** Cloudflare builds the drafts branch
-too, at `https://drafts.<project>.pages.dev`. That is a real, unregistered origin:
-the form appears there and every submission gets 403, invisibly, because the
-browser hides a CORS refusal. This is correct behaviour, and it surprises people.
+The hostname must be exactly one label under the portal domain: Cloudflare's free
+Universal SSL covers `<slug>.confused4now.org` and not `a.b.confused4now.org`.
+`scripts/new-book.mjs` refuses a deeper hostname, and `validate` fails a pull
+request that has one.
+
+**6.5 — the drafts preview.** The builder also builds the drafts branch, at
+`https://drafts.<project>.pages.dev`, with `noindex`. It is an unregistered
+origin, so its Suggest an edit button gets 403, invisibly, because the browser
+hides a CORS refusal. That is correct behaviour, and it surprises people.
 
 ---
 
@@ -421,7 +340,7 @@ derived from that name and never stored, so the two have to change together: a
 registry value recorded ahead of the rename publishes a dead link at the next
 weekly rebuild.
 
-**Annotation.** Hypothes.is needs no per-book setup; `publish.js` embeds it. Only
+**Annotation.** Hypothes.is needs no per-book setup; the builder embeds it. Only
 private groups are recorded in the registry, and per-cohort groups were decided
 against for book one.
 
@@ -444,11 +363,12 @@ now belong to this book. The platform owner's side of everything above is in
 
 ## Step 10 — go live
 
-When the site answers on its own hostname, the form files a real suggestion, and
-(for Publish) `siteInfo` matches: one more registry pull request moving `status`
-from `preview` to `live`.
+When the site answers on its own hostname and the form files a real suggestion:
+one more registry pull request moving `status` from `preview` to `live`.
 
-That is what puts the book on the portal, under *The books*. A `preview` book is
+That is what puts the book on the portal, under *The books*, and into its key-word
+graph, recent changes and browsing by author and topic, which it reads from the
+catalog the builder publishes with every build. A `preview` book is
 listed separately and badged "not for readers"; a `retired` book is never listed
 at all.
 
@@ -462,14 +382,14 @@ as reader activity, so your own testing is not counted.
 Honestly, and in order of how much of the setup they account for.
 
 1. **Everything behind a provider's login.** Creating the GitHub repository,
-   creating the Cloudflare Pages project, buying or binding a Publish site,
-   entering the custom domain, creating the Plausible site, installing the GitHub
-   App. Each is a web dashboard belonging to somebody's account, and some are
-   behind a paid subscription. No token this platform holds can do them.
+   creating the Pages project and its custom domain, creating the Plausible site,
+   installing the GitHub App. Each is a dashboard or a CLI signed in to somebody's
+   account. No token this platform's automation holds can do them.
 2. **The registry entry itself — deliberately.** `new-book.mjs` writes a proposal
    and stops. A registry merge changes what credentials the platform will issue
-   and to which origins, and the review is the control (`CODEOWNERS`). Automating
-   the write would remove the one gate the design relies on.
+   and to which origins, and what the builder will build and where it deploys, and
+   the review is the control (`CODEOWNERS`). Automating the write would remove the
+   one gate the design relies on.
 3. **DNS.** `MULTI-BOOK-HOSTING.md` §2d plans for registry CI to generate the
    `<slug>` CNAMEs from `registry.json` with a scoped Cloudflare token. It does
    not exist. Until then a book's record is typed by hand by whoever holds the
@@ -478,28 +398,13 @@ Honestly, and in order of how much of the setup they account for.
    repository, edited by hand. `DESIGN.md` step 5a plans for CI to generate it
    from the registry's `cms.host` values. Also not built. It is checked by nothing
    and is printed as "not checkable" on every parity run.
-5. **`site_id` for a Publish book.** It does not exist until the site does, and it
-   can only be read off the live site or `.obsidian/publish.json`. So the first
-   registry entry for a Publish book either waits for the site or carries a
-   placeholder and a second pull request.
-6. **Verification that a hostname is the book's.** The `siteInfo` probe of
-   `MULTI-BOOK-HOSTING.md` §5b — the thing that would catch a subdomain takeover
-   or a lapsed subscription daily — is designed and not built. There is no
-   `health.json` and no probe. Today it is the curl in step A6.3, run by a person,
-   once.
-7. **Whether Obsidian verifies domain ownership.** Unknown, and it decides how bad
-   a dangling `<slug>.confused4now.org` record is. Testing it needs a second
-   Publish account. Until someone does, assume a takeover is possible and keep the
-   window between the DNS record and the binding short.
-8. **The reader-side front end.** For Publish it is a 1,582-line file copied
-   between books; for Quartz it is a second implementation of the same contract.
-   Neither is a package, nothing keeps them in step, and a fix to one does not
-   reach the other. This is the platform's largest remaining duplication, and the
-   template cannot fix it — it needs a shared repository that does not exist yet.
-9. **Rendering after a registry-only change.** `configure.mjs` runs when a pull
+5. **The book's weekly jobs.** Contributors, the project dashboard, derivatives
+   and the annotation backup are planned as reusable workflows in `quartz-book`
+   with a ten-line caller in each book (`BOOK-ONE-TO-QUARTZ.md` §8 step 14). Until
+   they exist, a new book has none of them; see "What this template leaves out" in
+   `README.md`.
+6. **Rendering after a registry-only change.** `configure.mjs` runs when a pull
    request touches the config, a template or the renderer. A registry change alone
    triggers nothing. This template's `apply-config.yml` adds a weekly run that
-   opens a pull request when the generated files have fallen behind the registry
-   (book one has had the same job since 22 September 2026). In the template
-   repository itself that run fails every week, because the slug is empty on
-   purpose; that is a known defect in the workflow, not in a book made from it.
+   opens a pull request when the generated files have fallen behind the registry.
+   The site itself does not need it: the builder reads the registry at every build.

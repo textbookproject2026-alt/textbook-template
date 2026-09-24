@@ -24,8 +24,9 @@ If you're inheriting this book, read these first:
 
 ## For the author
 
-- **[`editing-the-textbook.md`](editing-the-textbook.md)**: how the vault is
-  organised, how to add a chapter, publishing, and what changes without you.
+- **[`editing-the-textbook.md`](editing-the-textbook.md)**: where to edit, how
+  the book is organised, how to add a chapter, going live, and what changes
+  without you.
 - **[`the-authoring-app.md`](the-authoring-app.md)**: the Mac app that links
   citations and concept pages, builds the glossary, and shows what people sent in.
 - **[`word-to-markdown.md`](word-to-markdown.md)**: writing a chapter in Word so
@@ -46,13 +47,13 @@ If you're inheriting this book, read these first:
 
 - **[`for-trusted-contributors.md`](for-trusted-contributors.md)**: editing
   chapters in the browser editor.
-- **[`how-to-comment.md`](how-to-comment.md)**: the margin comments, for
-  students.
+- **How to comment in the margins**, for students, is not in this folder: the
+  platform's builder adds it to every book's site, at `/how-to-comment`.
 
 ## For the book's technical contact
 
 - **[`what-this-book-runs-on.md`](what-this-book-runs-on.md)**: the book-level
-  inventory.
+  inventory, and where the reading site comes from.
 - **[`the-browser-editor.md`](the-browser-editor.md)**: the optional browser
   editor: its host, its generated config, contributor access.
 

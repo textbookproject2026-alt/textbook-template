@@ -3,23 +3,22 @@
 Things that have actually gone wrong on the platform's books, what to check when
 each one happens, and what fixes it.
 
-Each entry says who fixes it. **You** means you can finish it yourself in
-Obsidian or a browser. **The technical contact** means it is configuration —
-report it and stop; there is nothing you can do from your side, and nothing you
-can make worse by having looked. Some of these turn out to be in a service that
-every book on the platform shares; then the technical contact passes it to the
-**platform owner**, and you don't need to know which it was.
+Each entry says who fixes it. **You** means you can finish it yourself in a
+browser or the authoring app. **The technical contact** means it is
+configuration — report it and stop; there is nothing you can do from your side,
+and nothing you can make worse by having looked. Some of these turn out to be in
+a service that every book on the platform shares, such as the builder that makes
+the site; then the technical contact passes it to the **platform owner**, and you
+don't need to know which it was.
 
-Entries about the Publish dialog, `publish.css` and `publish.js` apply to a book
-on Obsidian Publish; a Quartz book has none of those.
-
-Nothing here is damage. The site can always be republished from your vault, and
-every version of every file is kept.
+Nothing here is damage. The site is always rebuilt from the repository, a failed
+build leaves the previous version of the site up, and every version of every file
+is kept.
 
 | What you see | Who fixes it |
 |---|---|
-| [The site doesn't show a change I published](#the-site-doesnt-show-a-change-i-published) | You |
-| [`publish.css` / `publish.js` changes did nothing](#publishcss--publishjs-changes-did-nothing) | You |
+| [The site doesn't show a change I sent live](#the-site-doesnt-show-a-change-i-sent-live) | You, then the technical contact |
+| [The site looks different, or a control is missing](#the-site-looks-different-or-a-control-is-missing) | The technical contact |
 | [An annotation vanished or moved to the wrong text](#an-annotation-vanished-or-moved-to-the-wrong-text) | You |
 | [Edit on GitHub gives a 404](#edit-on-github-gives-a-404) | The technical contact |
 | [The suggest-edit form shows an error](#the-suggest-edit-form-shows-an-error) | The technical contact |
@@ -30,49 +29,62 @@ every version of every file is kept.
 
 ---
 
-## The site doesn't show a change I published
+## The site doesn't show a change I sent live
 
-**You fix this.**
+**Check it yourself first; the technical contact takes it from there.**
 
 **Check:**
 
-- Was the file ticked in the Publish dialog? Open it again — if the file is
-  still listed as changed, it never went.
+- **Is the change on the live branch?** A change still on `drafts` shows only on
+  the drafts preview. **Going live** in the authoring app sends it
+  (`docs/editing-the-textbook.md`).
+- **Has it had time?** The site shows a change within a couple of minutes, and
+  15 minutes at worst.
 - Hard-refresh the page: **⌘ + Shift + R**. If the change appears, it was your
   browser's cache and nothing is wrong with the site.
-- If it still doesn't appear, open the browser's developer tools
-  (**⌥ + ⌘ + I**), go to the **Network** tab, reload, click the page's own
-  request in the list and read the **Response** tab. That is the text the server
-  actually sent. If your change isn't in there, the site genuinely doesn't have
-  it; if it is, the problem is display, not deployment.
+- **Which version is the site serving?** Open `/.well-known/textbook.json` on the
+  book's address. It names the branch and the book commit the site was built
+  from. Compare that commit with the latest one on the live branch on GitHub. If
+  the site's commit is older after 15 minutes, the site hasn't been rebuilt.
 
-**Fix:** publish again with the file ticked, and read the list before
-confirming. A stale deploy is almost always an unticked file, not a failure.
+**Fix:** a change that isn't on the live branch yet is yours: send it live. A
+site still on an older commit after 15 minutes is the technical contact's: the
+build failed or didn't run, and the previous version stays up until it is fixed.
+Say which commit the build marker names.
+
+**For the technical contact:** every book is built and deployed by the
+platform's builder, `quartz-book`, not by anything in this repository. A red
+`reconcile` run there is a failed build; rebuilding is the platform owner's
+(`reconcile` in `quartz-book`, whose README covers it). Check two things that are
+this book's first: that the push reached GitHub, and that `nudge.yml` ran in this
+repository's Actions tab. Without the nudge the book still rebuilds within 15
+minutes.
 
 ---
 
-## `publish.css` / `publish.js` changes did nothing
+## The site looks different, or a control is missing
 
-**You fix this.**
+**The technical contact fixes this.**
 
-These two files control how the site looks and the extra things its pages do —
-the annotation badge, the *Suggest an edit* button, the controls row under each
-title. They behave differently from every other file in the vault, and this trips
-everyone up exactly once.
+How the site looks and what its pages do — the colours and fonts, the graph,
+search, the comment sidebar and badge, the row of links under the title, the
+paragraph numbers — are the platform's, shared by every book. Nothing in this
+repository controls them, so there is nothing here to edit or send live.
 
 **Check:**
 
-- Were they ticked in the Publish dialog? They sit at the top level of the vault
-  and are easy to scroll past.
-- **They reach the live site only through the Publish dialog.** Saving them does
-  nothing. Committing them to GitHub does nothing. The copy on GitHub is version
-  control, not the thing the website serves.
-- Network tab again: reload the page, find `publish.js` (or `publish.css`) in the
-  request list, and read the **Response**. That is the copy being served, and it
-  is the only opinion that counts.
+- **Is it every page, or one?** A single page without paragraph numbers may
+  have `paragraphNumbers: false` in its frontmatter. The home page never has
+  them.
+- **Is Suggest an edit missing from every page?** The book's registry entry
+  decides whether it is shown at all.
+- **Is the badge or the sidebar missing?** That is usually your browser or
+  network blocking Hypothes.is; see *If something doesn't work* on the site's
+  own `/how-to-comment` page.
 
-**Fix:** publish again with both files ticked. If the served copy still doesn't
-contain the change after a hard refresh, that one is the technical contact's.
+**Fix:** report it to the technical contact with a page address. A change to the
+platform's design reaches every book at once, so if it looks deliberate, it may
+be; the platform owner can say.
 
 ---
 
@@ -109,20 +121,21 @@ annotation backup by hand first; it takes two minutes and only helps beforehand.
 
 **The technical contact fixes this.**
 
-The button builds a GitHub address out of the page's web address. A 404 means the
-two have stopped matching.
+The link is made from the page's source file when the site is built: the
+repository, the branch the site was built from (the live branch on the live
+site, `drafts` on the drafts preview), and the file's path. A 404 means that file
+isn't at that path on that branch any more.
 
 **Check:**
 
-- **Has the file been renamed or moved since it was published?** This is the
-  cause nine times in ten. Chapter filenames are load-bearing — renaming one
-  breaks every link pointing at it, which is why the editing guide says to ask
-  before renaming.
-- **Does the capitalisation match?** The address is built from the filename
-  exactly, capitals included. `Opportunity Cost.md` and `opportunity cost.md` are
-  different files as far as the button is concerned.
-- **Is the page one you've published but whose file isn't in the repository
-  yet?** A page can be live and still not be on GitHub.
+- **Has the file been renamed or moved since the site was last built?** This is
+  the usual cause. The site catches up at its next build; if it doesn't, the
+  build is failing (*The site doesn't show a change I sent live*). Chapter
+  filenames are load-bearing — renaming one breaks every link pointing at it,
+  which is why the editing guide says to ask before renaming.
+- **Has the repository been renamed, moved or made private?** The link uses the
+  repository named in the platform registry, and a private repository shows
+  GitHub's 404 to anyone without access.
 
 **Fix:** report it to the technical contact with the address of the page and
 what the button did. If you know the file was renamed, say what it was called
@@ -180,13 +193,16 @@ is visible, are the platform owner's — see
 - **Does the book have analytics at all?** A new book has none until a
   Plausible site is created and recorded in the platform registry
   (`SETUP.md`, step 9).
+- **Were the visits on the book's own address?** Analytics count only there.
+  Visits to the drafts preview or any other `pages.dev` address are never
+  counted.
 - **Is it genuinely quiet?** Out of term, on a book that hasn't been announced to
   a cohort, zero is the true number. Compare against a week you know had traffic
   rather than against nothing.
 
-**Fix:** if it is none of those three, it's the technical contact's — the
-tracking line is missing or wrong on the site. Say which site and which dates
-you were looking at.
+**Fix:** if it is none of those, it's the technical contact's — the Plausible
+site recorded in the registry is missing or wrong. Say which site and which
+dates you were looking at.
 
 ---
 

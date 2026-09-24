@@ -2,7 +2,7 @@
 
 This guide is for you — no technical background needed. It covers writing a
 chapter in Word so that it converts cleanly, running the conversion in the
-authoring app, checking that nothing got lost, and publishing it.
+authoring app, checking that nothing got lost, and getting it to readers.
 
 There is no terminal here, nothing to install and no commands to type. The app
 does the conversion itself, and it shows you what it did before anything is
@@ -119,7 +119,7 @@ The app flags each of them in its report (Part 3), and they have to be redone.
    converting happens, and asks you to choose a folder inside your textbook.
 
 4. **Name the chapter.** The app fills this in for you from the Word file's own
-   name, and you can edit it. This is the name you will see in Obsidian.
+   name, and you can edit it. This is the chapter's file name in the book.
 
    **What the app enforces:** the name must end in `.md` (if you leave it off,
    the app adds it); it must be a plain name, not a path with folders in it; it
@@ -239,7 +239,7 @@ headings were found.
   something, the note quotes it verbatim and treats it as a warning, because it
   normally means part of the document was skipped rather than converted.
 - **The shape of the chapter** — a confirmation that each paragraph is on a
-  single line, which is what keeps your vault's history readable (see Part 2).
+  single line, which is what keeps the book's history readable (see Part 2).
 
 There is **no "leftovers" summary**: things that could not be converted are not
 gathered into one field. Each surfaces as its own note, and Part 4 lists the ones
@@ -247,14 +247,15 @@ that matter.
 
 ### The checklist
 
-Then open the textbook folder in **Obsidian**, click the new chapter, and read
-it. Tick these off:
+Then read the chapter: in the app's preview before saving, and on the drafts
+preview (`docs/editing-the-textbook.md`, *Where you edit*) once it is in
+`drafts`. Tick these off:
 
 - [ ] **No warnings left unread** — every `warn`-level note in the report has
       either been dealt with or consciously accepted.
 - [ ] **Headings** — the chapter title and all section headings are there, at the
-      right levels. Open Obsidian's outline panel and compare it to Word's
-      Navigation Pane: same headings, same order, same nesting.
+      right levels. Compare the page's table of contents on the preview with
+      Word's Navigation Pane: same headings, same order, same nesting.
 - [ ] **Footnotes** — the count in the summary line matches the last footnote
       number in Word, the notes are listed at the bottom of the file, and the
       numbers in the text are clickable.
@@ -285,8 +286,8 @@ the fix for it.
 **"N tables could not be made into proper tables"** — a `warn` note. Cause: cells
 in the table have been merged, or a single cell holds more than one paragraph.
 Markdown tables can do neither, so the table is written out as a block of web
-markup instead. None of your text is lost, and Obsidian still shows it as a table
-in reading view — but it is unpleasant to edit, and the app's citation and
+markup instead. None of your text is lost, and the site still shows it as a
+table — but it is unpleasant to edit, and the app's citation and
 concept-page checks skip over it entirely, so nothing inside it will ever be
 linked. Fix: in Word, unmerge the cells (**Layout → Split Cells**) or rebuild the
 table as two or three simple grids, and convert again. If the table is genuinely
@@ -299,14 +300,15 @@ headings in Word were made by making text bigger and bold rather than with Word'
 Heading styles, so Word records them as ordinary paragraphs. Fix: in Word, apply
 **Heading 1 / 2 / 3** from the Styles gallery (Part 1), save, and convert again.
 The app also offers the alternative of typing `#` in front of each heading in
-Obsidian afterwards; going back to Word is quicker if there are many.
+the converted chapter afterwards; going back to Word is quicker if there are
+many.
 
 **"N lines may be headings that did not convert"** — a `look` note, which appears
 when *some* headings converted. These are lines standing alone and entirely in
 bold, which is what a hand-made heading looks like after conversion — though they
 may equally be genuine emphasis. Fix: find them in the preview, and where one
 really is a heading, either put the right number of `#` marks in front of it in
-Obsidian or restyle it in Word and convert again.
+the converted chapter or restyle it in Word and convert again.
 
 **Footnotes are missing from the report entirely.** There is no note claiming
 zero footnotes — if the document plainly has footnotes and no footnote note
@@ -326,7 +328,7 @@ tidy them up after saving.
 the file types, which will be `.emf`, `.wmf`, `.bin` or `.vml`. This is what
 charts, SmartArt diagrams, WordArt and pasted spreadsheet ranges become: Word
 draws them itself, so nothing outside Word can show them, and they appear as
-broken pictures in Obsidian. Fix: in Word, right-click each chart or diagram,
+broken pictures on the site. Fix: in Word, right-click each chart or diagram,
 choose **Copy**, then **Paste Special** as a Picture (PNG), and save. Converting
 again then produces a picture that works everywhere.
 
@@ -365,58 +367,41 @@ difference between the two usually makes the cause obvious to whoever looks next
 Once the checklist passes:
 
 1. **Check the top of the file.** The chapter should begin with its title as a
-   Heading 1 (`# Chapter 5: Photosynthesis`) and nothing above it. Chapters in
-   this textbook carry no front-matter block — every chapter starts straight in
-   with its title, and yours should too. If a stray blank line or a duplicate
-   title has been left at the very top, delete it.
+   Heading 1 (`# Chapter 5: Photosynthesis`) and nothing above it. That heading
+   becomes the page's title on the site. Chapters in this textbook carry no
+   front-matter block — every chapter starts straight in with its title, and
+   yours should too. If a stray blank line or a duplicate title has been left at
+   the very top, delete it.
 
-2. **Add the chapter to the front page — in `templates/index.md`, not
-   `index.md`.** Open **`templates/index.md`** and add a bullet under
-   **Contents**, copying the shape of the one already there:
+2. **Add the chapter to the front page.** Open **`index.md`** and add a bullet
+   under **Contents**, copying the shape of the one already there:
 
        - **[[chapter-05|Chapter 5 — Photosynthesis]]**
          One sentence saying what the chapter covers.
 
-   The front page readers see at `index.md` is *generated* from
-   `templates/index.md` by an automatic step that fills in the book's title, web
-   address, maintainer and licence. **Anything typed directly into `index.md` is
-   wiped the next time that runs.** The same is true of `README.md` and
-   `CONTRIBUTING.md`. `docs/editing-the-textbook.md` and
-   `docs/changing-settings.md` both cover this; the short version is: edit the
-   template, then check at publish time that `index.md` has caught up. If it
-   hasn't, the rewrite hasn't run yet — publish the chapter itself and tell the
-   technical contact the front page is waiting.
+3. **Get the chapter and its pictures into `drafts`.** The book is its
+   repository on GitHub, and the chapter reaches readers only from there.
 
-3. **Nothing to sync or commit.** There is no source-control step in this workflow
-   and you don't need one — saving the file in Obsidian is all the storing it
-   needs. Getting the chapter in front of readers is the publish step, and that
-   routine lives in one place: **Publishing** in `docs/editing-the-textbook.md`.
-   Read it there if anything below is unclear; the next step is the short version.
+   > **To confirm:** whether the app commits a converted chapter and its
+   > `assets/<chapter-name>/` pictures to `drafts` itself (the platform's plan
+   > calls this "Send to drafts", BOOK-ONE-TO-QUARTZ §8 step 1), and what the
+   > button says. Until that is confirmed, a chapter the app saved to a folder on
+   > your Mac is not in the book: ask the technical contact to put it on
+   > `drafts`, or follow what `docs/what-this-book-runs-on.md` records for your
+   > copy of the book.
 
-4. **Publish to the website.** (For a book on Obsidian Publish. On a Quartz
-   book, publishing is getting the chapter onto the live branch instead — see *If
-   your book is a Quartz site* in `docs/editing-the-textbook.md`.) Click the **Publish** icon in Obsidian's left
-   sidebar. Obsidian shows a list of files that are new or changed since the last
-   publish — your new chapter, the files in its `assets/<chapter-name>` folder,
-   and `index.md`.
-   Read the list before confirming: anything ticked will go live, anything
-   unticked won't. Click **Publish** and wait; the site updates within a minute
-   or two.
+4. **Check it on the drafts preview, then go live.** Once the chapter is on
+   `drafts` it appears on the drafts preview within a few minutes. Read it there,
+   then send it live with **Going live** in the authoring app. That routine lives
+   in one place: *Going live* in `docs/editing-the-textbook.md`.
 
-   **Saving and publishing are separate, and only publishing reaches readers.**
-   Saving in Obsidian stores the chapter; the Publish dialog is what sends it to
-   the live site. A chapter that's been saved but not published is safely stored
-   and invisible to the world.
+   **Saving and going live are separate, and only going live reaches readers.**
+   A chapter on `drafts` is safely stored and visible only on the preview.
 
-   This matters most for the site's two design files, **`publish.css`** and
-   **`publish.js`**, which sit at the top level of the textbook folder. They reach
-   the live site *only* through the Publish dialog — saving them does nothing for
-   the website. If a change to how the site looks doesn't show up, this is nearly
-   always why: the file was saved but never ticked in the Publish list.
-
-5. **Check the live site.** Open the website, find the new chapter from the front
-   page, and give it one last skim — especially the images and tables.
+5. **Check the live site.** A couple of minutes after going live, open the
+   website, find the new chapter from the front page, and give it one last
+   skim — especially the images and tables.
 
 That's the whole cycle: write in Word with Part 1's habits, convert with Part 2's
-steps, tick Part 3's list, publish with Part 5. For a chapter written the way
-Part 1 describes, the whole thing takes a few minutes end to end.
+steps, tick Part 3's list, send it live with Part 5. For a chapter written the
+way Part 1 describes, the whole thing takes a few minutes end to end.
