@@ -204,7 +204,9 @@ Not "Connect to Git": a Git-integrated project cannot take the builder's uploads
 and cannot be switched to Direct Upload afterwards. `pages.dev` names are global,
 so check the address it reports. If it is not exactly `<project>.pages.dev`,
 correct the entry before merging: the builder deploys by project name, and the
-suggest-edit function matches `https://<site.domain>` exactly.
+suggest-edit function accepts the book's pages only from `https://<site.domain>`
+and from `https://<project>.pages.dev` (plus its branch previews), so a mismatched
+name leaves the site with no working Suggest an edit or editor.
 
 **6.2 (maintainer) — the layout.** The builder publishes **`index.md`,
 `chapters/`, `assets/`, `glossary.md` and `community/`**, and nothing else, so
@@ -240,9 +242,12 @@ Universal SSL covers `<slug>.confused4now.org` and not `a.b.confused4now.org`.
 request that has one.
 
 **6.5 — the drafts preview.** The builder also builds the drafts branch, at
-`https://drafts.<project>.pages.dev`, with `noindex`. It is an unregistered
-origin, so its Suggest an edit button gets 403, invisibly, because the browser
-hides a CORS refusal. That is correct behaviour, and it surprises people.
+`https://drafts.<project>.pages.dev`, with `noindex`. The suggest-edit function
+accepts every `https://<label>.<project>.pages.dev` address of the book's own
+Pages project, so Suggest an edit and **Edit this page** work there too, and on
+`https://<project>.pages.dev` before the book's domain points at it. Anything sent
+from a preview goes to this book's repository like any other: a suggestion is an
+issue, and an edit is a pull request into drafts.
 
 ---
 
@@ -251,15 +256,28 @@ hides a CORS refusal. That is correct behaviour, and it surprises people.
 Go to <https://github.com/apps/textbook-suggest-edit> → Install → the account that
 owns the content repository → **Only select repositories** → the book's repository.
 
-It should ask for **Issues: read and write** and **Metadata: read**, and nothing
-else. **Never choose "All repositories."** The App is public, so an account other
+It should ask for **Issues: read and write**, **Contents: read and write**,
+**Pull requests: read and write** and **Metadata: read**, and nothing else.
+Contents and Pull requests are for **Edit this page** (the in-site editor), which
+commits a reader's change to a new `proposed-edits/…` branch and opens a pull
+request into drafts; suggestions still get issues-only tokens. **Never choose "All repositories."** The App is public, so an account other
 than the App owner's can install it; the function looks the installation up per
 repository and refuses a token that was granted anything wider than the one repo.
 
 Until this is done, every suggestion from the book's site returns **502**
-`{"error":"github: the app isn't installed on that repository"}`. The reader sees
-the form's generic failure copy. That is the designed behaviour, not a bug: the
-clear message is in the `error` field and the log line, not in the status code.
+`{"error":"github: the app isn't installed on that repository"}`, and the editor
+tells the reader "Editing isn't switched on for this book yet". The detail is in
+the `error` field and the log line.
+
+**An account that installed the App before 24 Sep 2026** (before the editor) has
+a pending permissions request, not the new permissions: on that account,
+<https://github.com/settings/installations> → **Configure** next to
+textbook-suggest-edit → **Review request** → **Accept new permissions**. Until
+then suggestions work and the editor answers `502 {"error":"github: credential
+unavailable"}`. Each account approves once, for all its books.
+
+**The drafts branch must exist** (Step 2). Without it the editor answers "This book
+isn't set up to take edits yet".
 
 ## Step 8 — prove it works
 
@@ -287,6 +305,18 @@ Then, in a browser, open a chapter and send one real suggestion. Expect a
 "Thank you" with a link to an issue on **this** book's repository, titled
 `Suggested edit: chapters/<file>.md`, filed by `textbook-suggest-edit[bot]`, with
 the labels `suggested-edit` and `needs-triage` (created on first use).
+
+Then the editor. The editor has its own endpoint beside the form's:
+
+```sh
+curl -s -H "Origin: $B" "https://suggest-edit-function.vercel.app/api/propose-edit?path=index.md" | head -c 120
+#    -> {"path":"index.md","branch":"drafts","sha":"…","content":"…
+```
+
+`github: credential unavailable` means the permissions request above is still
+pending. In a browser, click **Edit this page**, change a word and propose it:
+expect "Proposal opened" and a pull request from `proposed-edits/…` into
+`drafts`, labelled `proposed-edit` and `needs-triage`. Close it unmerged.
 
 **Four traps, all of them met in practice** (`INTERIM-BOOK.md`):
 
