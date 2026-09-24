@@ -17,15 +17,15 @@ GENERATED from `templates/README.md` by `configure.mjs`. Edit the template.
 | `chapters/` | The book. One markdown file per page; concept pages in `chapters/Definitions/` |
 | `assets/` | Pictures, one folder per chapter |
 | `glossary.md` | The glossary |
-| `index.md` | The front page, generated from `templates/index.md` |
+| `index.md` | The front page. An ordinary page, edited like a chapter |
 | `admin/` | The browser editor. Tooling, never published with the book |
 | `templates/`, `configure.mjs` | Every generated file, and the renderer that fills them from `textbook.config.json` and the registry |
 | `.github/workflows/` | This book's own automation |
 
 ## Changing a generated file
 
-`README.md`, `index.md`, `CONTRIBUTING.md`, `.lycheeignore` and `admin/config.yml`
-are generated. Edit the copy under `templates/`, then:
+`README.md`, `CONTRIBUTING.md`, `.lycheeignore` and `admin/config.yml` are
+generated. Edit the copy under `templates/`, then:
 
 ```sh
 node configure.mjs

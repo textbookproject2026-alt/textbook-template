@@ -61,8 +61,8 @@ Usually you want one passage back, not the whole book. To get it:
 3. Either select the passage and copy it, or click the **Copy raw file** button
    (two overlapping squares, above the text on the right) to copy the whole
    chapter exactly as it was written.
-4. In Obsidian, open the chapter and paste it where it belongs, then publish as
-   usual.
+4. Open the chapter wherever you edit (`editing-the-textbook.md`, *Where you
+   edit*), paste it where it belongs, and send it live as usual.
 
 Paste back only what you need. Pasting a whole chapter over the current one
 brings back the old passage, and it also undoes every later edit to that

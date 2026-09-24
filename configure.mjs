@@ -124,9 +124,7 @@ if (book.content.drafts_branch === book.content.live_branch)
 // --- tokens -----------------------------------------------------------------
 //
 // Unset values (missing, null or "") are left out, so their placeholder stays in the
-// output untouched and is reported at the end. Blanking it would defeat checks that
-// look for an unfilled token — publish.js's "no suggest-edit backend configured yet"
-// test is one.
+// output untouched and is reported at the end, rather than silently blanked.
 
 const isSet = (v) => v !== undefined && v !== null && v !== "";
 
@@ -143,9 +141,7 @@ const tokens = {
   __SITE_DOMAIN__: book.site?.domain,
   // Derived, never stored (DESIGN §0b: store facts, not URLs built from them).
   __SITE_URL__: book.site?.domain ? `https://${book.site.domain}` : null,
-  __SUGGEST_EDIT_ENDPOINT__: book.suggest_edit?.enabled ? registry.platform?.suggest_edit_endpoint : null,
   __CMS_AUTH_RELAY__: registry.platform?.cms_auth_relay,
-  __PLAUSIBLE_SCRIPT_SRC__: book.analytics?.plausible?.script_src,
 };
 
 const filled = Object.fromEntries(Object.entries(tokens).filter(([, v]) => isSet(v)).map(([k, v]) => [k, String(v)]));
@@ -162,15 +158,10 @@ async function walk(dir) {
   return out;
 }
 
-// Files that must render completely. A placeholder left in either of these ships
-// something broken rather than something incomplete: a CMS pointed at a repo called
-// __CONTENT_REPO__, or a form posting to the literal string __SUGGEST_EDIT_ENDPOINT__.
-const STRICT = new Set(["admin/config.yml", "suggest-edit/suggest-edit.js"]);
-
-// A book with suggest_edit disabled has no endpoint to render into the form, and a
-// form posting to nowhere is worse than no form. Skip it, loudly, rather than fail
-// the whole render on a STRICT placeholder.
-const SKIP = new Set(book.suggest_edit?.enabled ? [] : ["suggest-edit/suggest-edit.js"]);
+// A file that must render completely. A placeholder left in it ships something
+// broken rather than something incomplete: a CMS pointed at a repo called
+// __CONTENT_REPO__.
+const STRICT = new Set(["admin/config.yml"]);
 
 let sources;
 try {
@@ -188,10 +179,6 @@ for (const src of sources) {
   for (const [token, value] of Object.entries(filled)) text = text.split(token).join(value);
   const unfilled = text.match(/__[A-Z0-9_]+__/g) ?? [];
   const rel = relative(TEMPLATES, src);
-  if (SKIP.has(rel)) {
-    console.warn(`configure: skipped ${rel} — suggest_edit.enabled is false for "${book.slug}", so there is no endpoint to render.`);
-    continue;
-  }
   if (STRICT.has(rel) && unfilled.length) fail(`${rel} has unfilled placeholders: ${[...new Set(unfilled)].join(", ")}.`);
   for (const m of unfilled) leftovers.add(m);
   rendered.push([join(ROOT, rel), text, rel]);

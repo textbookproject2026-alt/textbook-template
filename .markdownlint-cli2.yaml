@@ -8,7 +8,7 @@ config:
   # MD051 (link-fragments) is off because a book's citations are Obsidian block
   # references: [Author, 1979](#^ref-author-1979) pointing at a ^ref-... block ID
   # on the matching line of the chapter's reference list. They resolve in Obsidian
-  # and on Publish; markdownlint understands only heading anchors and reports every
+  # and on the built site; markdownlint understands only heading anchors and reports every
   # one as broken. This is the convention the authoring app generates, so leaving
   # the rule on turns CI red on every chapter that cites anything.
   MD051: false
@@ -17,4 +17,4 @@ config:
 ignores:
   - "node_modules/**"
   - "templates/**"     # unrendered placeholders
-  - "quartz/**"        # vendored, if this book is served by Quartz
+  - "scripts/seed-index.md" # the front page before new-book.mjs fills it in

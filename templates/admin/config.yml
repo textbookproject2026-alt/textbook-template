@@ -4,9 +4,8 @@
 # and re-run `node configure.mjs`; edits to admin/config.yml are overwritten.
 #
 # This file is TOOLING, not content. It lives on the live branch so it is
-# versioned alongside the book, but it must never be part of what the reading
-# site publishes: on Obsidian Publish, leave admin/ out of the published set;
-# on Quartz, keep admin/ outside the content directory (it already is).
+# versioned alongside the book, but it is never part of the reading site: the
+# builder publishes only index.md, chapters/, assets/, glossary.md and community/.
 #
 # The three values below come from the platform registry, not from this repo:
 # the content repo, the drafts branch, and the auth relay. Change them there.
@@ -84,10 +83,10 @@ collections:
     folder: chapters
     create: true
 
-    # The chapter files have NO frontmatter — they open directly on
-    # `# Chapter 1: ...`. `format: raw` is the setting that respects that:
-    # the whole file is the body, and Sveltia will not prepend a `---` block
-    # on save. `raw` defaults to a .txt extension, so .md must be stated.
+    # The chapter files open directly on `# Chapter 1: ...`, with at most an
+    # optional frontmatter block the author wrote (tags, say). `format: raw` is
+    # the setting that respects that: the whole file is the body, edited as it
+    # is, and Sveltia will not prepend or rewrite a `---` block on save. `raw` defaults to a .txt extension, so .md must be stated.
     format: raw
     extension: md
 

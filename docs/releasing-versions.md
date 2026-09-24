@@ -49,11 +49,8 @@ the technical contact now rather than after the tag exists. See
 `docs/moderating-comments.md`.
 
 **3. The front page is accurate.** Every chapter in the book is listed, in the
-right order, with a description that still describes it. Remember this is
-`templates/index.md`, not `index.md` — see *Adding a new chapter* in
-`docs/editing-the-textbook.md`. Check that `index.md` has actually caught up
-before you release; if the template is right and the front page still isn't,
-that is one to raise.
+right order, with a description that still describes it (`index.md` — see
+*Adding a new chapter* in `docs/editing-the-textbook.md`).
 
 **4. The concept pages and the glossary agree with the chapters.** Every
 `[[link]]` in a chapter should land on a page that exists in
@@ -73,15 +70,16 @@ book this year. If one is visibly stale or broken, that is the technical
 contact's — the details are in the platform's `textbook-registry/docs/SCHEDULED-JOBS.md`.
 A new book has none of these, and this step is then empty.
 
-**7. Publish everything.** The last thing before you hand over is a publish, so
-that the live site and the text about to be tagged are the same thing. Read the
-list in the dialog properly; this is the publish where an unticked file matters
-most.
-
-[SCREENSHOT: the Publish dialog before a release, with the full list of changed files visible]
+**7. Send everything live.** The last thing before you hand over is **Going
+live** in the authoring app, so that the live site and the text about to be
+tagged are the same thing. Read its list of waiting changes properly; anything
+left on `drafts` is not in the release. A few minutes later, check that the site
+has caught up: `/.well-known/textbook.json` on the book's address names the book
+commit the site was built from, and it should be the latest commit on the live
+branch.
 
 Then tell the technical contact you're ready. One line is enough — "chapter
-review done, published, ready to tag". They will tell you what the version ended
+review done, live, ready to tag". They will tell you what the version ended
 up being called.
 
 ---
@@ -246,7 +244,7 @@ whole of it, permanently. `docs/moderating-comments.md` is the detail.
 ## If a serious error is found after release
 
 First: most errors are not this. A typo, a broken link, a clumsy sentence —
-fix it in Obsidian and publish, exactly as you would any other week. The live
+fix it and send it live, exactly as you would any other week. The live
 site updates and that is the end of it. Nothing about a release changes the
 normal fixing routine.
 
@@ -258,7 +256,7 @@ would come away with something false.
 
 When that happens:
 
-**1. Fix the live site first.** Obsidian, publish, done. Everyone reading the
+**1. Fix the live site first.** Fix, send live, done. Everyone reading the
 book at its live address is now reading the corrected text, and that is most
 readers. Do this before anything else; the rest can take a day.
 

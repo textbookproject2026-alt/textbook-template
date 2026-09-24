@@ -6,7 +6,7 @@ Corrections are as welcome as chapters. There are three ways in, lightest first.
 
 ## 1. Suggest an edit
 
-Every page of __SITE_URL__ carries a **Suggest an edit** form. No account is
+Every page of __SITE_URL__ carries a **Suggest an edit** button. No account is
 needed. It becomes an issue on this repository, labelled `suggested-edit`, with
 your email address masked. Nothing you type can mention or notify anyone.
 
@@ -29,8 +29,9 @@ with that.
 ## House rules for the text
 
 - One page per file in `chapters/`, named to match the existing convention.
-- No frontmatter. The pages are body text from the first line, and the browser
-  editor is configured to keep them that way.
+- A page opens on its `#` title. A short frontmatter block above it is optional,
+  for tags (`tags: [ethics, method]`) or to turn paragraph numbers off
+  (`paragraphNumbers: false`); inline `#tags` in the text work too.
 - Concept pages live in `chapters/Definitions/` and are reached with
   `[[wikilinks]]`. The filename is the link target: renaming one breaks every
   chapter that links to it.

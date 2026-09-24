@@ -13,14 +13,12 @@ Reading this takes ten minutes. Your first edit will take about five.
 
 ## What this is
 
-The textbook lives as a set of plain text files. Normally those files are edited
-in a desktop app called Obsidian, which is a lot of setup for someone who wants
-to fix a paragraph.
+The textbook lives as a set of plain text files in a repository on GitHub. The
+website is built from those files.
 
-So there is a second door: a web page called the **CMS** (content management
-system). It shows you the same chapters in an editing box in your browser. When
-you save, it writes your change back to the same place Obsidian would have — you
-are editing the real textbook, not a copy.
+The **CMS** (content management system) is a web page that shows you the same
+chapters in an editing box in your browser. When you save, it writes your change
+back to those files — you are editing the real textbook, not a copy.
 
 The important thing to understand, and the thing this whole guide is really
 about, is this:
@@ -195,9 +193,11 @@ Then:
   accepts it.
   If the email is unwelcome, turn it off in GitHub's notification settings — the
   bell will still work.
-- **The maintainer reviews the holding area** and, when satisfied, publishes a
+- **The maintainer reviews the holding area** and, when satisfied, sends a
   batch of accepted changes to the live site. This is a separate, deliberate
-  step that only the maintainer can take.
+  step that only the maintainer can take. Until then, accepted changes can be
+  seen on the book's drafts preview, a copy of the site built from `drafts`;
+  the technical contact can give you its address.
 - **You may get a comment** asking a question or suggesting a rewording. You
   reply on GitHub, or just go back into the CMS, make the change, and save again.
 
@@ -238,8 +238,7 @@ the book's own site.
 
 The book's website is built from the chapter files and nothing else. The CMS is
 not a chapter — it is a tool, and it is deliberately kept out of the set of
-files the website is built from. If it were included, it would appear to readers as a strange broken page
-in the middle of the textbook.
+files the website is built from.
 
 That is why the editor is hosted separately, and why its address looks nothing
 like the book's.
@@ -258,9 +257,9 @@ like the book's.
 
 ## Related guides
 
-- **`docs/how-to-comment.md`** — the annotation sidebar as readers meet it.
+- **`/how-to-comment` on the book's site** — the annotation sidebar as readers meet it.
   Worth a skim even though it is written for students: the margin comments are
   where a good number of the copy-edits you will be asked to make start out.
-- **`docs/editing-the-textbook.md`** — the maintainer's route into the same
-  files, through Obsidian rather than the CMS. You do not need it; it is there if
-  you want to see what happens to your change after it is accepted.
+- **`docs/editing-the-textbook.md`** — the author's guide to the same files,
+  and to how a change goes live. You do not need it; it is there if you want to
+  see what happens to your change after it is accepted.

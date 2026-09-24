@@ -8,5 +8,5 @@ node_modules/
 *.log
 Thumbs.db
 
-# Quartz's build output, if this book is served by Quartz.
+# A local build's output (quartz-book's build-book.sh --out public).
 public/

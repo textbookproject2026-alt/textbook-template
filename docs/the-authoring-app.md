@@ -51,11 +51,12 @@ is no *Check for updates*.
 
 ### Two habits worth having
 
-**Save and close the chapter in Obsidian first.** If a chapter is open in Obsidian
-with unsaved edits, those edits are not on disk yet and the app cannot see them.
-Press **Command-S** and close the tab before you start. The app watches for this:
-if a file changes on disk while you are answering questions, it **refuses to save**
-and tells you to start again, rather than overwriting what Obsidian wrote.
+**If you also edit a copy of the book in Obsidian, save and close the chapter
+there first.** If a chapter is open in Obsidian with unsaved edits, those edits
+are not on disk yet and the app cannot see them. Press **Command-S** and close the
+tab before you start. The app watches for this: if a file changes on disk while
+you are answering questions, it **refuses to save** and tells you to start again,
+rather than overwriting what Obsidian wrote.
 
 **There is no undo.** When you press save, the chapter is rewritten and the old
 version is gone from your Mac. The app says so before you press, and you have to
@@ -134,7 +135,7 @@ already in the glossary are never offered again.
 ## `glossary.md` is written by the app
 
 **This is the one thing in this guide to remember.** `glossary.md` at the top of
-the vault is not a hand-kept file. Every term you approve in the third question is
+the book is not a hand-kept file. Every term you approve in the third question is
 written into it by the app, and that is the normal way entries get there.
 
 What it does, exactly:
@@ -173,9 +174,9 @@ website. Read it there; it is not repeated here.
 
 Two things worth knowing from this side:
 
-- The chapter's pictures go into the vault's own `assets/`, in a folder named
+- The chapter's pictures go into the book's own `assets/`, in a folder named
   after the chapter — the same convention as everything else in the book (see
-  *How the vault is organised* in `docs/editing-the-textbook.md`).
+  *How the book is organised* in `docs/editing-the-textbook.md`).
 - A chapter fresh out of Word has no links in it at all, so the app offers to go
   straight through it with the same three questions. You can say "not now" and do
   it another day.
@@ -309,23 +310,26 @@ go includes other people's work as well as the change you just accepted, and you
 should see it before it goes.
 
 **Sometimes it will not let you.** If the same wording has been changed both in
-the drafts area and in the live book — usually because you also edited that line
-in Obsidian — it says so and refuses to choose between them. Nothing is lost and
+the drafts area and in the live book — usually because that line was also
+changed on the live branch directly — it says so and refuses to choose between
+them. Nothing is lost and
 nothing is undone. It also tells you when it is simply still working out whether
 the change can go, or waiting on the book's own checks, and says so in those words
 rather than pretending everything is fine.
 
-**The site takes a few minutes to catch up.** It rebuilds itself after you
-publish; readers see the change once it has.
+**The site takes a couple of minutes to catch up** (15 minutes at worst). It
+rebuilds itself from the live branch; readers see the change once it has. If a
+build fails, the previous version stays up and the change waits
+(`docs/troubleshooting.md`).
 
-**Your vault will be behind afterwards.** Publishing writes to the live book, and
-your Obsidian vault does not know about it. Your copy and the live book now
-disagree, and the next thing you write in that file is where it bites.
-**How your vault gets the latest** depends on how your vault reaches GitHub,
-which is agreed when the book is set up and written down in
+**A copy in Obsidian will be behind afterwards.** If you keep one, going live
+writes to the live book and your copy does not know about it. Your copy and the
+live book now disagree, and the next thing you write in that file is where it
+bites. **How your copy gets the latest** depends on how it reaches GitHub, which
+is agreed with the technical contact and written down in
 `docs/what-this-book-runs-on.md`. If it isn't written there, ask the technical
-contact to bring your vault up to date after you publish from here, rather than
-carrying on and hoping.
+contact to bring your copy up to date after going live, rather than carrying on
+and hoping.
 
 ### The weekly jobs
 
@@ -392,7 +396,7 @@ it is asking about its own saved items, nothing else on the Mac.
 |---|---|
 | Sign-in fails, or *Waiting for you* is empty when it shouldn't be | `docs/troubleshooting.md` — *The author's console won't sign in* |
 | Anything about converting a Word document | `docs/word-to-markdown.md`, Part 4 |
-| *This chapter changed on disk* | Obsidian saved underneath you. Nothing was written. Close the chapter in Obsidian and start again |
+| *This chapter changed on disk* | Something, usually Obsidian, saved the file underneath you. Nothing was written. Close the chapter in Obsidian and start again |
 | The browser page didn't open | Double-click the app icon again |
 | A citation wasn't offered | The matching entry is missing from that chapter's References section — the app lists these at the end |
 | No concept pages were found | You opened a single chapter; open the whole vault folder instead |
@@ -402,8 +406,8 @@ The app keeps a log at
 `~/Library/Application Support/Authoring Assistant/log.txt`. You never need to read
 it, but it is the first thing the technical contact will ask for.
 
-**Nothing the app does is damage.** The site can always be republished from your
-vault, and every past version of every file is kept.
+**Nothing the app does is damage.** The site is always rebuilt from the
+repository, and every past version of every file is kept.
 
 ---
 

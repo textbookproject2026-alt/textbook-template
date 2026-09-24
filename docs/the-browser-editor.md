@@ -1,7 +1,7 @@
 # The browser editor: this book's side
 
 **Audience: the book's technical contact.** Trusted contributors can edit
-chapters in a web page instead of Obsidian. That page is the browser editor
+chapters in a web page. That page is the browser editor
 (Sveltia CMS). It's optional; a book has one when its registry entry says
 `cms.enabled: true`. Two halves make it work:
 
@@ -58,10 +58,10 @@ branch, and so does the registry's CI. Protecting the live branch (require a pul
 request) makes it hold even if both were bypassed. Leave the drafts branch
 unprotected, because the editor merges its own entry pull requests into it.
 
-**If the book is on Obsidian Publish,** keep `admin/` out of the published set.
-Otherwise a reader would see the repository layout and the relay URL, and the
-page would render as a broken note. Add `admin/` to the `excluded` list in
-`.obsidian/publish.json`, and check the Publish dialog once.
+**`admin/` never reaches the reading site.** The platform's builder publishes
+only `index.md`, `chapters/`, `assets/`, `glossary.md` and `community/`, so
+there is nothing to exclude. The editor host is this book's own Pages project,
+separate from the reading site's, until the platform has a shared CMS host.
 
 ---
 
@@ -88,7 +88,8 @@ reach**, private ones included. The contributors' guide says so too.
 3. Open a chapter, make a trivial edit, and save.
 4. On GitHub, confirm that a `cms/…` branch and a pull request appeared, that the
    pull request targets the **drafts** branch, and that the live branch is
-   untouched.
+   untouched. Once an entry is merged into `drafts`, it shows on the drafts
+   preview, `https://drafts.<project>.pages.dev`, a few minutes later.
 
 Step 4 is the one that matters. If a pull request ever targets the live branch,
 stop, and read the `branch` line in `admin/config.yml` and the registry's
@@ -101,5 +102,5 @@ stop, and read the `branch` line in `admin/config.yml` and the registry's
 | Popup opens and closes, still signed out | **platform owner** | this book's editor host is missing from the relay's `ALLOWED_DOMAINS`, or the relay is down |
 | Signs in, but saving fails | yours | the contributor doesn't have **Write** |
 | The editor looks old, or a chapter that exists isn't listed | yours | the Pages project has disconnected from Git and stopped rebuilding. Reconnect it |
-| The whole chapter is one text box | nobody | correct. `format: raw`: chapters have no frontmatter |
+| The whole chapter is one text box | nobody | correct. `format: raw`: the file is edited exactly as it is, frontmatter included |
 | A save adds a `---` block at the top | yours | `format: raw` was changed. Revert it in `templates/admin/config.yml` |
