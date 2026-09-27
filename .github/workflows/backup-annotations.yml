@@ -1,0 +1,19 @@
+name: Backup annotations
+
+# The margin's annotations, weekly, to the `backups` branch. With no
+# HYPOTHESIS_API_TOKEN secret the run is green and skips the backup (no per-book token
+# by default).
+# The job is the platform's: quartz-book's book-backup-annotations.yml, called at `stable`
+# (BOOK-ONE-TO-QUARTZ §8 steps 14 and 23). Skipped in the template repo itself.
+on:
+  schedule:
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  backup:
+    if: github.repository != 'textbookproject2026-alt/textbook-template'
+    uses: textbookproject2026-alt/quartz-book/.github/workflows/book-backup-annotations.yml@stable
+    secrets:
+      HYPOTHESIS_API_TOKEN: ${{ secrets.HYPOTHESIS_API_TOKEN }}

@@ -1,0 +1,18 @@
+name: Update contributors
+
+# community/contributors.md, proposed as a pull request that merges itself.
+# The job is the platform's: quartz-book's book-community-page.yml, called at `stable`
+# (BOOK-ONE-TO-QUARTZ §8 steps 14 and 23). Skipped in the template repo itself.
+on:
+  schedule:
+    - cron: "0 7 * * 0"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  contributors:
+    if: github.repository != 'textbookproject2026-alt/textbook-template'
+    uses: textbookproject2026-alt/quartz-book/.github/workflows/book-community-page.yml@stable
+    with:
+      page: contributors
