@@ -46,7 +46,8 @@ that runs itself.
 
 | Where | What it holds |
 |---|---|
-| `chapters/` | The book. One file per chapter: `chapter-01.md`, `chapter-02.md`, and so on. |
+| `chapters/` | The book. One file per chapter: `chapter-01.md`, `chapter-02.md`, and so on, the one naming rule for every book on the platform. The authoring app names a chapter brought in from Word this way (`docs/word-to-markdown.md`). |
+| `chapter-sources.json` | Which Word file became which chapter, so bringing the same Word file in again replaces the same chapter. **Written by the authoring app** (and by the platform when it makes a book from a manuscript); not published, and not for editing by hand. |
 | `chapters/Definitions/` | The concept pages — one short, standalone page per idea, named for the idea itself (`Opportunity Cost.md`, `Natural Selection.md`). These are what a reader sees pop up when they hover a linked term inside a chapter. |
 | `assets/` | Every image in the book, in one subfolder per chapter: `assets/chapter-05/`. |
 | `glossary.md` | The list of terms with the chapter each was first used in. **Written by the authoring app**, not by hand: terms you approve there are spliced in alphabetically, and your own wording is never rewritten. See `docs/the-authoring-app.md` before reorganising it. |

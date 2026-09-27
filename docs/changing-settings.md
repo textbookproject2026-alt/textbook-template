@@ -32,9 +32,9 @@ You never edit those pages themselves.
 
 **Don't, unless the platform owner has planned it with you.** Every reader
 comment is attached to the address it was made on, and nothing can move them, so
-a new address starts the margin again. A move is a registry change, plus the
-custom domain on the book's Pages project, plus the analytics site's name, all at
-once. It's planned
+a new address starts the margin again. A move is a registry change plus the
+custom domain on the book's Pages project, at once. (Analytics follow the
+hostname by themselves: the platform's one Plausible site filters by it.) It's planned
 by the platform owner, not done from here.
 
 ## Important

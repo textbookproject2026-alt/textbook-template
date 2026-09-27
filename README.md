@@ -44,7 +44,7 @@ Suggest row and paragraph numbers, all from one place.
 | `templates/` | Every generated file: `README.md`, `CONTRIBUTING.md`, `.lycheeignore`, `admin/config.yml` |
 | `configure.mjs` | Renders `templates/` from the slug plus this book's registry entry |
 | `scripts/new-book.mjs` | The interactive start: writes the config and a **proposed** registry entry |
-| `.github/workflows/` | `nudge` (tells the builder a branch moved), `lint`, `link-check`, `apply-config`, `weekly-snapshot` |
+| `.github/workflows/` | `nudge` (tells the builder a branch moved), `lint`, `link-check`, `apply-config`, `weekly-snapshot`, and four Sunday callers of the platform's reusable workflows: `backup-annotations`, `contributors`, `derivatives`, `dashboard`. The four are skipped in the template repo itself |
 | `docs/` | The book's maintainer, author, contributor and student guides, generalised from book one's. Start at `docs/README.md` |
 
 ## One config value, and a registry
@@ -69,10 +69,9 @@ things no platform owner has agreed to.
 | Left out | Why |
 |---|---|
 | Quartz, a site configuration, reader-side scripts | All in the builder, `quartz-book`, and its plugins in `quartz-edition-extras`. A book that carried its own would drift from every other book, and miss every later fix |
-| `contributors.yml`, `dashboard.yml`, `derivatives.yml`, `backup-annotations.yml` | Book-level, but each one needs a script from book one's `scripts/` (2,200 lines), and three of them need something a new book does not have: a Hypothes.is API token, a Plausible site, or an edition template. They are to become reusable workflows in `quartz-book` with a short caller per book (`BOOK-ONE-TO-QUARTZ.md` §8 step 14); until then, copy them in when the book has the thing they read |
 | `stats.yml` | A placeholder that echoes a TODO |
 | `OAUTH-SETUP.md`, book one's platform guides | The platform's operator docs now live in `textbook-registry/docs/`, not in any book. This template's `docs/` holds the **maintainer** guides, generalised from book one's |
-| `community/`, `LICENSE` | Generated pages the book does not have yet; and the licence is the maintainer's choice, recorded in the registry |
+| `community/`, `LICENSE` | Generated pages: the Sunday workflows write `community/` on their first run. The licence is the maintainer's choice, recorded in the registry |
 | Anything naming book one | The chapters, front page, glossary, Hypothes.is groups and Plausible site are all its own |
 
 ## Testing it before you trust it
