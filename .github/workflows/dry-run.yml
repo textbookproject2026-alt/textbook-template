@@ -100,6 +100,10 @@ jobs:
             echo "::notice::No Cloudflare secrets, so the dry-run book was built but not deployed."
             exit 0
           fi
+          # A secret pasted with a trailing newline breaks the API URL (curl
+          # exit 3, 27 Sep 2026), so trim both. wrangler reads the exported values.
+          export CLOUDFLARE_API_TOKEN="$(printf '%s' "$CLOUDFLARE_API_TOKEN" | tr -d '[:space:]')"
+          export CLOUDFLARE_ACCOUNT_ID="$(printf '%s' "$CLOUDFLARE_ACCOUNT_ID" | tr -d '[:space:]')"
           COMMIT="$(git -C book rev-parse HEAD)"
           # The spare Direct Upload project, created on the first run.
           API="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects"
