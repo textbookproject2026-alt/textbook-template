@@ -118,8 +118,26 @@ The app flags each of them in its report (Part 3), and they have to be redone.
    and `glossary.md`. If it cannot find one it says so there and then, before any
    converting happens, and asks you to choose a folder inside your textbook.
 
-4. **Name the chapter.** The app fills this in for you from the Word file's own
-   name, and you can edit it. This is the chapter's file name in the book.
+4. **Name the chapter.** Every book on the platform names its chapters
+   `chapter-01.md`, `chapter-02.md` and so on (decided 27 Sep 2026), and in the
+   book's `chapters` folder the app fills in the right one for you:
+
+   - a Word file the book hasn't seen gets **the next free number**;
+   - **the same Word file again** gets the chapter it became last time, so
+     bringing it in again replaces that chapter. The book remembers which Word
+     file became which chapter in `chapter-sources.json`, at its top; the app
+     updates it when it saves or sends the chapter. Don't edit it by hand;
+   - a chapter named before the rule, in a book that went live with other names,
+     keeps its name: its web address is live.
+
+   A line under the box says which of the three it is. You can change the name,
+   but a new chapter must still be `chapter-NN.md`: the app refuses anything
+   else in `chapters`. Concept pages, in `chapters/Definitions`, keep their own
+   names.
+
+   **Bringing a chapter in again** replaces it only through **Send to drafts**,
+   where you tick a box to say so and the change is one commit you can look back
+   at. Saving into your folder never writes over a file (below).
 
    **What the app enforces:** the name must end in `.md` (if you leave it off,
    the app adds it); it must be a plain name, not a path with folders in it; it
@@ -128,13 +146,10 @@ The app flags each of them in its report (Part 3), and they have to be redone.
    anything. **The app never writes over an existing file and has no undo**, so
    either kind of clash stops the conversion and asks you for a different name.
 
-   **What the app does not enforce — but you should still do.** Name chapters
-   `chapter-05`, `chapter-12`: the word `chapter`, a dash, and the two-digit
-   number. Nothing in the app checks this, so the responsibility is yours, and it
-   matters for three reasons:
+   **Why the rule matters:**
 
-   - the chapters already in the book are named this way, and the website builds
-     its page addresses out of the file names;
+   - the website builds its page addresses out of the file names, so one rule
+     means one style of address in every book;
    - links between chapters are written from the name — `[[chapter-04]]` only
      works if the file really is `chapter-04.md`;
    - the picture folder is named after the chapter, so a distinctive chapter name
