@@ -132,6 +132,18 @@ Then turn on branch protection for the live branch, requiring a pull request.
 The drafts branch stays unprotected: the browser editor and the console write to
 it.
 
+Two repository settings, for the Sunday community pages (contributors,
+derivatives, dashboard), which arrive as pull requests that merge themselves:
+
+- **Settings → General → Pull Requests → Allow auto-merge**: on.
+- **Settings → Actions → General → Workflow permissions → Allow GitHub Actions to
+  create and approve pull requests**: on.
+
+No Hypothes.is token is needed. Without the `HYPOTHESIS_API_TOKEN` secret the
+Sunday annotation backup skips, green, and the dashboard counts the public layer
+anonymously. Add the secret later to start backups (`docs/annotation-restore.md`).
+A book with private annotation groups needs it for the dashboard too.
+
 ## Step 3 — hand the entry over (maintainer → platform owner)
 
 Send `registry-entry.json` and `REGISTRY-REQUEST.md`. That is the whole handover.
@@ -429,11 +441,11 @@ Honestly, and in order of how much of the setup they account for.
    repository, edited by hand. `DESIGN.md` step 5a plans for CI to generate it
    from the registry's `cms.host` values. Also not built. It is checked by nothing
    and is printed as "not checkable" on every parity run.
-5. **The book's weekly jobs.** Contributors, the project dashboard, derivatives
-   and the annotation backup are planned as reusable workflows in `quartz-book`
-   with a ten-line caller in each book (`BOOK-ONE-TO-QUARTZ.md` §8 step 14). Until
-   they exist, a new book has none of them; see "What this template leaves out" in
-   `README.md`.
+5. **The book's weekly jobs.** Done (27 Sep 2026): contributors, the project
+   dashboard, derivatives and the annotation backup are `quartz-book`'s reusable
+   workflows, and this template carries a short caller for each
+   (`BOOK-ONE-TO-QUARTZ.md` §8 steps 14 and 23). What they still need by hand is
+   the two repository settings in Step 2.
 6. **Rendering after a registry-only change.** `configure.mjs` runs when a pull
    request touches the config, a template or the renderer. A registry change alone
    triggers nothing. This template's `apply-config.yml` adds a weekly run that
