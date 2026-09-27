@@ -187,12 +187,12 @@ is visible, are the platform owner's — see
 - **Your own browser is probably blocking it.** Ad-blockers and Safari's tracking
   protection hide your own visits. Check from a phone on mobile data with the
   blocker off — if numbers appear, nothing is wrong.
-- **Are you looking at the right site?** The book's figures are under the
-  Plausible site named exactly after the book's address; any other copy of the
-  book (a department edition, say) has its own.
-- **Does the book have analytics at all?** A new book has none until a
-  Plausible site is created and recorded in the platform registry
-  (`SETUP.md`, step 9).
+- **Are you looking at the right site?** Every book's figures are in the
+  platform's one Plausible site, `confused4now.org`, filtered to the book's
+  hostname (the dashboard page's link applies the filter). A department edition
+  has its own.
+- **Is the book live?** Only a `live` book is counted. A `preview` book has no
+  analytics script at all.
 - **Were the visits on the book's own address?** Analytics count only there.
   Visits to the drafts preview or any other `pages.dev` address are never
   counted.
