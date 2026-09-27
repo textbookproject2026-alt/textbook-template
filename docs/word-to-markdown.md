@@ -208,6 +208,11 @@ and type new sentences the same way.
 
 ## Part 3 — Check it worked
 
+(With a DeepSeek key, the authoring app can also check the converted chapter's
+formatting against the platform's rules and offer fixes one line at a time. It never
+changes wording. See *The AI formatting check* in
+[`the-authoring-app.md`](the-authoring-app.md). The checklist below still applies.)
+
 ### The report
 
 The report is not a table of counts to tick off. It is **a list of notes written
