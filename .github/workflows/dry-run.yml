@@ -8,9 +8,10 @@ name: dry-run
 #      proposed registry entry.
 #   2. That entry, added to the live registry, passes the registry's validate.mjs.
 #   3. quartz-book at `stable` builds the book with that registry.
-#   4. With the secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID set, the
-#      site is deployed to the spare Direct Upload project DRY_RUN_PROJECT and its
-#      served marker is checked. Without them, it stops after the build.
+#   4. With the secrets CLOUDFLARE_API_TOKEN (Account: Cloudflare Pages: Edit) and
+#      CLOUDFLARE_ACCOUNT_ID set, the site is deployed to the spare Direct Upload
+#      project DRY_RUN_PROJECT (created on the first run) and its served marker is
+#      checked. Without them, it stops after the build.
 #
 # The book is never pushed anywhere and never enters the real registry.
 
@@ -100,6 +101,13 @@ jobs:
             exit 0
           fi
           COMMIT="$(git -C book rev-parse HEAD)"
+          # The spare Direct Upload project, created on the first run.
+          API="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects"
+          if ! curl -fsS -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$API/$DRY_RUN_PROJECT" >/dev/null 2>&1; then
+            curl -fsS -X POST -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
+              --data "{\"name\":\"$DRY_RUN_PROJECT\",\"production_branch\":\"main\"}" "$API" >/dev/null
+            echo "Created the Pages project $DRY_RUN_PROJECT."
+          fi
           npx --yes wrangler@4.137.0 pages deploy site --project-name "$DRY_RUN_PROJECT" --branch main \
             --commit-hash "$COMMIT" --commit-message "dry run of textbook-template ${GITHUB_SHA::7}" --commit-dirty=true
           URL="https://${DRY_RUN_PROJECT}.pages.dev/.well-known/textbook.json"
