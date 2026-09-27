@@ -57,15 +57,17 @@ If you're inheriting this book, read these first:
 - **[`the-browser-editor.md`](the-browser-editor.md)**: the optional browser
   editor: its host, its generated config, contributor access.
 
+- **[`annotation-restore.md`](annotation-restore.md)**: the Sunday annotation
+  backup, which runs only once the book has a Hypothes.is token, and what
+  restoring from it really involves.
+
 ## Not included, and where to find it
 
-| If the book adds | Take the guide from book one (`textbookproject2026-alt/textbook/docs/`) |
+| If the book adds | The guide |
 |---|---|
-| the weekly annotation backup | `annotation-restore.md` |
-| department editions | `for-course-coordinators.md`, `updating-department-editions.md` |
+| department editions | `for-course-coordinators.md` and `updating-department-editions.md`, in [`textbook-edition-template/docs/`](https://github.com/textbookproject2026-alt/textbook-edition-template/tree/main/docs) |
 
-Each of those describes machinery a new book doesn't start with. Copy the guide
-in along with the workflow or template it describes.
+Editions are machinery a new book doesn't start with.
 
 **Screenshots.** The `[SCREENSHOT: …]` markers are images that haven't been
 taken yet. Leave them as markers until someone shoots the real thing.
