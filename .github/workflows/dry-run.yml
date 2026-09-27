@@ -1,0 +1,115 @@
+name: dry-run
+
+# Step 23's proof, kept (BOOK-ONE-TO-QUARTZ §8 step 23): a book made from this
+# template, the way SETUP.md makes one, is a valid registry entry and builds
+# through the platform's builder. Runs only in the template repo itself.
+#
+#   1. scripts/new-book.mjs, answered from a script, writes the book and its
+#      proposed registry entry.
+#   2. That entry, added to the live registry, passes the registry's validate.mjs.
+#   3. quartz-book at `stable` builds the book with that registry.
+#   4. With the secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID set, the
+#      site is deployed to the spare Direct Upload project DRY_RUN_PROJECT and its
+#      served marker is checked. Without them, it stops after the build.
+#
+# The book is never pushed anywhere and never enters the real registry.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DRY_RUN_PROJECT: dry-run-book-tpl
+
+jobs:
+  dry-run:
+    if: github.repository == 'textbookproject2026-alt/textbook-template'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: template
+          persist-credentials: false
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      - name: The platform's builder and registry
+        run: |
+          set -euo pipefail
+          git -c credential.helper= clone --quiet --depth 1 --branch stable \
+            https://github.com/textbookproject2026-alt/quartz-book.git quartz-book
+          git -c credential.helper= clone --quiet --depth 1 \
+            https://github.com/textbookproject2026-alt/textbook-registry.git registry
+          echo "quartz-book stable: $(git -C quartz-book rev-parse HEAD)"
+          echo "registry main: $(git -C registry rev-parse HEAD)"
+
+      - name: 1. Make a book with new-book.mjs
+        run: |
+          set -euo pipefail
+          cp -R template book
+          rm -rf book/.git
+          cd book
+          # title, slug, summary, licence, maintainer name, login, repo, live,
+          # drafts, Pages project, hostname; then every y/n takes its default.
+          { printf '%s\n' "Dry Run Book" "" "A dry run of the new-book template, built through the builder." "" \
+              "Platform Owner" "textbookproject2026-alt" "textbookproject2026-alt/dry-run-book" "main" "drafts" \
+              "$DRY_RUN_PROJECT" ""; printf "\n%.0s" $(seq 1 40); } | node scripts/new-book.mjs --registry ../registry/registry.json
+          test -f registry-entry.json
+
+      - name: 2. Its registry entry is valid
+        run: |
+          set -euo pipefail
+          node -e '
+            const fs = require("fs")
+            const r = JSON.parse(fs.readFileSync("registry/registry.json", "utf8"))
+            r.books.push(JSON.parse(fs.readFileSync("book/registry-entry.json", "utf8")))
+            fs.writeFileSync("registry-dry.json", JSON.stringify(r, null, 2))
+          '
+          (cd registry && npm ci --silent && node scripts/validate.mjs ../registry-dry.json)
+
+      - name: 3. The builder builds it
+        run: |
+          set -euo pipefail
+          cd book
+          rm -f registry-entry.json REGISTRY-REQUEST.md
+          git init --quiet -b main
+          git add -A
+          git -c user.name=dry-run -c user.email=dry-run@invalid commit --quiet -m "dry run"
+          cd ../quartz-book
+          npm ci --silent
+          npx quartz plugin install
+          ./build-book.sh ../book --branch main --out ../site --registry ../registry-dry.json
+          cat ../site/.well-known/textbook.json
+
+      - name: 4. Deploy to the spare Pages project, and read it back
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::notice::No Cloudflare secrets, so the dry-run book was built but not deployed."
+            exit 0
+          fi
+          COMMIT="$(git -C book rev-parse HEAD)"
+          npx --yes wrangler@4.137.0 pages deploy site --project-name "$DRY_RUN_PROJECT" --branch main \
+            --commit-hash "$COMMIT" --commit-message "dry run of textbook-template ${GITHUB_SHA::7}" --commit-dirty=true
+          URL="https://${DRY_RUN_PROJECT}.pages.dev/.well-known/textbook.json"
+          for _ in $(seq 1 30); do
+            GOT="$(curl -fsS "$URL?t=$(date +%s)" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{try{console.log(JSON.parse(s).book_commit)}catch{}})' || true)"
+            if [ "$GOT" = "$COMMIT" ]; then
+              echo "$URL serves the dry-run book ($COMMIT)."
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::$URL isn't serving $COMMIT after 5 minutes (got ${GOT:-nothing})."
+          exit 1

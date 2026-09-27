@@ -364,11 +364,12 @@ owner's:
    **not built**. Until it is, every book that wants the editor needs its own
    Pages project and its own allowlist entry.
 
-**Analytics.** Create the Plausible site named **exactly** the book's hostname,
-then record `analytics.plausible` in the registry. The public dashboard URL is
-derived from that name and never stored, so the two have to change together: a
-registry value recorded ahead of the rename publishes a dead link at the next
-weekly rebuild.
+**Analytics.** Nothing to set up. The platform has one Plausible site,
+`confused4now.org` (the registry's `platform.analytics`), and the builder gives
+its script to every `live` book, counting only on the book's own hostname
+(BOOK-ONE-TO-QUARTZ D19). A book has no analytics field of its own: the registry
+refuses one. Its figures are that site's, filtered to the book's hostname, and
+the dashboard page links there.
 
 **Annotation.** Hypothes.is needs no per-book setup; the builder embeds it. Only
 private groups are recorded in the registry, and per-cohort groups were decided

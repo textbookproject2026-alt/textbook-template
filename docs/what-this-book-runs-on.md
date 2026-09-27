@@ -47,12 +47,9 @@ made or approved by the platform owner. See [`changing-settings.md`](changing-se
 | **The reading site** | *Pages project* (`site.host.project`): the live branch on the book's address, `drafts` at `drafts.<project>.pages.dev` | the platform's Cloudflare account (`site.host.paid_by`) | the book is offline |
 | **The build nudge** | `.github/workflows/nudge.yml`: tells the builder when a branch moves. It holds no secret | this repository | builds wait for the builder's 15-minute check |
 | **The browser editor's host** (optional) | *Pages project and hostname* | *Cloudflare account* | trusted contributors can't edit ([`the-browser-editor.md`](the-browser-editor.md)) |
-| **Analytics** (optional) | *Plausible site name. It must equal the book's hostname*. It counts only on that hostname, never on previews | *Plausible account* | no readership figures |
-| **Annotation backup** (optional) | *Hypothes.is account, and the repo secret `HYPOTHESIS_API_TOKEN`* | *person* | the weekly backup fails loudly |
-| **Weekly workflows** | `weekly-snapshot` (a `snapshot-YYYY-MM-DD` tag), `lint`, `link-check`, `apply-config`, plus any the book adds | this repository | generated files go stale |
-
-**The Plausible site's name must equal the registry's `analytics.plausible.site`.**
-A domain move is therefore two changes that land together.
+| **Analytics** | the platform's one Plausible site, `confused4now.org`, filtered to this book's hostname. Counts only there, and only while the book is `live` | the platform | no readership figures |
+| **Annotation backup** (optional) | *Hypothes.is account, and the repo secret `HYPOTHESIS_API_TOKEN`*. Without the secret the weekly run skips, green | *person* | the weekly backup skips |
+| **Weekly workflows** | `weekly-snapshot` (a `snapshot-YYYY-MM-DD` tag), `lint`, `link-check`, `apply-config`, and the Sunday callers `backup-annotations`, `contributors`, `derivatives`, `dashboard` | this repository | generated files go stale |
 
 ---
 

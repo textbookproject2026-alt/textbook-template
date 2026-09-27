@@ -249,7 +249,6 @@ const entry = {
   maintainer: { name: maintainerName, github: maintainerGithub },
   content: { repo, live_branch: liveBranch, drafts_branch: draftsBranch },
   site,
-  analytics: { plausible: null },
   annotations: { hypothesis_groups: [] },
   suggest_edit: { enabled: true, counted_from: null },
   cms: { enabled: wantsCms, host: null },
@@ -260,7 +259,7 @@ const guesses = [];
 guesses.push(`\`site.host.project\` is **${project}**. The project does not exist yet; create it as a Direct Upload project in the platform's Cloudflare account, and check the address Cloudflare gives it before merging (SETUP.md step 6).`);
 guesses.push("`site.host.paid_by` is `platform`: every book on the builder is served from the platform's Cloudflare account.");
 guesses.push("`status` is `preview`, always. A book becomes `live` in a second pull request, after the site has been seen to answer on its own hostname.");
-guesses.push("`analytics.plausible` and `annotations.hypothesis_groups` are empty. Add them when those accounts exist, not before: a Plausible site name recorded ahead of the rename publishes a dead dashboard link.");
+guesses.push("`annotations.hypothesis_groups` is empty. Add a group only when it exists. There is no analytics field: the platform's one Plausible site counts every live book on its own hostname (BOOK-ONE-TO-QUARTZ D19).");
 if (!registry) guesses.push("**The registry could not be read when this was generated**, so the slug, repository and hostname were not checked for collisions. Check all three.");
 if (onShared) guesses.push(`\`site.domain\` is on a shared suffix, so this book cannot be promoted to \`live\` while it keeps that address (validate.mjs enforces it).`);
 
