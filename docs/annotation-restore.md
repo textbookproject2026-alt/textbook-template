@@ -7,7 +7,7 @@ want to know at the worst possible moment — what it would really take to get
 annotations back if something went wrong.
 
 **Only with a token.** The job runs only if the repository has the secret
-`HYPOTHESIS_API_TOKEN` (a token from <https://hypothes.is/account/developer>,
+`HYPOTHESIS_API_TOKEN` (a token from `hypothes.is/account/developer`,
 under Settings → Secrets and variables → Actions). A new book doesn't have one:
 its weekly run is green and says "no backup this week". Add the secret when the
 book's margin is worth keeping, and the next Sunday's run backs it up.
@@ -239,7 +239,7 @@ the more valuable of the two options.
 
 **It depends on one secret.** The repository secret `HYPOTHESIS_API_TOKEN` holds
 an API token belonging to a Hypothes.is account that is a member of every group
-being backed up. Get one from <https://hypothes.is/account/developer>, and set it
+being backed up. Get one from `hypothes.is/account/developer`, and set it
 under Settings → Secrets and variables → Actions.
 
 **A dead token is the failure mode to watch for.** The Hypothes.is API does
