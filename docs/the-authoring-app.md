@@ -11,7 +11,8 @@ it makes one — nothing it does is hidden from you.
 
 The guide has two halves, because the app has two:
 
-- **Chapters** — the three questions it asks about a chapter you are working on.
+- **Chapters** — the three questions it asks about a chapter you are working on,
+  and an optional AI formatting check.
 - **Waiting for you** — reader suggestions, contributors' draft changes, and the
   one button that takes accepted work to readers.
 
@@ -83,7 +84,8 @@ At the end you are shown exactly what will change — the changed lines side by
 side, and the whole chapter as it will be. You tick a box and press **Save these
 changes**.
 
-**It never reformats anything.** Only the exact lines being changed are rewritten.
+**It never reformats anything you haven't approved.** Only the exact lines being
+changed are rewritten.
 Every other line is copied through character for character: no re-wrapping, no
 tidied spacing, no reordering. Accept twelve changes across nine lines and exactly
 nine lines change.
@@ -129,6 +131,36 @@ It looks for terms worth defining, using three ordinary signals:
 
 For each one it proposes the sentence that introduces it as the definition. Terms
 already in the glossary are never offered again.
+
+### 4. The AI formatting check (optional)
+
+With a DeepSeek key set up (see *Settings*), a fourth box appears on the same
+screen: **AI formatting check**. Tick it, on its own or with the others, and the app
+sends the chapter to DeepSeek with **the platform's formatting rules**, then offers
+each fix it proposes, one at a time, like the other questions. Examples:
+
+- a line that is only **bold** and should be a heading;
+- a `•` bullet that should be a `-` bullet;
+- `> [!Tip]` that should be `> [!tip]`;
+- a concept link whose page name is spelt wrong.
+
+Each fix shows the whole line as it is and as it would be, and names its rule. For a
+rule with several fixes you can say **yes to every fix under that rule**.
+
+**It never changes your words.** Before a fix is offered, the app compares the
+line's words with and without it, ignoring markup. If a single word, number or
+punctuation mark would differ, the fix is thrown away, and the confirmation screen
+lists it under *Also worth knowing*, with its line and the reason. The same goes for
+a fix that would change a web address, a footnote, a reference marker, or a concept
+link. It never touches frontmatter or code, and it never adds or removes lines:
+problems like a missing blank line are listed as notes for you to fix by hand.
+
+The rules are the platform's formatting knowledge base, kept in the app as
+`app/formatting_rules.md`. They come from this guide, from
+[`word-to-markdown.md`](word-to-markdown.md), and from *The markdown you'll actually
+meet* in [`editing-the-textbook.md`](editing-the-textbook.md). The screen shows which
+version was used. The ordinary Word conversion doesn't depend on any of this: the
+check is something you choose to run afterwards.
 
 ---
 
@@ -178,8 +210,8 @@ Two things worth knowing from this side:
   after the chapter — the same convention as everything else in the book (see
   *How the book is organised* in `docs/editing-the-textbook.md`).
 - A chapter fresh out of Word has no links in it at all, so the app offers to go
-  straight through it with the same three questions. You can say "not now" and do
-  it another day.
+  straight through it with the same three questions, and the AI formatting check if
+  you have a DeepSeek key. You can say "not now" and do it another day.
 
 ---
 
@@ -370,11 +402,12 @@ DeepSeek — an AI service — you can paste your key here, and a tick box then 
 when you start a chapter: *Also ask DeepSeek for glossary suggestions*. Ticked, the
 app sends **the text of that chapter** to DeepSeek and adds whatever extra glossary
 terms it suggests to the ones the ordinary checks found. You approve or reject each
-one exactly as before.
+one exactly as before. The same key switches on the **AI formatting check** (above),
+which sends the chapter and the formatting rules.
 
 Three things about it:
 
-- **It is off unless you set it up, and off unless you tick the box each time.**
+- **It is off unless you set it up, and off unless you tick a box each time.**
   Nothing is ever sent to DeepSeek otherwise.
 - **It is never required.** No key, no internet, a busy service, a nonsensical
   answer — every one of those falls back to the ordinary checks and says so on
