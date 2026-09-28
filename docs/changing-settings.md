@@ -4,8 +4,8 @@ The book's title, summary, maintainer, web address, licence, branches, analytics
 and whether it has the suggest-an-edit form aren't set in this repository.
 They're facts about the book that the whole platform uses: the builder makes the
 site from them, the portal lists the book by its title, the suggest-an-edit form
-accepts suggestions only from the book's address, and the author's app finds the
-book by them. So they live in one place every service reads: the book's entry in
+accepts suggestions only from the book's address, and the author site finds the
+book, and who its authors are, by them. So they live in one place every service reads: the book's entry in
 the platform registry,
 [`textbook-registry/registry.json`](https://github.com/textbookproject2026-alt/textbook-registry/blob/main/registry.json).
 
@@ -17,7 +17,7 @@ permanent name on the platform. **Never change it.**
 1. **Ask the platform owner**, saying what you want the new value to be. They
    change the registry by a reviewed pull request.
 2. That changes the book's listing on the portal once the registry's deploy
-   runs, and what the author's app shows at its next launch.
+   runs, and what the author site shows straight away.
 3. **The site catches up on its own.** The builder reads the registry at every
    build, and a change to the book's entry rebuilds the book within about 15
    minutes. The site's title and the licence link in its footer change then.

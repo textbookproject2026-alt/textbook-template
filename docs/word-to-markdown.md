@@ -1,23 +1,20 @@
 # Turning a Word chapter into a textbook chapter
 
 This guide is for you — no technical background needed. It covers writing a
-chapter in Word so that it converts cleanly, running the conversion in the
-authoring app, checking that nothing got lost, and getting it to readers.
+chapter in Word so that it converts cleanly, bringing it in on the author site,
+checking that nothing got lost, and getting it to readers.
 
-There is no terminal here, nothing to install and no commands to type. The app
-does the conversion itself, and it shows you what it did before anything is
-written.
-
-The app is the **Authoring Assistant**, the same one that links your citations
-and concept pages and builds the glossary. `docs/the-authoring-app.md` covers
-where it comes from, how to install it and everything else it does; this guide
-covers the Word half only.
+There is no terminal here, nothing to install and no commands to type. The
+**author site** ([author.confused4now.org](https://author.confused4now.org)) does
+the conversion, and shows you the whole converted chapter before anything reaches
+your book. `docs/the-author-site.md` covers signing in and everything else the
+site does; this guide covers the Word half only.
 
 The guide has five parts:
 
 1. **Write it right in Word** — habits that make conversion painless (read this before writing)
-2. **Converting a chapter** — what the app asks for, and in what order
-3. **Check it worked** — reading the app's report, plus a tick-box list per chapter
+2. **Converting a chapter** — what the site asks for, and in what order
+3. **Check it worked** — reading the site's report, plus a tick-box list per chapter
 4. **When something looks wrong** — the common problems and their fixes
 5. **Getting it into the textbook** — from converted chapter to live website
 
@@ -59,7 +56,7 @@ tables instead — it will also read better on phones.
 **Insert pictures the plain way.** Use **Insert → Picture** and place the image on
 its own line, "In Line with Text" (Word's default). Avoid text boxes, SmartArt,
 WordArt, and shapes drawn in Word — none of these come through as usable content.
-The app flags each of them in its report (Part 3), and they have to be redone.
+The site flags each of them in its report (Part 3), and they have to be redone.
 
 **Before converting, tidy up:**
 
@@ -76,75 +73,50 @@ The app flags each of them in its report (Part 3), and they have to be redone.
 
 ### Where things live
 
-- **Your Word files** stay wherever you like — for example a folder called `Word
-  chapters` in your Documents. They do **not** go inside the textbook folder; the
-  textbook folder holds only the converted versions. The Word document is read
-  and left exactly where it is: never changed, never moved.
-- **The chapter** goes into whichever folder you choose — for this textbook, that
-  is `chapters`.
-- **The chapter's pictures** go into the textbook folder's own `assets/`, in a
-  folder named after the chapter. A chapter saved as `chapters/chapter-05.md`
-  gets `assets/chapter-05/`, and the picture links inside the chapter point
-  there. This is the same convention `docs/editing-the-textbook.md` describes for
-  hand-made chapters, so converted and hand-made chapters keep their pictures in
-  the same place. The app does not ask you where the pictures should go.
+- **Your Word files** stay wherever you like, on your own computer. The Word
+  document is uploaded for converting and never changed. It is converted
+  **privately**: it never goes anywhere public, and only the chapter you send
+  reaches the book.
+- **The chapter** goes into the book's `chapters` folder, or a folder inside it
+  (such as `chapters/Definitions` for a concept page).
+- **The chapter's pictures** go into the book's own `assets/`, in a folder named
+  after the chapter. A chapter `chapters/chapter-05.md` gets
+  `assets/chapter-05/`, and the picture links inside the chapter point there.
+  This is the same convention `docs/editing-the-textbook.md` describes, so every
+  chapter keeps its pictures in the same place. You are not asked where the
+  pictures should go.
 
 ### The steps
 
-1. **Choose "A Word document"** on the app's opening screen (*What would you like
-   to work on?*), alongside "One chapter" and "My whole vault".
+1. **Open the book on the author site and choose Bring in a Word document.**
 
-   The first time only, you may get a screen headed **One thing is missing**: the
-   converter itself, a free program called pandoc, isn't on this Mac yet. Press
-   the button and the app downloads pandoc's own installer, checks that it really
-   is signed by the people who make it, and opens it for you — press **Continue**,
-   then **Install**, give the Mac's password when the installer asks, then come
-   back and press **Check again**. It is about a 40 MB download. Nothing in your
-   vault is touched.
+2. **Choose the Word document.** It has to be a `.docx`, the kind Word has saved
+   since 2007, and under 20 MB. If yours is an older `.doc`, the site says so and
+   asks you to open it in Word and use **File → Save As** to save it as a `.docx`
+   first.
 
-2. **Choose the Word document.** A file picker opens. It has to be a `.docx` —
-   the kind Word has saved since 2007. If yours is an older `.doc`, the app says
-   so and asks you to open it in Word and use **File → Save As** to save it as a
-   `.docx` first.
+3. **Choose where it goes** (only if the book has folders inside `chapters`, such
+   as `Definitions`). Leave it as **chapters** for a chapter. For a folder inside
+   it you can type the name the page should have; it starts as the Word file's own
+   name.
 
-3. **Choose where it should go in your vault.** A folder picker opens; choose the
-   textbook folder's `chapters`. The app confirms your choice and says how many
-   chapters are already in that folder, which is a quick way to tell you picked
-   the right one.
+4. **Press Convert it.** The file uploads (a bar shows how far), and the
+   conversion takes about a minute. **Nothing reaches your book at this point.**
 
-   **It has to be a folder inside the textbook folder.** Because the pictures go
-   into the textbook's own `assets/`, the app looks upwards from the folder you
-   chose for the top of the textbook — the folder holding `chapters`, `assets`
-   and `glossary.md`. If it cannot find one it says so there and then, before any
-   converting happens, and asks you to choose a folder inside your textbook.
+   **What it is called.** Every book on the platform names its chapters
+   `chapter-01.md`, `chapter-02.md` and so on (decided 27 Sep 2026), and the site
+   names it for you:
 
-4. **Name the chapter.** Every book on the platform names its chapters
-   `chapter-01.md`, `chapter-02.md` and so on (decided 27 Sep 2026), and in the
-   book's `chapters` folder the app fills in the right one for you:
-
-   - a Word file the book hasn't seen gets **the next free number**;
-   - **the same Word file again** gets the chapter it became last time, so
+   - a Word file the book hasn't seen becomes **the next free number**;
+   - **the same Word file again** becomes the chapter it became last time, so
      bringing it in again replaces that chapter. The book remembers which Word
-     file became which chapter in `chapter-sources.json`, at its top; the app
-     updates it when it saves or sends the chapter. Don't edit it by hand;
+     file became which chapter in `chapter-sources.json`, at its top; the site
+     updates it in the same change. Don't edit it by hand;
    - a chapter named before the rule, in a book that went live with other names,
      keeps its name: its web address is live.
 
-   A line under the box says which of the three it is. You can change the name,
-   but a new chapter must still be `chapter-NN.md`: the app refuses anything
-   else in `chapters`. Concept pages, in `chapters/Definitions`, keep their own
-   names.
-
-   **Bringing a chapter in again** replaces it only through **Send to drafts**,
-   where you tick a box to say so and the change is one commit you can look back
-   at. Saving into your folder never writes over a file (below).
-
-   **What the app enforces:** the name must end in `.md` (if you leave it off,
-   the app adds it); it must be a plain name, not a path with folders in it; it
-   cannot contain `/ \ : * ? " < > |`; no file of that name may already exist in
-   that folder; and this chapter's folder under `assets/` must not already hold
-   anything. **The app never writes over an existing file and has no undo**, so
-   either kind of clash stops the conversion and asks you for a different name.
+   The screen says which of the three it is. Concept pages, in a folder inside
+   `chapters`, keep the name you gave them.
 
    **Why the rule matters:**
 
@@ -155,39 +127,42 @@ The app flags each of them in its report (Part 3), and they have to be redone.
    - the picture folder is named after the chapter, so a distinctive chapter name
      is what keeps chapters' pictures apart. Word calls its images `image1`,
      `image2` in *every* document, so two chapters sharing one picture folder
-     would overwrite each other's figures. (The app will not let that happen
-     silently: if `assets/<chapter-name>/` already has something in it, it stops
-     before writing anything and asks you to rename the chapter. An empty folder
-     of that name is fine.)
+     would overwrite each other's figures. (The site won't let that happen: if
+     the book already has a pictures folder of that name with no chapter beside
+     it, it stops and says so.)
 
-5. **Press "Convert and show me", and read what comes back.** The conversion
-   happens in a temporary folder — **nothing is written into your vault at this
-   point**. The screen that follows, *Here is what came out*, shows four things:
+5. **Read what comes back.** The screen shows:
 
-   - a one-line summary: `Chapter 5.docx became a chapter of 4,312 words,
-     18 headings, 2 tables, 9 footnotes, 6 pictures`;
-   - **What to check** — the app's notes on this document. Part 3 explains them;
-   - **The chapter as it will be saved** — the whole converted text, and the path
-     it will be written to;
-   - **The pictures** — every picture file that came out, with its kind and size,
-     and the name of the folder they will go into.
+   - **what it becomes**: the chapter's name, and whether it is new or replaces
+     one already there;
+   - **Worth checking**: the notes on this document. Part 3 explains them;
+   - a new chapter's **line on the front page**, under "Contents": it is added in
+     the same change, and you see it first. (No "Contents" heading, or the chapter
+     already listed: nothing is added, and you're told);
+   - **The chapter, as it will be**, with its pictures.
 
    This is the moment when a problem is cheapest to fix. If something is wrong,
-   press **Go back and change something**, fix the Word document (Part 4), and
-   convert again — nothing has been written, so there is nothing to undo.
+   fix the Word document (Part 4) and press **Start again**: nothing has been
+   sent, so there is nothing to undo.
 
-6. **Confirm and save.** Tick *I have looked at the chapter above and I want to
-   save it* — the **Save this chapter** button stays greyed out until you do —
-   and press it. The app writes the pictures first and the chapter last, so a
-   chapter never ends up in the vault pointing at pictures that failed to copy.
-   The screen that follows tells you exactly where the chapter and its pictures
-   were written, and reminds you that your Word document has not been touched.
+6. **Tick the box and press Send to drafts.** The chapter, its pictures,
+   `chapter-sources.json` and the front page's line go to the book's drafts area
+   as one change, made by you. **Send to drafts** stays greyed out until you tick
+   *I've read the converted chapter*.
 
-   It then offers **Go through this chapter now** — the app's three linking
-   questions (citations, concept-page mentions, glossary terms) run over the new
-   chapter straight away. A chapter fresh out of Word has no links in it at all,
-   so this is worth doing, but it is not part of the conversion and you can leave
-   it for another day.
+   **Bringing a chapter in again** replaces it. The screen says who last changed
+   the chapter in the drafts area and how many lines would change, lists any
+   pictures the Word file no longer has (they are taken out), and needs a second
+   tick, *Replace the chapter that is there now*. Keep in mind that it replaces
+   the whole chapter, including any edits made since on the site.
+
+   **If someone else changed the drafts meanwhile**, nothing is sent: the screen
+   shows what changed, and **Convert it again** checks your Word document against
+   the drafts as they are now. You read it and send it again.
+
+7. **Link it up.** A chapter fresh out of Word has no links in it at all. Open it
+   under **Chapters** and press **Citations, concept links and glossary**
+   (`docs/the-author-site.md`): the same three questions as for any chapter.
 
 ### Cross-references to other chapters
 
@@ -208,15 +183,10 @@ and type new sentences the same way.
 
 ## Part 3 — Check it worked
 
-(With a DeepSeek key, the authoring app can also check the converted chapter's
-formatting against the platform's rules and offer fixes one line at a time. It never
-changes wording. See *The AI formatting check* in
-[`the-authoring-app.md`](the-authoring-app.md). The checklist below still applies.)
-
 ### The report
 
 The report is not a table of counts to tick off. It is **a list of notes written
-about your document**, under the heading *What to check*, and the app writes only
+about your document**, under the heading *What to check*, and the converter writes only
 the ones that apply — a plain chapter with no tables and no maths produces a
 short report, and that is the report working correctly.
 
@@ -228,7 +198,7 @@ levels, and the level is the thing to read first:
 |---|---|
 | **ok** | This went as it should. Nothing to do. |
 | **look** | It converted, and nothing is lost — but go and look at it, because markdown holds it differently from Word. |
-| **warn** | Something is probably wrong. These are the ones to act on before saving. |
+| **warn** | Something is probably wrong. These are the ones to act on before sending. |
 
 Above the notes sits a single summary line — *`Chapter 5.docx` became a chapter of
 4,312 words, 18 headings, 2 tables, 9 footnotes, 6 pictures* — which is where the
@@ -267,7 +237,7 @@ that matter.
 
 ### The checklist
 
-Then read the chapter: in the app's preview before saving, and on the drafts
+Then read the chapter: on the author site before sending, and on the drafts
 preview (`docs/editing-the-textbook.md`, *Where you edit*) once it is in
 `drafts`. Tick these off:
 
@@ -300,18 +270,18 @@ chapter*, nothing has been written — so never patch problems in the converted
 chapter while the Word document still has the flaw. Your patches would be lost
 the next time you convert, and the flaw would come back.
 
-Each heading below is the app's own wording, so you can match a note on screen to
+Each heading below is the converter's own wording, so you can match a note on screen to
 the fix for it.
 
 **"N tables could not be made into proper tables"** — a `warn` note. Cause: cells
 in the table have been merged, or a single cell holds more than one paragraph.
 Markdown tables can do neither, so the table is written out as a block of web
 markup instead. None of your text is lost, and the site still shows it as a
-table — but it is unpleasant to edit, and the app's citation and
-concept-page checks skip over it entirely, so nothing inside it will ever be
+table — but it is unpleasant to edit, and the author site's citation and
+concept-page questions skip over it entirely, so nothing inside it will ever be
 linked. Fix: in Word, unmerge the cells (**Layout → Split Cells**) or rebuild the
 table as two or three simple grids, and convert again. If the table is genuinely
-complicated, the app's own advice is to leave it and accept that its contents
+complicated, the converter's own advice is to leave it and accept that its contents
 won't be linked.
 
 **"No headings came across at all"** — a `warn` note, and it also tells you how
@@ -319,8 +289,8 @@ many lines in the chapter *look* like headings written by hand. Cause: the
 headings in Word were made by making text bigger and bold rather than with Word's
 Heading styles, so Word records them as ordinary paragraphs. Fix: in Word, apply
 **Heading 1 / 2 / 3** from the Styles gallery (Part 1), save, and convert again.
-The app also offers the alternative of typing `#` in front of each heading in
-the converted chapter afterwards; going back to Word is quicker if there are
+The other way is typing `#` in front of each heading afterwards, with **Edit
+this page** on the drafts preview; going back to Word is quicker if there are
 many.
 
 **"N lines may be headings that did not convert"** — a `look` note, which appears
@@ -341,8 +311,8 @@ needed once per chapter. Convert again.
 **"Some footnotes do not match up"** — a `warn` note, listing footnote numbers in
 the text with no note at the bottom, and notes at the bottom nothing points to.
 Cause: usually a footnote deleted in Word without its number being removed, or
-the other way round. Fix: the app's advice is to find them in the preview and
-tidy them up after saving.
+the other way round. Fix: the converter's advice is to find them in the preview and
+tidy them up after sending, with **Edit this page**.
 
 **"N pictures came out in a format nothing can display"** — a `warn` note naming
 the file types, which will be `.emf`, `.wmf`, `.bin` or `.vml`. This is what
@@ -384,44 +354,37 @@ difference between the two usually makes the cause obvious to whoever looks next
 
 ## Part 5 — Getting it into the textbook
 
-Once the checklist passes:
+Once the checklist passes and you've pressed **Send to drafts** (Part 2):
 
-1. **Check the top of the file.** The chapter should begin with its title as a
-   Heading 1 (`# Chapter 5: Photosynthesis`) and nothing above it. That heading
-   becomes the page's title on the site. Chapters in this textbook carry no
-   front-matter block — every chapter starts straight in with its title, and
-   yours should too. If a stray blank line or a duplicate title has been left at
-   the very top, delete it.
+1. **Check the top of the chapter.** It should begin with its title as a Heading 1
+   (`# Chapter 5: Photosynthesis`) and nothing above it; that heading becomes the
+   page's title on the site. Chapters in this textbook carry no front-matter
+   block. If a stray line or a duplicate title is at the very top, fix it with
+   **Edit this page** on the drafts preview's page, or in Word and bring it in
+   again.
 
-2. **Add the chapter to the front page.** Open **`index.md`** and add a bullet
-   under **Contents**, copying the shape of the one already there:
+2. **Check the front page.** A new chapter's line under **Contents** was added
+   when you sent it. If you want the one-sentence description under it that other
+   chapters have, add it with **Edit this page** on the front page:
 
-       - **[[chapter-05|Chapter 5 — Photosynthesis]]**
+       - **[[chapter-05|Chapter 5: Photosynthesis]]**
          One sentence saying what the chapter covers.
 
-3. **Get the chapter and its pictures into `drafts`.** The book is its
-   repository on GitHub, and the chapter reaches readers only from there.
+3. **Read it on the drafts preview.** It appears there within a few minutes of
+   sending (**Waiting for you** says when the preview has caught up). Look at the
+   pictures and tables especially.
 
-   > **To confirm:** whether the app commits a converted chapter and its
-   > `assets/<chapter-name>/` pictures to `drafts` itself (the platform's plan
-   > calls this "Send to drafts", BOOK-ONE-TO-QUARTZ §8 step 1), and what the
-   > button says. Until that is confirmed, a chapter the app saved to a folder on
-   > your Mac is not in the book: ask the technical contact to put it on
-   > `drafts`, or follow what `docs/what-this-book-runs-on.md` records for your
-   > copy of the book.
+4. **Go live.** On the author site, **Waiting for you → Going live**, tick the box
+   and press **Publish to the live book**. That routine lives in one place:
+   *Going live* in `docs/editing-the-textbook.md`.
 
-4. **Check it on the drafts preview, then go live.** Once the chapter is on
-   `drafts` it appears on the drafts preview within a few minutes. Read it there,
-   then send it live with **Going live** in the authoring app. That routine lives
-   in one place: *Going live* in `docs/editing-the-textbook.md`.
+   **Sending to drafts and going live are separate, and only going live reaches
+   readers.** A chapter in the drafts area is safely stored and visible only on
+   the preview.
 
-   **Saving and going live are separate, and only going live reaches readers.**
-   A chapter on `drafts` is safely stored and visible only on the preview.
+5. **Check the live site.** A few minutes after going live, open the website, find
+   the new chapter from the front page, and give it one last skim.
 
-5. **Check the live site.** A couple of minutes after going live, open the
-   website, find the new chapter from the front page, and give it one last
-   skim — especially the images and tables.
-
-That's the whole cycle: write in Word with Part 1's habits, convert with Part 2's
-steps, tick Part 3's list, send it live with Part 5. For a chapter written the
+That's the whole cycle: write in Word with Part 1's habits, bring it in with Part
+2's steps, tick Part 3's list, send it live with Part 5. For a chapter written the
 way Part 1 describes, the whole thing takes a few minutes end to end.

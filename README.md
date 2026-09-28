@@ -36,7 +36,7 @@ Suggest row and paragraph numbers, all from one place.
 |---|---|
 | `chapters/` | The book. One markdown file per page; concept pages in `chapters/Definitions/` |
 | `assets/` | Pictures, one folder per chapter |
-| `glossary.md` | The glossary. It must exist, at the top: the authoring app identifies a textbook by `chapters/` + `assets/` + `glossary.md` |
+| `glossary.md` | The glossary. It must exist, at the top: the author site writes approved glossary terms into it |
 | `index.md` | The front page. Not in the template: `scripts/new-book.mjs` writes it once from `scripts/seed-index.md`, and from then on it is an ordinary page |
 | `textbook.config.json` | The slug, and nothing else |
 | `admin/index.html` | The browser editor's page. Tooling, never published with the book |

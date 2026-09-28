@@ -4,7 +4,7 @@ Things that have actually gone wrong on the platform's books, what to check when
 each one happens, and what fixes it.
 
 Each entry says who fixes it. **You** means you can finish it yourself in a
-browser or the authoring app. **The technical contact** means it is
+browser, on the book's site or the author site. **The technical contact** means it is
 configuration — report it and stop; there is nothing you can do from your side,
 and nothing you can make worse by having looked. Some of these turn out to be in
 a service that every book on the platform shares, such as the builder that makes
@@ -25,7 +25,7 @@ is kept.
 | [Analytics show no data](#analytics-show-no-data) | You, then the technical contact |
 | [A weekly job failed](#a-weekly-job-failed) | The technical contact |
 | [The browser editor won't sign in](#the-browser-editor-wont-sign-in) | The technical contact |
-| [The author's console won't sign in, or shows nothing waiting](#the-authors-console-wont-sign-in-or-shows-nothing-waiting) | You, then the technical contact |
+| [The author site won't sign in, or shows nothing waiting](#the-author-site-wont-sign-in-or-shows-nothing-waiting) | You, then the technical contact |
 
 ---
 
@@ -36,7 +36,7 @@ is kept.
 **Check:**
 
 - **Is the change on the live branch?** A change still on `drafts` shows only on
-  the drafts preview. **Going live** in the authoring app sends it
+  the drafts preview. **Going live** on the author site sends it
   (`docs/editing-the-textbook.md`).
 - **Has it had time?** The site shows a change within a couple of minutes, and
   15 minutes at worst.
@@ -263,83 +263,48 @@ has the detail.)
 
 ---
 
-## The author's console won't sign in, or shows nothing waiting
+## The author site won't sign in, or shows nothing waiting
 
 **Work through the checks yourself; the technical contact fixes anything past
 them.**
 
-The console is the **Waiting for you** tab in the Authoring Assistant, beside
-**Chapters** — `docs/the-authoring-app.md` is the guide to the whole app, and to
-what each queue in that tab is for. Signing in is GitHub's device flow and there
-is no relay of the technical contact's involved: you press **Sign in**, the app shows a code and
-opens a web page, you type the code there and approve, and the sign-in is kept
-in this Mac's Keychain. Once it has worked the tab reads **Signed in as** and
-your name.
+The author site is [author.confused4now.org](https://author.confused4now.org);
+`docs/the-author-site.md` is its guide. Signing in is **Sign in with GitHub**: a
+small GitHub window opens, you approve, and it closes itself. The site then shows
+**Your books** and, in the top corner, your GitHub name.
 
 **Check:**
 
-- **Does the tab show a card headed "One-off setup" instead of a Sign in
-  button?** The sign-in identifier normally arrives with the list of textbooks,
-  so this means the app has never managed to fetch that list on this Mac. Check
-  you are online and reopen the app first. If the card is still there, press
-  **Open Settings**, and under **Signing in to see what is waiting** paste the
-  identifier the technical contact gives you into **Sign-in identifier**, then
-  press **Save identifier**. It should answer
-  *Saved. You can now sign in from "Waiting for you".*
-- **Did the code run out?** The code box says *Waiting for you to approve… this
-  code lasts about 15 minutes.* Past that you get *That code ran out before it
-  was used. Please start again.* Press **Sign in** again and take the code
-  straight to the page.
-- **Did the web page never open?** The app opens it in a new tab, which a popup
-  blocker will stop without saying so. The address is printed under the code —
-  *If the page did not open, go to https://github.com/login/device yourself.*
-- **Did an error box appear?** Errors come up in a box headed **Something needs
-  your attention**, with one button, **All right**. Three of the messages are
-  configuration and belong to the technical contact: *This copy has not been set
-  up for signing in yet. Ask the technical contact to add the sign-in identifier
-  in Settings.*, *Signing in could not be started. Check the sign-in identifier
-  in Settings, and that Device Flow is switched on for it.*, and *The sign-in
-  identifier in Settings is not recognised. Ask the technical contact to check
-  it.* Two are yours: *Sign-in was refused on the web page. Nothing was changed.*
-  means Cancel was pressed on the web page, and *This Mac is not online, so
-  signing in cannot start.* means what it says.
-- **Did it sign in and then ask again?** *Signing in worked, but the token could
-  not be stored in this Mac's Keychain…* means a Keychain prompt was refused, or
-  the Keychain is locked; sign in again and allow the prompt when it appears.
-  *Your sign-in is no longer accepted. Please sign in again.* is the ordinary
-  case of a sign-in withdrawn or aged out — press **Sign in** again.
-- **Is the list empty with a green note?** *Nothing is waiting. Everything sent
-  in has been dealt with.*, above headings reading **Suggestions from readers
-  (none)** and **Draft changes (none)**, is the truth and not a fault. Press
-  **Check again** before assuming otherwise.
-- **Is the list empty with no note at all?** That note is deliberately withheld
-  when something failed, so an empty screen without it means a fetch broke rather
-  than that nothing is there. Look above the lists for the banner: its lines
-  begin **Suggestions:**, **Draft changes:** or **Weekly jobs:**, or, offline,
-  *This Mac is not online, so this list may be incomplete. Nothing can be
-  accepted or declined until it is back.* (A **Weekly jobs:** line is expected on a
-  new book: the app looks for four weekly jobs a new book doesn't run. It is a
-  known fault in the app, it hides the green note too, and the two lists above
-  it are still right.)
-- **Is the thing you are waiting for even in this queue?** It holds two kinds of
-  item and no others: reader suggestions, described on the screen as *Sent from
-  the “Suggest an edit” button on the website.*, and draft changes *Written by
-  trusted contributors in the browser editor.* Comments left in the margins of
-  the book are not in it — those are under **Elsewhere**, behind **Open the
-  discussion list**.
+- **Did the GitHub window never open?** *Your browser blocked the sign-in window.
+  Allow pop-ups for this site and try again.* means exactly that: allow pop-ups for
+  author.confused4now.org (usually an icon at the end of the address bar), then
+  press **Sign in with GitHub** again.
+- **Did it close without signing you in?** *Sign-in was cancelled* means Cancel was
+  pressed on GitHub's page, or the window was closed. Press the button again.
+- **Does it say "that account isn't one of any book's authors"?** The site shows
+  the books whose list of authors has your GitHub account on it. Either you're
+  signed in with a different account (the name is in the top corner: **Sign out**,
+  and sign in with the right one; GitHub signs in whichever account the browser is
+  signed in to, so sign out of GitHub too if you need to), or your account hasn't
+  been added to the book, which is the technical contact's.
+- **Were you sent back to the sign-in screen, or told *Please sign in with GitHub
+  again*?** Your pass lasts eight hours, and closing the tab ends it. Sign in
+  again; nothing you had sent is lost.
+- **Does a list say *None waiting.*?** That is the truth, not a fault: nothing is
+  waiting. A list that couldn't be read says so in its place, in words, instead.
+- **Does it say *The author site isn't switched on for this book yet*?** The
+  platform's GitHub App isn't installed on the book's repository. That is the
+  technical contact's.
+- **Is the thing you're waiting for even in this queue?** **Waiting for you**
+  holds reader suggestions (from the **Suggest an edit** button) and draft changes
+  (from **Edit this page**), and the way to going live. Comments left in the
+  margins of the book are under **Reader discussion**.
 
-Signing in as a different GitHub account does not empty the queue. Everyone sees
-the same list, because it is the whole repository's open suggestions and draft
-changes rather than anything belonging to your account. The wrong account shows
-up as the wrong name after **Signed in as**, and it bites later, at the moment
-you accept or decline: *Your sign-in does not have permission to do that. Signing
-in again may fix it; if not, ask the technical contact.*
-
-**Fix:** yours are the expired code, the blocked page, the refused Keychain
-prompt and being offline — press **Sign in** again and finish it in one go.
-The identifier messages, the permission message, and a list still empty when you
-know it should not be, are the technical contact's. Say which message you saw,
-word for word, and the name shown after **Signed in as**.
+**Fix:** yours are the blocked window, a cancelled or expired sign-in, and the
+wrong account. An account that isn't on the book's list, a book that isn't
+switched on, and a list that says it couldn't be read are the technical
+contact's. Say which message you saw, word for word, and the name shown in the
+top corner.
 
 ---
 
