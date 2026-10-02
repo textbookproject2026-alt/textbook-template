@@ -92,7 +92,7 @@ Every page carries a **Suggest an edit** button in the row under the title. A re
 - **Don't change it.** The reader misread, or the wording is a deliberate choice. Say so in a line — "this is intentional, because…" — and the maintainer replies to them. A declined suggestion answered is a good outcome; it is the silence that costs something.
 - **Too big for now.** A real gap that needs a rewrite rather than a fix. Say that, and it gets parked. It doesn't belong in a weekly slot.
 
-**Watching the queue without GitHub.** The author's app lists every open suggestion under **Waiting for you** (`docs/the-authoring-app.md`). That is your view of the queue, and the number of open suggestions is the number to care about. An open suggestion isn't lost, but it is unanswered, and an unanswered suggestion teaches a reader that the button does nothing.
+**Watching the queue without GitHub.** The author site lists every open suggestion under **Waiting for you** (`docs/the-author-site.md`). That is your view of the queue, and the number of open suggestions is the number to care about. An open suggestion isn't lost, but it is unanswered, and an unanswered suggestion teaches a reader that the button does nothing.
 
 ---
 
@@ -111,7 +111,7 @@ A handful of trusted contributors can edit chapters in a web page. Their guide i
 - **Ask for a change.** Leave the contributor a note; they go back into the editor, revise, and save again. It stays in *In review*.
 - **Accept it.** Move the entry to **Ready**. That is your yes. It changes nothing on the site — it marks the work as approved inside the holding area.
 
-**What happens after Ready is not yours.** The maintainer takes the approved entries out of the holding area and into the textbook itself, in batches. Pull requests, branches and merges all live at that step, and none of it needs anything from you. The accepted text then lands in `drafts`, shows on the drafts preview, and reaches readers only when you next press **Going live** in the authoring app — so the final gate is still yours.
+**What happens after Ready is not yours.** The maintainer takes the approved entries out of the holding area and into the textbook itself, in batches. Pull requests, branches and merges all live at that step, and none of it needs anything from you. The accepted text then lands in `drafts`, shows on the drafts preview, and reaches readers only when you next press **Going live** on the author site — so the final gate is still yours.
 
 Two things worth knowing. Every edit is recorded under its author's own name, so you can always see who wrote what and ask them about it. And a draft left sitting in *In review* harms nothing — the contributor's work is saved, nobody else is blocked, and it will still be there whenever you get to it. This is not a weekly obligation; look when you're told something is waiting, or once a fortnight.
 

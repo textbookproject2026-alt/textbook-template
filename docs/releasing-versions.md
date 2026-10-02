@@ -71,7 +71,7 @@ contact's — the details are in the platform's `textbook-registry/docs/SCHEDULE
 A new book has none of these, and this step is then empty.
 
 **7. Send everything live.** The last thing before you hand over is **Going
-live** in the authoring app, so that the live site and the text about to be
+live** on the author site, so that the live site and the text about to be
 tagged are the same thing. Read its list of waiting changes properly; anything
 left on `drafts` is not in the release. A few minutes later, check that the site
 has caught up: `/.well-known/textbook.json` on the book's address names the book

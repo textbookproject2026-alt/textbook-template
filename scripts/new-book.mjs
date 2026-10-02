@@ -43,6 +43,7 @@ const regAt = argv.indexOf("--registry");
 const REGISTRY_ARG = regAt >= 0 ? argv[regAt + 1] : null;
 
 const DEFAULT_REGISTRY = "https://raw.githubusercontent.com/textbookproject2026-alt/textbook-registry/main/registry.json";
+const PLATFORM_OWNER = "textbookproject2026-alt";
 const SIBLING = resolve(ROOT, "..", "textbook-registry", "registry.json");
 
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
@@ -176,8 +177,8 @@ say("The maintainer's GitHub login: who the platform contacts about this book.")
 const maintainerGithub = await ask("Maintainer's GitHub login:", { validate: (v) => (LOGIN_RE.test(v) ? null : "A GitHub login.") });
 
 say("");
-say("The content repository, owner/name. It must be PUBLIC (the author's console");
-say("signs in with the public_repo scope, and the registry's CI enforces it), and");
+say("The content repository, owner/name. It must be PUBLIC (the builder reads it");
+say("without credentials, and the registry's CI enforces it), and");
 say("both branches below must exist before the registry pull request can pass.");
 const repo = await ask("Content repository:", {
   def: `${maintainerGithub}/${slug}`,
@@ -247,6 +248,9 @@ const entry = {
   summary,
   licence,
   maintainer: { name: maintainerName, github: maintainerGithub },
+  // Who may work on the book on the author site: the maintainer, and the platform
+  // owner, who is an author of every book (decided 28 Sep 2026).
+  authors: [maintainerGithub, PLATFORM_OWNER].filter((l, i, a) => a.findIndex((m) => m.toLowerCase() === l.toLowerCase()) === i),
   content: { repo, live_branch: liveBranch, drafts_branch: draftsBranch },
   site,
   annotations: { hypothesis_groups: [] },

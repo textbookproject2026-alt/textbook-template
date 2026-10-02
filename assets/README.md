@@ -5,7 +5,7 @@ Every picture in the book, one folder per chapter: a figure in
 
 One folder per chapter is not tidiness. Word names the images inside every
 document `image1.png`, `image2.png`, so two chapters sharing a folder overwrite
-each other's figures. The authoring app's converter writes here on that
+each other's figures. The author site's Word import writes here on that
 assumption, and the browser editor's `media_folder: assets` puts uploads here
 too.
 

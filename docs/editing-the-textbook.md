@@ -1,8 +1,10 @@
 # Editing the textbook
 
 This is the day-to-day guide for the textbook's author. You need **a web
-browser**, and the **Authoring Assistant** if you write in Word. There is no
-terminal here, and you don't need Obsidian, though you can use it if you like it.
+browser**: the book's own site, and the **author site**
+([author.confused4now.org](https://author.confused4now.org)). There is no
+terminal here and nothing to install, and you don't need Obsidian, though you can
+use it if you like it.
 
 That is not a simplification. The textbook has a lot of machinery around it —
 a build, automated jobs, a repository, a review queue — but none of it is yours
@@ -24,7 +26,7 @@ There are four ways in. Use whichever suits the change.
 
 | Where | Good for |
 |---|---|
-| **The Authoring Assistant** (`docs/the-authoring-app.md`) | Bringing in a Word chapter, linking citations and concept pages, the glossary, reader suggestions, and **Going live** |
+| **The author site** (`docs/the-author-site.md`) | Bringing in a Word chapter, linking citations and concept pages, the glossary, reader suggestions, accepting draft changes, and **Going live** |
 | **The browser editor**, if the book has one (`docs/for-trusted-contributors.md`) | Small edits in a web page. It is the trusted contributors' door too |
 | **GitHub's own editor** | A quick fix to one file: open the file on GitHub, press the pencil, and commit. Use the **Edit on GitHub** link on the drafts preview (below), which opens the file on `drafts` |
 | **Obsidian**, if you already use it | Longer writing sessions on your own Mac. Your copy has to reach GitHub somehow, and nothing in the book sets that up: agree it with the technical contact and write it down in `docs/what-this-book-runs-on.md` |
@@ -46,11 +48,11 @@ that runs itself.
 
 | Where | What it holds |
 |---|---|
-| `chapters/` | The book. One file per chapter: `chapter-01.md`, `chapter-02.md`, and so on, the one naming rule for every book on the platform. The authoring app names a chapter brought in from Word this way (`docs/word-to-markdown.md`). |
-| `chapter-sources.json` | Which Word file became which chapter, so bringing the same Word file in again replaces the same chapter. **Written by the authoring app** (and by the platform when it makes a book from a manuscript); not published, and not for editing by hand. |
+| `chapters/` | The book. One file per chapter: `chapter-01.md`, `chapter-02.md`, and so on, the one naming rule for every book on the platform. The author site names a chapter brought in from Word this way (`docs/word-to-markdown.md`). |
+| `chapter-sources.json` | Which Word file became which chapter, so bringing the same Word file in again replaces the same chapter. **Written by the author site** (and by the platform when it makes a book from a manuscript); not published, and not for editing by hand. |
 | `chapters/Definitions/` | The concept pages — one short, standalone page per idea, named for the idea itself (`Opportunity Cost.md`, `Natural Selection.md`). These are what a reader sees pop up when they hover a linked term inside a chapter. |
 | `assets/` | Every image in the book, in one subfolder per chapter: `assets/chapter-05/`. |
-| `glossary.md` | The list of terms with the chapter each was first used in. **Written by the authoring app**, not by hand: terms you approve there are spliced in alphabetically, and your own wording is never rewritten. See `docs/the-authoring-app.md` before reorganising it. |
+| `glossary.md` | The list of terms with the chapter each was first used in. **Written by the author site**, not by hand: terms you approve there are spliced in alphabetically, and your own wording is never rewritten. See `docs/the-author-site.md` before reorganising it. |
 | `index.md` | The front page. An ordinary page: edit it like a chapter. Its frontmatter lists the book's authors. |
 | `templates/` | The source of the two files GitHub shows to visitors (`README.md`, `CONTRIBUTING.md`) and of the browser editor's settings. |
 | `community/` | Only if the book runs the optional weekly jobs: the pages they write (contributors, project health). Don't edit them by hand; they get overwritten. A new book has none. |
@@ -135,7 +137,7 @@ spills out as ordinary text.
   a label — the two halves have to match, and that is all.
 - Linked references work differently. A citation in the text is a link like
   `[Author, 1979](#^ref-author-1979)`, and the matching reference at the bottom
-  ends with `^ref-author-1979` — the authoring app writes these for you. The two
+  ends with `^ref-author-1979` — the author site writes these for you. The two
   strings must be identical. *Breaks when:* that marker is deleted while tidying
   the bibliography — the citation still looks like a link but lands nowhere.
 
@@ -204,7 +206,7 @@ readers see. Everything else — typing, saving, images landing in folders — i
 storage.
 
 1. **Look at `drafts` first**, on the drafts preview.
-2. In the authoring app, open **Going live** under **Waiting for you**. It shows
+2. On the author site, open **Going live** under **Waiting for you**. It shows
    how many changes are waiting, which pages they touch and who wrote them.
 3. **Read that before confirming.** The drafts area is shared, so everything in
    it goes, whoever wrote it.
@@ -250,7 +252,7 @@ If the page looks stale, force a fresh copy with **⌘ + Shift + R**.
 | What you see | Almost always | What to do |
 |---|---|---|
 | The change isn't on the site | It is still on `drafts`, or the site hasn't rebuilt yet | Check the drafts preview; send it live; give it a few minutes. Then `docs/troubleshooting.md` |
-| It's on the drafts preview but not live | It hasn't been sent live | **Going live** in the authoring app |
+| It's on the drafts preview but not live | It hasn't been sent live | **Going live** on the author site |
 | A `[[link]]` shows as plain bracketed text | The name inside doesn't match a page exactly | Copy the name from the file itself |
 | A callout box ends halfway | A line inside it lost its `>` | Put the `>` back on every line of the box |
 | A section is missing from the page's contents | Its heading is bold text, not a `#` heading | Replace the bolding with the right number of hashes |
@@ -304,14 +306,13 @@ rebuilds that copy of the site, and so does a change the platform makes to the
 book's registry entry or to the shared design. If a build fails, the previous
 version of the site stays up.
 
-**The authoring app writes to the book when you tell it to.** The **Authoring
-Assistant** — the Mac app that links citations and concept pages, builds the
-glossary, and brings chapters in from Word — rewrites the chapter you are working
-on and appends to `glossary.md`, always after showing you the whole change and
+**The author site writes to the book when you tell it to.** The **author site**
+— where you link citations and concept pages, build the glossary, and bring
+chapters in from Word — changes the chapter you are working on and adds to
+`glossary.md` in the drafts area, always after showing you the whole change and
 asking you to tick a box. It is also where reader suggestions and contributors'
-draft changes arrive, under **Waiting for you**, so the first three items above
-reach you through it rather than through a website.
-`docs/the-authoring-app.md` is its guide; `docs/word-to-markdown.md` covers the
+draft changes arrive, under **Waiting for you**.
+`docs/the-author-site.md` is its guide; `docs/word-to-markdown.md` covers the
 Word half.
 
 If a file changed and it wasn't you, it was one of these, and the right

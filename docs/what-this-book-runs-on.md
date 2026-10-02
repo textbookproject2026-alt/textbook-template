@@ -66,7 +66,7 @@ row.
 | **The CMS auth relay** | "Sign in with GitHub" on the browser editor | the sign-in popup opens and closes |
 | **The portal** | the book's listing, once it is `live`, with its key words, recent changes and authors, read from the catalog the builder writes (`/.well-known/textbook-catalog.json`) | the book is missing from the front page |
 | **DNS** (a book on a portal subdomain) | the book's address | the site stops answering |
-| **The Authoring Assistant** | the author's app, and its queue | [`the-authoring-app.md`](the-authoring-app.md) |
+| **The author site** ([author.confused4now.org](https://author.confused4now.org)), with the suggest-edit function's author endpoints | where the author works: Word imports, links and glossary, suggestions, draft changes, going live. Who may use it for this book is the registry's `authors` | [`the-author-site.md`](the-author-site.md) |
 
 The GitHub App is installed on this repository by whoever has admin on the
 repository's account (`SETUP.md` step 7). If it's uninstalled, every suggestion
@@ -74,13 +74,11 @@ fails.
 
 ---
 
-## On the author's Mac
+## On the author's computer
 
-| Item | Where |
-|---|---|
-| The console's sign-in | login Keychain, service `Authoring Assistant`, account `github-token` |
-| A DeepSeek key (optional) | the same service, account `deepseek-key` |
-| The app's log | `~/Library/Application Support/Authoring Assistant/log.txt` |
+Nothing. The author site keeps its sign-in in the browser tab only, and nothing is
+installed. (The Mac app it replaced kept a sign-in in the Keychain under the
+service `Authoring Assistant`; an author who had it can delete that, and the app.)
 
 **If the author edits a copy of the book in Obsidian, how it reaches GitHub:**
 *write it down here.* Nothing in the template sets this up, and the site is built

@@ -27,8 +27,9 @@ If you're inheriting this book, read these first:
 - **[`editing-the-textbook.md`](editing-the-textbook.md)**: where to edit, how
   the book is organised, how to add a chapter, going live, and what changes
   without you.
-- **[`the-authoring-app.md`](the-authoring-app.md)**: the Mac app that links
-  citations and concept pages, builds the glossary, and shows what people sent in.
+- **[`the-author-site.md`](the-author-site.md)**: the author site, where you bring
+  chapters in from Word, link citations and concept pages, build the glossary,
+  answer what people sent in, and go live.
 - **[`word-to-markdown.md`](word-to-markdown.md)**: writing a chapter in Word so
   it converts cleanly.
 - **[`moderating-comments.md`](moderating-comments.md)**: reader comments,
