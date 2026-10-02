@@ -54,8 +54,12 @@ pictures, and with who last changed it.
 - **Download a copy** puts every file of the book, as the drafts area holds it,
   into one `.zip` from GitHub.
 - **See the drafts preview** opens the book as it will be once published.
-- **History** and **Reader discussion** open GitHub's history of the book and
-  every comment left in its margins.
+- **History** lists every change to the drafts area, newest first: who, when and
+  what they wrote about it, marked *Live* or *Waiting in drafts*. A chapter's
+  **History** button shows only that chapter's changes. Open one to see what it
+  changed, or the page as it was then. **Restore this version** opens that text
+  in the editor as a new change; nothing in the history is undone or lost.
+- **Reader discussion** opens every comment left in the book's margins.
 
 **To change a chapter's wording**, open it on the book's site (a chapter page has
 a link, *On the live site (to edit it)*) and press **Edit this page**, or the
@@ -202,7 +206,7 @@ or is still being rebuilt.
 **The automatic jobs** lists the jobs the book runs on its own (the weekly
 snapshot, the link check and so on) and whether each last finished properly.
 There is nothing to do; if one didn't finish, tell the technical contact.
-**Reader discussion** and **History** open in a new tab.
+**Reader discussion** opens in a new tab.
 
 ---
 
@@ -212,6 +216,11 @@ There is nothing to do; if one didn't finish, tell the technical contact.
   drafts area, online. *Download a copy* gives you the whole book as a `.zip`
   whenever you want one.
 - **Edit text directly.** Use *Edit this page* on the book's site.
+- **Show the whole history of a renamed page.** A chapter's History starts at
+  its current name; changes from before it was renamed are in the book's History.
+- **Mark very old waiting changes exactly.** If the drafts area gets more than
+  250 changes ahead of the live book, the oldest waiting ones show as *Live*.
+  Sending the drafts to readers clears it.
 - **Ask an AI anything.** The Mac app's optional DeepSeek checks aren't here.
 
 ---
