@@ -61,7 +61,7 @@ jobs:
           # title, slug, summary, licence, maintainer name, login, repo, live,
           # drafts, Pages project, hostname; then every y/n takes its default.
           { printf '%s\n' "Dry Run Book" "" "A dry run of the new-book template, built through the builder." "" \
-              "Platform Owner" "textbookproject2026-alt" "textbookproject2026-alt/dry-run-book" "main" "drafts" \
+              "Platform Owner" "textbookproject2026-alt" "" "main" "drafts" \
               "$DRY_RUN_PROJECT" ""; printf "\n%.0s" $(seq 1 40); } | node scripts/new-book.mjs --registry ../registry/registry.json
           test -f registry-entry.json
 
