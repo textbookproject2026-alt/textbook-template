@@ -10,7 +10,7 @@ books) is documented by the platform owner in
 [`textbook-registry/docs/`](https://github.com/textbookproject2026-alt/textbook-registry/tree/main/docs),
 and isn't repeated here.
 
-Setting the book up in the first place is [`../SETUP.md`](../SETUP.md).
+Setting the book up in the first place is [`SETUP.md` in the book template](https://github.com/textbookproject2026-alt/textbook-template/blob/main/SETUP.md) (a book made from the template doesn't keep a copy).
 
 ## Start here
 
