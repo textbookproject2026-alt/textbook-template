@@ -5,6 +5,10 @@ This guide is for you, the book's author. It covers the **author site**,
 chapters in from Word, link citations, concept pages and glossary terms, answer
 readers' suggestions, accept changes, and send the drafts to your readers.
 
+**New to all this?** The platform's [guide for authors](https://guide.confused4now.org)
+takes you from a folder of Word files to a published book, A to Z. This
+guide is the fuller reference for the author site.
+
 It is a website. It works in any browser on any computer (a Mac, Windows, a
 Chromebook, a phone at a pinch), and there is nothing to install. It replaced the
 Mac app, the Authoring Assistant, on 28 Sep 2026; everything that app did for a book

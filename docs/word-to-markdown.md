@@ -10,6 +10,9 @@ the conversion, and shows you the whole converted chapter before anything reache
 your book. `docs/the-author-site.md` covers signing in and everything else the
 site does; this guide covers the Word half only.
 
+**New to all this?** The platform's [guide for authors](https://guide.confused4now.org)
+takes you from a folder of Word files to a published book, A to Z.
+
 The guide has five parts:
 
 1. **Write it right in Word** — habits that make conversion painless (read this before writing)
