@@ -180,10 +180,14 @@ say("");
 say("The content repository, owner/name. It must be PUBLIC (the builder reads it");
 say("without credentials, and the registry's CI enforces it), and");
 say("both branches below must exist before the registry pull request can pass.");
+// Every book lives in the books org (registry platform.books_owner); the registry's
+// CI refuses a book anywhere else.
+const booksOwner = registry?.platform?.books_owner ?? null;
 const repo = await ask("Content repository:", {
-  def: `${maintainerGithub}/${slug}`,
+  def: `${booksOwner ?? maintainerGithub}/${slug}`,
   validate: (v) => {
     if (!REPO_RE.test(v)) return "owner/name.";
+    if (booksOwner && v.split("/")[0].toLowerCase() !== booksOwner.toLowerCase()) return `Books live in ${booksOwner}: ${booksOwner}/<name>.`;
     if (takenRepos.has(v.toLowerCase())) return "Another book already uses that repository.";
     return null;
   },
