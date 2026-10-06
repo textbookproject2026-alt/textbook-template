@@ -80,7 +80,7 @@ jobs:
               `- ${e.url} in ${file.replace(/^\.\//, "")} (${e.status?.code ?? String(e.status?.text ?? "failed").split(" (")[0]})`));
             const body = [`<!-- link-check sha=${process.env.SHA} -->`,
               dead.length
-                ? `**${dead.length} ${dead.length === 1 ? "link" : "links"} did not work** when the book was checked. ${dead.length === 1 ? "It does" : "They do"} not stop the book being published; fix or remove them when you can.`
+                ? `**${dead.length} ${dead.length === 1 ? "link" : "links"} did not work** when the book was checked. ${dead.length === 1 ? "It does" : "They do"} not stop the book being published; fix or remove ${dead.length === 1 ? "it" : "them"} when you can.`
                 : "Every link worked when the book was checked.",
               "", ...dead].join("\n");
             console.log(body);
