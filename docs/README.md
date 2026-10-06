@@ -10,6 +10,9 @@ books) is documented by the platform owner in
 [`textbook-registry/docs/`](https://github.com/textbookproject2026-alt/textbook-registry/tree/main/docs),
 and isn't repeated here.
 
+For authors, the place to start is the platform's
+[guide for authors](https://guide.confused4now.org), an A–Z of the whole workflow.
+
 Setting the book up in the first place is [`SETUP.md` in the book template](https://github.com/textbookproject2026-alt/textbook-template/blob/main/SETUP.md) (a book made from the template doesn't keep a copy).
 
 ## Start here
