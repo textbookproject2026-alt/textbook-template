@@ -22,6 +22,9 @@ on:
 
 permissions:
   contents: read
+  # Only for the comment on a pull request (the last step).
+  pull-requests: write
+  issues: write
 
 jobs:
   lychee:
@@ -51,4 +54,43 @@ jobs:
         run: >
           lychee --no-progress
           --exclude-path templates --exclude-path node_modules
-          --accept 200,206,429 --hidden "**/*.md"
+          --accept 200,206,429 --hidden
+          --format json --output "$RUNNER_TEMP/lychee.json"
+          "**/*.md"
+
+      # The dead links, readably, in this run's log and, on a pull request (the author
+      # site's publish request among them), in one comment there that each run
+      # rewrites. The author site shows that comment as a notice beside Publish; it
+      # never stops publishing, since outside links rot whatever the author does. The
+      # first line and the "- <url> in <file> (<status>)" lines are what it reads
+      # (suggest-edit-function lib/author-console.mjs parseLinkCheck).
+      - name: Say which links are dead
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORT: ${{ runner.temp }}/lychee.json
+          PR: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.number || '' }}
+          SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          [ -f "$REPORT" ] || { echo "lychee wrote no report (it did not run)"; exit 0; }
+          node --input-type=module -e '
+            import { readFileSync, writeFileSync } from "node:fs";
+            const { error_map: errors = {} } = JSON.parse(readFileSync(process.env.REPORT, "utf8"));
+            const dead = Object.entries(errors).flatMap(([file, list]) => list.map((e) =>
+              `- ${e.url} in ${file.replace(/^\.\//, "")} (${e.status?.code ?? String(e.status?.text ?? "failed").split(" (")[0]})`));
+            const body = [`<!-- link-check sha=${process.env.SHA} -->`,
+              dead.length
+                ? `**${dead.length} ${dead.length === 1 ? "link" : "links"} did not work** when the book was checked. ${dead.length === 1 ? "It does" : "They do"} not stop the book being published; fix or remove ${dead.length === 1 ? "it" : "them"} when you can.`
+                : "Every link worked when the book was checked.",
+              "", ...dead].join("\n");
+            console.log(body);
+            writeFileSync("comment.md", body + "\n");
+          '
+          [ -n "$PR" ] || exit 0
+          id=$(gh api "repos/$REPO/issues/$PR/comments?per_page=100" --jq '[.[] | select(.body | startswith("<!-- link-check sha="))] | last | .id // empty')
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/$REPO/issues/comments/$id" -F body=@comment.md >/dev/null
+          else
+            gh api "repos/$REPO/issues/$PR/comments" -F body=@comment.md >/dev/null
+          fi
