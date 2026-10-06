@@ -65,7 +65,7 @@ jobs:
       # first line and the "- <url> in <file> (<status>)" lines are what it reads
       # (suggest-edit-function lib/author-console.mjs parseLinkCheck).
       - name: Say which links are dead
-        if: always() && hashFiles(format('{0}/lychee.json', runner.temp)) != ''
+        if: always()
         env:
           GH_TOKEN: ${{ github.token }}
           REPORT: ${{ runner.temp }}/lychee.json
@@ -73,6 +73,7 @@ jobs:
           SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           REPO: ${{ github.repository }}
         run: |
+          [ -f "$REPORT" ] || { echo "lychee wrote no report (it did not run)"; exit 0; }
           node --input-type=module -e '
             import { readFileSync, writeFileSync } from "node:fs";
             const { error_map: errors = {} } = JSON.parse(readFileSync(process.env.REPORT, "utf8"));
