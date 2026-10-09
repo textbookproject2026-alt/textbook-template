@@ -394,6 +394,17 @@ slug **and** its `origin` remote both match the registry entry — which is why
 `new-book.mjs` writes the slug and why the remote must be the registry's
 `content.repo`.
 
+**Citation details and downloads.** Nothing to set up: every page carries citation
+metadata, ⋯ → Cite and ⋯ → Download… from the first build. The registry may give a
+book a `publisher` (default *Confused for Now*), a `lang` (default `en`) and, once it
+has one, a `doi`; authors refine the rest in the frontmatter
+([`docs/editing-the-textbook.md`](docs/editing-the-textbook.md), *Citation details*).
+
+**The decision notice.** `.github/workflows/decision-notice.yml` comes with the
+template and needs nothing: when a proposed edit or a note on a paragraph is
+closed, it @mentions the reader who signed in with GitHub with the decision and the
+last comment as the reason. Comment before you merge or close to give one.
+
 **Department editions.** `editions: null` is correct for a new book. A book only
 needs an edition template repository when a department asks for one.
 
