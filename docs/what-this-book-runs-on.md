@@ -50,6 +50,7 @@ made or approved by the platform owner. See [`changing-settings.md`](changing-se
 | **Analytics** | the platform's one Plausible site, `confused4now.org`, filtered to this book's hostname. Counts only there, and only while the book is `live` | the platform | no readership figures |
 | **Annotation backup** (optional) | *Hypothes.is account, and the repo secret `HYPOTHESIS_API_TOKEN`*. Without the secret the weekly run skips, green | *person* | the weekly backup skips |
 | **Weekly workflows** | `weekly-snapshot` (a `snapshot-YYYY-MM-DD` tag), `lint`, `link-check`, `apply-config`, and the Sunday callers `backup-annotations`, `contributors`, `derivatives`, `dashboard` | this repository | generated files go stale |
+| **The decision notice** | `.github/workflows/decision-notice.yml`: when an in-site edit (label `proposed-edit`) or a note on a paragraph (label `section-note`) is closed, it tells the reader who signed in with GitHub whether it was accepted, with your last comment as the reason. Calls the platform's `book-decision-notice.yml` | this repository | signed-in readers hear only GitHub's bare "closed" |
 
 ---
 

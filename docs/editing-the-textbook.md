@@ -170,6 +170,53 @@ author and topic) once the book is listed there. Most are set in a short
   don't need it.
 - **Paragraph numbers:** `paragraphNumbers: false` turns them off for one page.
 
+### Citation details
+
+Every page tells reference managers (Zotero, Mendeley, Google Scholar) what it is,
+and its **⋯ → Cite** dialog and its downloads use the same details. The platform
+fills them in from what it already knows: the title, the authors in `index.md`,
+the date the page was first committed and the date the book was last published,
+the first paragraph as a summary, the tags as key words, the licence. Set any of
+them yourself in the frontmatter, in `index.md` for the whole book or in a page
+for that page:
+
+    ---
+    authors:
+      - name: Brandon Sommer
+        orcid: 0000-0002-1825-0097
+      - Caroline Laschkolnig
+    summary: How ontology situates the choice of research methods.
+    keywords: [critical realism, research methods]
+    created: 2026-09-20
+    published: 2026-10-08
+    resource_type: chapter
+    lang: en-GB
+    ---
+
+- **Authors** may carry an **ORCID iD** (`{ name, orcid }`); plain names still work.
+- **`summary:`** (or `description:`) replaces the first paragraph; it is cut at 300
+  characters.
+- **`keywords:`** are added to the tags.
+- **`created:`** and **`published:`** replace the git dates, as `YYYY-MM-DD`.
+- **`resource_type:`** is one of `book`, `chapter`, `paper`, `report`, `article`,
+  `concept`. Leave it out: the front page is what the registry says the book is,
+  concept pages are `concept`, everything else `chapter`.
+- **`lang:`** a language tag (`en`, `en-GB`, `de`) where a page differs from the book.
+- **`doi:`** only once a page has a DOI of its own.
+
+The publisher (Confused for Now unless the registry says otherwise), the book's
+language and DOI are registry fields: ask the platform owner.
+
+### Downloads
+
+Every page's **⋯ → Download…** offers the page as a PDF and an EPUB, and the
+whole book as a PDF, an EPUB and an ODT (opens in Word and LibreOffice), made at
+every publish from the same text, each with a front page that says how to cite
+it. The files are at `/downloads/` on the book's site; a dateless address such as
+`/downloads/<book>.pdf` always points at the latest. The PDF has the site's
+paragraph numbers in its margin. If a file can't be made, the site still
+publishes without it.
+
 Leave out anything you don't need. A chapter with no frontmatter at all opens
 straight on its `#` title, and that is normal.
 
