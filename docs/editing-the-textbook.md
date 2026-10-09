@@ -170,6 +170,45 @@ author and topic) once the book is listed there. Most are set in a short
   don't need it.
 - **Paragraph numbers:** `paragraphNumbers: false` turns them off for one page.
 
+### Authors, editors and contributors
+
+Everyone whose work is in the book is credited, in one of three roles:
+
+- **Authors** wrote the book or a chapter, and **editors** edited it. They are named
+  in the frontmatter (`authors:` and `editors:`, in `index.md` for the whole book or
+  in a chapter for that chapter, where they replace the book's), under each chapter's
+  title ("By … · Edited by …"), and in every citation: a chapter is cited by its
+  authors, with the book's editors as the book's; a book with editors and no authors
+  of its own is cited as an edited volume, by its editors. Set them on the author
+  site (Credits), or in the frontmatter:
+
+      ---
+      authors:
+        - name: Brandon Sommer
+          orcid: 0000-0002-1825-0097
+          github: BrandonAndCaroline
+      editors:
+        - Caroline Laschkolnig
+      ---
+
+  Each entry is a name, or a name with an ORCID iD and a GitHub username.
+- **Contributors** are readers whose work you accepted: an edit proposed with *Edit
+  this page* that you merged, a note or a suggested edit you closed as completed, or
+  a change made directly in the repository by someone who isn't an author or editor.
+  Something you decline (a pull request closed without merging, an issue closed as
+  *not planned*) earns nothing. They are thanked at the foot of the pages they
+  changed ("With contributions from …") and listed on `community/contributors.md`,
+  which the weekly *Update contributors* job rebuilds with its ledger,
+  `community/credits.json`. Contributors are never in a citation.
+
+**Corrections** go in `community/credit-overrides.yml` (start from
+[`docs/credit-overrides.example.yml`](credit-overrides.example.yml)): `hide` someone who asked to be left off,
+`rename` someone, `merge` two identities of one person, or `no-credit` an item that
+shouldn't count. A `no-credit` label on the pull request or issue does the same for
+one item. The file is never published, and a change to it shows on the pages at the
+next publish and on the contributors page at the job's next run (it runs on that
+change too).
+
 ### Citation details
 
 Every page tells reference managers (Zotero, Mendeley, Google Scholar) what it is,

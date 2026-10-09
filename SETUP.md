@@ -400,6 +400,13 @@ book a `publisher` (default *Confused for Now*), a `lang` (default `en`) and, on
 has one, a `doi`; authors refine the rest in the frontmatter
 ([`docs/editing-the-textbook.md`](docs/editing-the-textbook.md), *Citation details*).
 
+**Credits.** Nothing to set up: authors and editors are the frontmatter's (or the
+author site's Credits tab), contributors are credited from accepted edits and notes by
+the weekly *Update contributors* job, and corrections go in
+`community/credit-overrides.yml` (see `docs/credit-overrides.example.yml` and
+[`docs/editing-the-textbook.md`](docs/editing-the-textbook.md), *Authors, editors and
+contributors*).
+
 **The decision notice.** `.github/workflows/decision-notice.yml` comes with the
 template and needs nothing: when a proposed edit or a note on a paragraph is
 closed, it @mentions the reader who signed in with GitHub with the decision and the

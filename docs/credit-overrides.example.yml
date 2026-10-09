@@ -1,0 +1,23 @@
+# community/credit-overrides.yml: corrections to who is credited as a contributor.
+# Copy this file to community/credit-overrides.yml (on the book's main branch) to use
+# it. It is read by the weekly contributors job and by every build; it is never
+# published on the site. Names match case-insensitively; "@login" matches a GitHub
+# account.
+
+# Someone asked to be left off the contributors page and the pages' credits.
+hide:
+  - "@someone"
+  - "A Name"
+
+# Show a contributor under another name.
+rename:
+  "Old Name": "New Name"
+
+# Two identities are one person (shown as the first).
+merge:
+  - ["Ada Lovelace", "@ada-l", "Ada L."]
+
+# Items that shouldn't count: a pull request or issue number, or a commit's sha.
+# A `no-credit` label on the pull request or issue does the same.
+no-credit:
+  - "#14"

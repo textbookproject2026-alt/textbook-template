@@ -44,7 +44,7 @@ Suggest row and paragraph numbers, all from one place.
 | `templates/` | Every generated file: `README.md`, `CONTRIBUTING.md`, `.lycheeignore`, `admin/config.yml` |
 | `configure.mjs` | Renders `templates/` from the slug plus this book's registry entry |
 | `scripts/new-book.mjs` | The interactive start: writes the config and a **proposed** registry entry |
-| `.github/workflows/` | `nudge` (tells the builder a branch moved), `lint`, `link-check`, `apply-config`, `weekly-snapshot`, and four Sunday callers of the platform's reusable workflows: `backup-annotations`, `contributors`, `derivatives`, `dashboard` (skipped in the template repo itself), and `decision-notice`, which tells a signed-in contributor the authors' decision when their proposal or paragraph note is closed |
+| `.github/workflows/` | `nudge` (tells the builder a branch moved), `lint`, `link-check`, `apply-config`, `weekly-snapshot`, and four Sunday callers of the platform's reusable workflows: `backup-annotations`, `contributors`, `derivatives`, `dashboard` (skipped in the template repo itself), and `decision-notice`, which tells a signed-in contributor the authors' decision when their proposal or paragraph note is closed. `contributors` also writes the credit ledger and runs when `community/credit-overrides.yml` changes |
 | `docs/` | The book's maintainer, author, contributor and student guides, generalised from book one's. Start at `docs/README.md` |
 
 ## One config value, and a registry
