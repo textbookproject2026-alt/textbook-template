@@ -12,11 +12,9 @@ on:
       - "**/*.md"
       - ".lycheeignore"
       - ".github/workflows/link-check.yml"
+  # Every pull request, whatever it changes: the check is required on main (batch
+  # 2b), and a required check that never reports would hold a pull request forever.
   pull_request:
-    paths:
-      - "**/*.md"
-      - ".lycheeignore"
-      - ".github/workflows/link-check.yml"
   schedule:
     - cron: "0 6 * * 1" # 06:00 UTC every Monday
 
