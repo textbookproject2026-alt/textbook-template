@@ -331,6 +331,35 @@ If the page looks stale, force a fresh copy with **⌘ + Shift + R**.
 
 [SCREENSHOT: a chapter on the live site, with the Edit on GitHub · View revision history · Suggest an edit row under the title]
 
+### Reading the history
+
+Readers and authors see every change in three plain states:
+
+- **Proposed**: a reader's proposed edit, paragraph note or suggestion, waiting
+  for you to accept or decline it.
+- **Being edited**: accepted into `drafts`, not yet published.
+- **Published**: on `main`, what readers see.
+
+Each chapter's **⋯ → Page history** shows the chapter's changes in those
+states, with who made each (and their role badge: Author, Editor or
+Contributor), the date and a one-line summary. Every published version has
+**Show changes** (the words added and removed), **Read this version** (the page
+as it was, under a "You are reading the version of …" banner) and **Compare**
+(any two versions, or one with the page as it is now).
+
+**⋯ → Book history** opens the book's `/history` page: a small chart with one
+lane per state and a dot per change (it works without JavaScript; tap a dot to
+read it), then every change in the book, filterable by chapter, person and
+state. Releases (the yearly `v*` tags, see `releasing-versions.md`) show as
+milestones, each linking to the book as it was on GitHub.
+
+The summaries come from the edit summary given with a change, else the commit
+message. The build writes the published and drafts states into
+`/.well-known/history.json`; the Proposed ones are asked for when a reader opens
+the history, so they are never more than two minutes old. In the author site,
+**History** shows the same three states, and **Publish** says how many changes
+it will move from Being edited to Published.
+
 ---
 
 ## When something looks wrong
