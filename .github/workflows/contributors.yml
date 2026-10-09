@@ -1,15 +1,21 @@
 name: Update contributors
 
-# community/contributors.md, proposed as a pull request that merges itself.
-# The job is the platform's: quartz-book's book-community-page.yml, called at `stable`
-# (BOOK-ONE-TO-QUARTZ §8 steps 14 and 23). Skipped in the template repo itself.
+# community/contributors.md and the credit ledger community/credits.json, proposed
+# as a pull request that merges itself. The job is the platform's: quartz-book's
+# book-community-page.yml, called at `stable` (BOOK-ONE-TO-QUARTZ §8 steps 14 and
+# 23). Weekly, by hand, and whenever community/credit-overrides.yml changes on
+# main (someone asked to be left off, say). Skipped in the template repo itself.
 on:
   schedule:
     - cron: "0 7 * * 0"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [community/credit-overrides.yml]
 permissions:
   contents: write
   pull-requests: write
+  issues: read # the accepted notes and suggestions
 jobs:
   contributors:
     if: github.repository != 'textbookproject2026-alt/textbook-template'
