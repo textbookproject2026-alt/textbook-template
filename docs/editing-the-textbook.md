@@ -172,7 +172,10 @@ author and topic) once the book is listed there. Most are set in a short
 
 ### Authors, editors and contributors
 
-Everyone whose work is in the book is credited, in one of three roles:
+Every person whose work is in the book is credited, in one of three roles. Only
+people are: software that helps make the book (the platform's own accounts, bots,
+AI tools such as Claude) is never named as an author, an editor or a contributor,
+on a page, in a citation or in a download.
 
 - **Authors** wrote the book or a chapter, and **editors** edited it. They are named
   in the frontmatter (`authors:` and `editors:`, in `index.md` for the whole book or
@@ -185,21 +188,29 @@ Everyone whose work is in the book is credited, in one of three roles:
       ---
       authors:
         - name: Brandon Sommer
-          orcid: 0000-0002-1825-0097
           github: BrandonAndCaroline
       editors:
         - Caroline Laschkolnig
       ---
 
-  Each entry is a name, or a name with an ORCID iD and a GitHub username.
+  Each entry is a name, or a name with a GitHub username.
 - **Contributors** are readers whose work you accepted: an edit proposed with *Edit
   this page* that you merged, a note or a suggested edit you closed as completed, or
-  a change made directly in the repository by someone who isn't an author or editor.
+  an edit someone on the book's team made in the author site who isn't named as an
+  author or editor. Who made a commit in the repository doesn't by itself make
+  anyone a contributor.
   Something you decline (a pull request closed without merging, an issue closed as
   *not planned*) earns nothing. They are thanked at the foot of the pages they
   changed ("With contributions from …") and listed on `community/contributors.md`,
   which the weekly *Update contributors* job rebuilds with its ledger,
   `community/credits.json`. Contributors are never in a citation.
+
+> **For the maintainer: ORCID is switched off.** The platform can show ORCID iDs
+> (`orcid:` beside a name in the frontmatter) on bylines, the contributors page and
+> in the citation metadata, but the registry's `platform.features.orcid` is `false`,
+> so none is shown or emitted anywhere, and the author site doesn't ask for one.
+> iDs already in the frontmatter are kept. Turning it on is that one registry
+> setting; every book rebuilds with it.
 
 **Corrections** go in `community/credit-overrides.yml` (start from
 [`docs/credit-overrides.example.yml`](credit-overrides.example.yml)): `hide` someone who asked to be left off,
@@ -221,8 +232,7 @@ for that page:
 
     ---
     authors:
-      - name: Brandon Sommer
-        orcid: 0000-0002-1825-0097
+      - Brandon Sommer
       - Caroline Laschkolnig
     summary: How ontology situates the choice of research methods.
     keywords: [critical realism, research methods]
@@ -232,7 +242,6 @@ for that page:
     lang: en-GB
     ---
 
-- **Authors** may carry an **ORCID iD** (`{ name, orcid }`); plain names still work.
 - **`summary:`** (or `description:`) replaces the first paragraph; it is cut at 300
   characters.
 - **`keywords:`** are added to the tags.
