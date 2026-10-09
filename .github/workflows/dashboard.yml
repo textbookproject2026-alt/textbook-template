@@ -12,6 +12,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write # start the required checks on its pull request
 jobs:
   dashboard:
     if: github.repository != 'textbookproject2026-alt/textbook-template'

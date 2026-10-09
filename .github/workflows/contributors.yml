@@ -16,6 +16,7 @@ permissions:
   contents: write
   pull-requests: write
   issues: read # the accepted notes and suggestions
+  actions: write # start the required checks on its pull request
 jobs:
   contributors:
     if: github.repository != 'textbookproject2026-alt/textbook-template'

@@ -5,6 +5,9 @@ name: lint
 on:
   push:
   pull_request:
+  # The Sunday community pull requests start it this way: a pull request the
+  # workflow token opens starts no pull_request runs, and lint is required on main.
+  workflow_dispatch:
 
 permissions:
   contents: read

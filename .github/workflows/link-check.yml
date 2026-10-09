@@ -17,6 +17,8 @@ on:
   pull_request:
   schedule:
     - cron: "0 6 * * 1" # 06:00 UTC every Monday
+  # The Sunday community pull requests start it this way (see lint.yml).
+  workflow_dispatch:
 
 permissions:
   contents: read
