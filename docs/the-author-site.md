@@ -22,23 +22,23 @@ until you publish.
 
 ## Signing in
 
-Open [author.confused4now.org](https://author.confused4now.org) and press **Sign in
-with GitHub**. A small GitHub window opens; approve it and it closes itself.
+Open [author.confused4now.org](https://author.confused4now.org), enter your email
+address and press **Email me a sign-in link**. Open the link from that email and press
+**Sign in**. The link works once, within 15 minutes. You need no GitHub account.
 
-- **Use the GitHub account your book was set up for.** The platform keeps a list
-  of each book's authors (their GitHub accounts); the site shows you the books
-  whose list has your account on it. If you see *"that account isn't one of any
-  book's authors"*, you are signed in with a different account, or yours hasn't
-  been added yet: tell the technical contact.
-- **The site learns only who you are.** It gets no access to your GitHub account,
-  and GitHub's own sign-in is thrown away as soon as it has said who you are. What
-  the site keeps, for this browser tab only, is a pass that expires after eight
-  hours; closing the tab forgets it. **Sign out** is in the top corner.
+- **Use the address you were invited at.** The site shows the books you are on. The
+  sign-in form gives the same answer for any address, so if no email arrives, check
+  the address, or ask someone on your book to invite you from **People**.
+- **Staying signed in.** The browser stays signed in for 30 days. **Sign out** (or
+  **Sign out everywhere**) is in the account menu in the top corner.
 - **What you do is done in your name.** Changes you send to the drafts are recorded
-  as made by you; replies to readers, decisions on draft changes and publishing
-  all say *"by @you via the author site"*. The writing itself is done by the
-  platform's GitHub App, so you never need access to the book's repository on
-  GitHub.
+  under the name the book credits you by; replies to readers, decisions on draft
+  changes and publishing all say *"by Your Name (member m-…) via the author site"*. The writing
+  itself is done by the platform's GitHub App.
+- **People.** Everyone on a book can invite someone (by name and email) and remove
+  someone from its **People** tab, which also lists what changed. Someone who
+  joined before email sign-in shows as *needs an email address* until they sign in
+  once more with GitHub and give one.
 
 The moon and sun button in the corner switches between dark and light. The site
 follows your computer's setting until you press it.
@@ -165,8 +165,8 @@ it is about, and what they said.
   the suggestion is closed. An answered "no" is far better than silence.
 - **Open on GitHub**, for anything unusual.
 
-The replies are public, on the book's repository, and end *"Replied by @you via
-the author site"*. The site never tells a reader the chapter changed unless a
+The replies are public, on the book's repository, and end *"Replied by Your Name
+(member m-…) via the author site"*. The site never tells a reader the chapter changed unless a
 change is there to link to.
 
 **When the reader wrote an exact replacement** (*"the the domains" should be "the
@@ -233,9 +233,9 @@ There is nothing to do; if one didn't finish, tell the technical contact.
 
 | What you see | What to do |
 |---|---|
-| *"That account isn't one of any book's authors"* | You're signed in with a different GitHub account, or yours hasn't been added to the book: sign out and in with the right one, or tell the technical contact |
-| *"Your browser blocked the sign-in window"* | Allow pop-ups for author.confused4now.org and press Sign in again |
-| You're sent back to the sign-in screen | Your pass expired (after eight hours) or you signed out: sign in again. Nothing you had sent was lost |
+| No sign-in email arrives | Check the address and your spam folder, then ask for a new link. If you still get nothing, you may not be on a book yet: ask someone on it to invite you from **People** |
+| *"This link has expired"* | Sign-in links work once, within 15 minutes; invitations within seven days. Ask for a new one |
+| You're sent back to the sign-in screen | You signed out, were removed from the book, or 30 days passed: sign in again. Nothing you had sent was lost |
 | *"Nothing was sent. Since you started, something else changed the drafts area"* | Someone else's change arrived first. Read what changed, then press the button offered (convert again, look again, or read again) |
 | Anything about converting a Word document | [`word-to-markdown.md`](word-to-markdown.md), Part 4 |
 | A citation wasn't offered | Its entry is missing from that chapter's References section; they're listed at the end |

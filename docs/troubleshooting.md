@@ -269,27 +269,20 @@ has the detail.)
 them.**
 
 The author site is [author.confused4now.org](https://author.confused4now.org);
-`docs/the-author-site.md` is its guide. Signing in is **Sign in with GitHub**: a
-small GitHub window opens, you approve, and it closes itself. The site then shows
-**Your books** and, in the top corner, your GitHub name.
+`docs/the-author-site.md` is its guide. Signing in is by email: enter your address,
+press **Email me a sign-in link**, open the link and press **Sign in**. The site then
+shows **Your books** and, in the top corner, your name.
 
 **Check:**
 
-- **Did the GitHub window never open?** *Your browser blocked the sign-in window.
-  Allow pop-ups for this site and try again.* means exactly that: allow pop-ups for
-  author.confused4now.org (usually an icon at the end of the address bar), then
-  press **Sign in with GitHub** again.
-- **Did it close without signing you in?** *Sign-in was cancelled* means Cancel was
-  pressed on GitHub's page, or the window was closed. Press the button again.
-- **Does it say "that account isn't one of any book's authors"?** The site shows
-  the books whose list of authors has your GitHub account on it. Either you're
-  signed in with a different account (the name is in the top corner: **Sign out**,
-  and sign in with the right one; GitHub signs in whichever account the browser is
-  signed in to, so sign out of GitHub too if you need to), or your account hasn't
-  been added to the book, which is the technical contact's.
-- **Were you sent back to the sign-in screen, or told *Please sign in with GitHub
-  again*?** Your pass lasts eight hours, and closing the tab ends it. Sign in
-  again; nothing you had sent is lost.
+- **Did no email arrive?** Check the address and the spam folder, then ask again.
+  The form answers the same for any address, so it can't say whether yours is on a
+  book: if nothing arrives, ask someone on the book to invite you from **People**.
+- **Does it say *Too many sign-in links asked for*?** Wait a little, then try again.
+- **Does it say *This link has expired*?** A sign-in link works once, within 15
+  minutes; an invitation within seven days. Ask for a new one.
+- **Were you sent back to the sign-in screen?** You signed out, were removed from
+  the book, or 30 days passed. Sign in again; nothing you had sent is lost.
 - **Does a list say *None waiting.*?** That is the truth, not a fault: nothing is
   waiting. A list that couldn't be read says so in its place, in words, instead.
 - **Does it say *The author site isn't switched on for this book yet*?** The
