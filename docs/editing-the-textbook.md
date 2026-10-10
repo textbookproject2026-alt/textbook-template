@@ -172,10 +172,7 @@ author and topic) once the book is listed there. Most are set in a short
 
 ### Authors, editors and contributors
 
-Every person whose work is in the book is credited, in one of three roles. Only
-people are: software that helps make the book (the platform's own accounts, bots,
-AI tools such as Claude) is never named as an author, an editor or a contributor,
-on a page, in a citation or in a download.
+Every person whose work is in the book is credited, in one of three roles.
 
 - **Authors** wrote the book or a chapter, and **editors** edited it. They are named
   in the frontmatter (`authors:` and `editors:`, in `index.md` for the whole book or
