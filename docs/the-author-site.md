@@ -30,7 +30,11 @@ address and press **Email me a sign-in link**. Open the link from that email and
   sign-in form gives the same answer for any address, so if no email arrives, check
   the address, or ask someone on your book to invite you from **People**.
 - **Staying signed in.** The browser stays signed in for 30 days. **Sign out** (or
-  **Sign out everywhere**) is in the account menu in the top corner.
+  **Sign out everywhere**) is in the account menu in the top corner, and **Where
+  you're signed in** lists every browser with its own **Sign out**. A sign-in on a
+  browser your account hasn't used before emails you; **This wasn't me** in that
+  email signs you out everywhere. No link from the author site does anything until
+  you press the button on the page it opens.
 - **What you do is done in your name.** Changes you send to the drafts are recorded
   under the name the book credits you by; replies to readers, decisions on draft
   changes and publishing all say *"by Your Name (member m-…) via the author site"*. The writing
@@ -161,8 +165,10 @@ it is about, and what they said.
   it here), open the suggestion again and press **I've made the change**: the site
   shows you the latest change to that page in the drafts area, and when you confirm
   it, the reader is sent a link to it and the suggestion is closed.
-- **Decline, politely.** A courteous reply says the text is staying as it is, and
-  the suggestion is closed. An answered "no" is far better than silence.
+- **Decline…** asks *Why is this being declined?* (10–1000 characters). The reason
+  is posted publicly under your name, a courteous reply thanks the reader, and the
+  suggestion is closed. It then shows as **Declined** in the book's history, with
+  the reason. An answered "no" is far better than silence.
 - **Open on GitHub**, for anything unusual.
 
 The replies are public, on the book's repository, and end *"Replied by Your Name
@@ -184,7 +190,9 @@ here has reached readers.** Open one to see the wording before and after.
 - **Accept this change**: it goes into the drafts area, and the drafts are put in
   line for the live book. It still hasn't reached a reader. The proposer keeps the
   credit for it.
-- **Decline it**: it is closed, with a note saying you declined it.
+- **Decline…**: give the reason (required, public). It is closed with your reason
+  and a note thanking the proposer, and shows as **Declined** in the book's history.
+  Everyone on the book can add comments to a declined item from **History**.
 
 ### Going live
 
