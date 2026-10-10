@@ -1,10 +1,10 @@
 # Tells a reader who signed in with GitHub what the authors decided about their
 # proposed edit, or their note on a paragraph: when the pull request (label
 # proposed-edit) or the issue (label section-note) is closed, one comment
-# @mentions them with "accepted" or "declined", your last comment as the reason,
-# and the page's link. GitHub emails them. Anonymous contributors get nothing.
-# The work is the platform's (quartz-book's book-decision-notice.yml); this is
-# the book's caller. To give a reason, comment before you merge or close.
+# @mentions them with "accepted" or "declined", the reason (the one given when
+# declining in the author site, else your last comment), and the page's link.
+# GitHub emails them. Anonymous contributors get nothing. The work is the
+# platform's (quartz-book's book-decision-notice.yml); this is the book's caller.
 name: Decision notice
 
 on:
