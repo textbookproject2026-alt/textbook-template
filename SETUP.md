@@ -187,7 +187,7 @@ Merging is not deploying. On the merge commit, two workflows run:
 Check it by hand:
 
 ```sh
-curl -si -X OPTIONS https://suggest-edit-function.vercel.app/api/suggest-edit \
+curl -si -X OPTIONS https://api.confused4now.org/api/suggest-edit \
   | grep -i x-registry-version
 ```
 
@@ -294,7 +294,7 @@ isn't set up to take edits yet".
 ## Step 8 — prove it works
 
 With `B=https://<site.domain>` and
-`URL=https://suggest-edit-function.vercel.app/api/suggest-edit`:
+`URL=https://api.confused4now.org/api/suggest-edit`:
 
 ```sh
 # 1. The origin is registered, and CORS echoes this book's own origin.
@@ -321,7 +321,7 @@ the labels `suggested-edit` and `needs-triage` (created on first use).
 Then the editor. The editor has its own endpoint beside the form's:
 
 ```sh
-curl -s -H "Origin: $B" "https://suggest-edit-function.vercel.app/api/propose-edit?path=index.md" | head -c 120
+curl -s -H "Origin: $B" "https://api.confused4now.org/api/propose-edit?path=index.md" | head -c 120
 #    -> {"path":"index.md","branch":"drafts","sha":"…","content":"…
 ```
 
