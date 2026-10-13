@@ -3,15 +3,17 @@ name: Update contributors
 # community/contributors.md and the credit ledger community/credits.json, proposed
 # as a pull request that merges itself. The job is the platform's: quartz-book's
 # book-community-page.yml, called at `stable` (BOOK-ONE-TO-QUARTZ §8 steps 14 and
-# 23). Weekly, by hand, and whenever community/credit-overrides.yml changes on
-# main (someone asked to be left off, say). Skipped in the template repo itself.
+# 23). On every push to main except the job's own pages (a publish, a merged
+# proposal, a change to community/credit-overrides.yml), so the page is on the
+# next build; weekly as a backstop (notes and suggestions closed as completed
+# change no file); and by hand. Skipped in the template repo itself.
 on:
   schedule:
     - cron: "0 7 * * 0"
   workflow_dispatch:
   push:
     branches: [main]
-    paths: [community/credit-overrides.yml]
+    paths-ignore: [community/contributors.md, community/credits.json]
 permissions:
   contents: write
   pull-requests: write
@@ -23,3 +25,11 @@ jobs:
     uses: textbookproject2026-alt/quartz-book/.github/workflows/book-community-page.yml@stable
     with:
       page: contributors
+  # After a push, once the page has merged: the merge is the workflow token's and
+  # starts no build, so tell the builder here (nudge.yml, as a push would).
+  build:
+    needs: contributors
+    if: needs.contributors.outputs.merged == 'true'
+    permissions:
+      id-token: write
+    uses: ./.github/workflows/nudge.yml
