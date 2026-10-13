@@ -11,6 +11,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: read # asked for by book-community-page.yml's job (the contributors ledger); without it the run fails to start
   actions: write # start the required checks on its pull request
 jobs:
   derivatives:
