@@ -17,6 +17,9 @@ name: nudge
 on:
   push:
     branches: ["**"]
+  # Called by contributors.yml once its page has merged after a push (that merge
+  # starts no workflows). The token is still the push run's, which the Worker needs.
+  workflow_call:
 
 permissions:
   id-token: write
