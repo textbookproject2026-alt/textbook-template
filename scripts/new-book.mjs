@@ -361,7 +361,7 @@ say("\nWritten.");
 // --- optionally render the managed files ------------------------------------
 
 say("");
-say("The managed files (README.md, CONTRIBUTING.md, .lycheeignore,");
+say("The managed files (README.md, CONTRIBUTING.md,");
 say("admin/config.yml) can be rendered now from the PROPOSED entry, so the repo");
 say("reads as this book rather than as the template. They will say things no");
 say("platform owner has agreed to yet, and must be re-rendered after the merge:");
