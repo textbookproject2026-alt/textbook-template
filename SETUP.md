@@ -101,7 +101,7 @@ the Pages project name and the hostname, and writes:
   in the entry is a guess.
 - `index.md`, the front page, filled in once from `scripts/seed-index.md`. From
   then on it is an ordinary page.
-- the managed files (`README.md`, `CONTRIBUTING.md`, `.lycheeignore`,
+- the managed files (`README.md`, `CONTRIBUTING.md`,
   `admin/config.yml`), if you let it render them from the proposal.
 
 It deliberately does **not** touch the registry, open a pull request, create a

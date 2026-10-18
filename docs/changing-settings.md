@@ -39,7 +39,7 @@ by the platform owner, not done from here.
 
 ## Important
 
-Don't edit `README.md`, `CONTRIBUTING.md`, `admin/config.yml` or `.lycheeignore`
+Don't edit `README.md`, `CONTRIBUTING.md` or `admin/config.yml`
 directly. They're written automatically, and any direct change is
 overwritten. To change their wording (rather than a fact the registry holds),
 edit the matching file in the `templates` folder instead, through a pull request.
